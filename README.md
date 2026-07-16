@@ -23,15 +23,14 @@ Website tĩnh (HTML/CSS/JS thuần) cho trung tâm học online Scholish — vis
 - **Feedback = trích nguyên văn review Facebook**: Chí Nguyễn, Hồ Đại Nam, Dương Tùng Bách, Vi Đặng, Hải Đăng (+ bài đăng kết quả của Dũng)
 - **High achievers** (section "Bảng vàng" ở index + gmat, nguồn Notion DB "Post gần nhất"): GMAT 750, 720, 710×2 (1 bạn ôn xuyên Tết), 645 Focus top 10% toàn cầu (Dũng), +210 điểm sau lớp Trứng Rán, admission + học bổng cao
 
-## Avatar review (assets/avatars/)
+## Wall of love + Avatar review
 
-Phần tử `[data-avatar="slug"]` tự nạp `assets/avatars/<slug>.jpg` nếu file tồn tại (main.js) — **thêm ảnh chỉ cần thả file đúng tên, không sửa HTML**. Đang có: `hai-dang.jpg` (lấy từ Facebook). Còn thiếu: `chi-nguyen.jpg`, `ho-dai-nam.jpg`, `duong-tung-bach.jpg`, `vi-dang.jpg` — Facebook chặn quét hàng loạt, cần bổ sung tay (screenshot/crop từ review).
+- Trang chủ: **marquee cuộn ngang 2 hàng ngược chiều** chứa đủ **38 review thật** (trích nguyên văn từ Facebook). Pause khi hover; `prefers-reduced-motion` → thành dải cuộn tay. Lưu ý JS: marquee nhân đôi track bằng `innerHTML +=` nên PHẢI chạy TRƯỚC avatar loader (main.js đã đúng thứ tự).
+- Avatar: phần tử `[data-avatar="slug"]` tự nạp `assets/avatars/<slug>.jpg` nếu file tồn tại — thêm ảnh chỉ cần thả file đúng tên. Đang có **36 ảnh thật** (crop từ screenshot full-page trang reviews); 2 người dùng ảnh FB mặc định (Hoang Nhi, Thai Anh) → fallback chữ cái.
 
 ## ⚠️ Placeholder còn lại (comment `<!-- TODO -->` trong code)
 
 1. **Ngày khai giảng + lịch học + học phí** — đang ghi "Tháng 8/2026 — chốt qua Zalo" (index + 3 trang khóa)
-2. **4 file avatar** còn thiếu như trên
-3. **USP "GMAT top 5% + học bổng Hà Lan"** (trang GMAT + compare) — của Nam Anh; bỏ nếu không muốn gắn thành tích cá nhân
 
 ## Chạy thử
 
