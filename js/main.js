@@ -44,6 +44,19 @@
     });
   });
 
+  // Marquee reviews: nhân đôi track để vòng lặp liền mạch, rồi bật animation.
+  // Nếu reduced-motion thì giữ nguyên — CSS chuyển thành dải cuộn tay.
+  // PHẢI chạy TRƯỚC avatar loader: innerHTML += thay toàn bộ node của track,
+  // loader chạy sau mới bám vào node mới (cả bản gốc lẫn bản nhân đôi).
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.marquee').forEach(function (mq) {
+    if (reduced) return;
+    var track = mq.querySelector('.marquee__track');
+    if (!track || track.children.length === 0) return;
+    track.innerHTML += track.innerHTML;
+    mq.classList.add('is-ready');
+  });
+
   // Avatar thật cho feedback: phần tử [data-avatar="slug"] tự nạp assets/avatars/slug.jpg
   // nếu file tồn tại — thêm ảnh mới chỉ cần thả file vào folder, không cần sửa HTML.
   document.querySelectorAll('[data-avatar]').forEach(function (el) {
@@ -54,9 +67,6 @@
     img.onload = function () { el.textContent = ''; el.appendChild(img); };
     img.src = 'assets/avatars/' + slug + '.jpg';
   });
-
-  // Đếm số cho stats — chạy 1 lần khi cuộn tới
-  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var counters = document.querySelectorAll('[data-count]');
   if (counters.length && !reduced && 'IntersectionObserver' in window) {
     var countObserver = new IntersectionObserver(function (entries) {
