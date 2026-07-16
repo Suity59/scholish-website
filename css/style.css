@@ -262,17 +262,48 @@ a.card { text-decoration: none; display: block; }
 .quote__name { font-weight: 600; font-size: 15px; line-height: 1.3; }
 .quote__result { font-size: 13px; color: var(--fg-3); }
 
-/* ---------- High achievers (bảng vàng điểm số) ---------- */
-.score-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 980px; margin-inline: auto; }
-.score-card { padding: 26px 28px; position: relative; }
-.score-card .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-bottom: 12px; }
-.score-card .score__num {
-  font-family: var(--font-heading); font-weight: 700;
-  font-size: clamp(2.25rem, 4vw, 3.25rem); line-height: 1.05;
-  font-variant-numeric: tabular-nums; display: block;
+/* ---------- High achievers: boarding pass "tấm vé đi du học" ---------- */
+.pct-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--yellow); color: var(--fg-1);
+  border: 1.5px solid var(--fg-1); border-radius: 9999px;
+  padding: 6px 14px; font-size: 12px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+  font-variant-numeric: tabular-nums; white-space: nowrap;
 }
-.score-card .microcaps { display: block; margin-top: 8px; }
-.score-card .score__note { font-size: 14px; color: var(--fg-3); margin-top: 6px; }
+.passes { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.pass { display: grid; grid-template-columns: 1fr 128px; background: var(--bg-1); border: 1px solid var(--hairline); border-radius: 16px; overflow: hidden; position: relative; }
+.pass__main { padding: 22px 26px 24px; border-left: 6px solid var(--mint); }
+.pass--sky .pass__main { border-left-color: var(--sky); }
+.pass--coral .pass__main { border-left-color: var(--coral); }
+.pass--yellow .pass__main { border-left-color: var(--yellow); }
+.pass--lavender .pass__main { border-left-color: var(--lavender); }
+.pass__route { display: flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg-3); }
+.pass__route svg { width: 30px; height: 10px; flex-shrink: 0; }
+.pass__fields { display: flex; gap: clamp(1.25rem, 4vw, 2.75rem); margin-top: 14px; }
+.pass__fields .microcaps { display: block; margin-bottom: 3px; }
+.pass__fields strong { font-family: var(--font-heading); font-weight: 700; font-size: 21px; line-height: 1.2; }
+.pass__scoreline { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 14px; }
+.pass__score { font-family: var(--font-heading); font-weight: 700; font-size: 54px; line-height: 1; font-variant-numeric: tabular-nums; }
+.pass__note { font-size: 13.5px; color: var(--fg-2); max-width: 340px; margin-top: 12px; }
+.pass__stub {
+  border-left: 2px dashed var(--bg-4); padding: 18px 14px;
+  display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 10px;
+  background: var(--bg-2); text-align: center;
+}
+.pass__stub .pctl { font-family: var(--font-heading); font-weight: 700; font-size: 25px; font-variant-numeric: tabular-nums; line-height: 1; }
+.pass__stub .microcaps { font-size: 9.5px; }
+.pass__barcode { display: flex; gap: 2px; align-items: flex-end; height: 26px; }
+.pass__barcode i { display: block; width: 2px; background: var(--fg-1); }
+.pass::before, .pass::after {
+  content: ''; position: absolute; width: 18px; height: 18px; border-radius: 50%;
+  right: 128px; transform: translateX(50%);
+  background: var(--bg-2); border: 1px solid var(--hairline);
+}
+.section--white .pass::before, .section--white .pass::after { background: var(--bg-1); }
+.section--ivory .pass::before, .section--ivory .pass::after { background: var(--bg-2); }
+.pass::before { top: -10px; }
+.pass::after { bottom: -10px; }
+@media (max-width: 900px) { .passes { grid-template-columns: 1fr; } }
 
 /* Avatar ảnh thật trong quote */
 .quote__avatar { overflow: hidden; }
@@ -286,7 +317,7 @@ a.card { text-decoration: none; display: block; }
   mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
 }
 .marquee__track { display: flex; gap: 20px; width: max-content; padding-block: 4px; }
-.marquee.is-ready .marquee__track { animation: marquee-scroll 140s linear infinite; }
+.marquee.is-ready .marquee__track { animation: marquee-scroll 210s linear infinite; }
 .marquee--reverse.is-ready .marquee__track { animation-direction: reverse; }
 .marquee:hover .marquee__track { animation-play-state: paused; }
 @keyframes marquee-scroll { to { transform: translateX(-50%); } }
