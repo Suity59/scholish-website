@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scholish — Trung tâm học online: GMAT, SAT & Tư duy phản biện</title>
+  <meta name="description" content="Scholish dạy GMAT, SAT và tư duy phản biện theo phương pháp Problem-based Learning. Lớp dưới 8 học viên, 100% học viên khuyên học. 50% lợi nhuận dành cho hoạt động xã hội.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav" id="nav">
+    <div class="container nav__inner">
+      <a href="index.html" class="nav__logo">
+        Scholish
+        <svg class="squiggle" width="72" height="8" viewBox="0 0 72 8" fill="none" aria-hidden="true">
+          <path d="M2 5 Q14 1, 26 5 T50 5 T70 4" stroke="#FD976D" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </svg>
+      </a>
+      <button class="nav__toggle" id="navToggle" aria-label="Mở menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav__links" id="navLinks">
+        <a href="gmat.html">GMAT</a>
+        <a href="sat.html">SAT</a>
+        <a href="tu-duy-phan-bien.html">Tư duy phản biện</a>
+        <a href="index.html#ve-scholish">Về Scholish</a>
+        <a href="https://zalo.me/0963557153" class="btn btn--primary btn--sm">Nhận tư vấn qua Zalo</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ============ HERO (centered, exam picker kiểu Magoosh) ============ -->
+  <section class="hero-center paper-bg">
+    <div class="decor" aria-hidden="true">
+      <svg class="doodle" style="top: 12%; left: 7%; --dur: 9s; --r: -8deg;" width="46" height="40" viewBox="0 0 46 40" fill="none"><path d="M4 20L42 6 30 36l-8-10L4 20z" fill="#BFE7F7" stroke="#1B1624" stroke-width="1.5" stroke-linejoin="round"/><path d="M42 6L22 26" stroke="#1B1624" stroke-width="1.2"/></svg>
+      <svg class="doodle" style="top: 10%; right: 9%; --dur: 7s; --delay: 0.8s; --r: 10deg;" width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M20 4c1.5 7 3.5 11 9 12.5C23.5 18 21.5 22 20 29c-1.5-7-3.5-11-9-12.5C16.5 15 18.5 11 20 4z" fill="#FDD46B" stroke="#1B1624" stroke-width="1.5" stroke-linejoin="round"/></svg>
+      <svg class="doodle" style="top: 38%; right: 4%; --dur: 8.5s; --delay: 0.3s; --r: 14deg;" width="46" height="46" viewBox="0 0 46 46" fill="none"><path d="M8 38l3-9L31 9l6 6-20 20-9 3z" fill="#FDC7B1" stroke="#1B1624" stroke-width="1.5" stroke-linejoin="round"/><path d="M28 12l6 6" stroke="#1B1624" stroke-width="1.2"/></svg>
+      <svg class="doodle" style="top: 42%; left: 3.5%; --dur: 10s; --delay: 1.2s; --r: -6deg;" width="48" height="40" viewBox="0 0 48 40" fill="none"><path d="M24 10C19 5 10 5 5 7v26c5-2 14-2 19 3 5-5 14-5 19-3V7c-5-2-14-2-19 3z" fill="#BFE7F7" stroke="#1B1624" stroke-width="1.5" stroke-linejoin="round"/><path d="M24 10v26" stroke="#1B1624" stroke-width="1.2"/></svg>
+      <svg class="doodle" style="bottom: 20%; right: 13%; --dur: 7.5s; --delay: 0.5s;" width="30" height="30" viewBox="0 0 30 30" fill="none"><path d="M15 4v22M4 15h22" stroke="#C9B1FB" stroke-width="4" stroke-linecap="round"/></svg>
+      <svg class="doodle" style="bottom: 26%; left: 12%; --dur: 9.5s; --delay: 1.6s;" width="34" height="34" viewBox="0 0 34 34" fill="none"><circle cx="17" cy="17" r="12" stroke="#79D287" stroke-width="4" fill="none"/></svg>
+      <img class="notioly notioly--hero is-left" src="assets/notioly/studying.svg" alt="">
+      <img class="notioly notioly--hero is-right" src="assets/notioly/idea.svg" alt="">
+    </div>
+    <div class="container hero-center__inner">
+      <span class="microcaps reveal">Trung tâm học online · Hà Nội · Learning Stylishly</span>
+      <h1 class="reveal"><span class="num">100%</span> học viên từng học đều <span class="u-coral">khuyên bạn nên học</span> ở đây</h1>
+      <p class="hero__intro reveal">Đó là 38 đánh giá công khai trên Facebook của Scholish, và chúng mình giữ được con số này nhờ một cách dạy: lớp dưới 8 người, học qua giải quyết vấn đề thật, chữa bài cho từng người một. Bạn bắt đầu bằng việc chọn kỳ thi của mình ở dưới nhé.</p>
+      <div class="exam-picker">
+        <a href="gmat.html" class="card exam-pick reveal">
+          <span class="exam-pick__dot exam-pick__dot--mint"></span>
+          <span><strong>GMAT</strong><span class="desc">Cho người nhắm MBA / thạc sĩ</span></span>
+          <span class="arrow">→</span>
+        </a>
+        <a href="sat.html" class="card exam-pick reveal">
+          <span class="exam-pick__dot exam-pick__dot--sky"></span>
+          <span><strong>SAT</strong><span class="desc">Cho học sinh THPT</span></span>
+          <span class="arrow">→</span>
+        </a>
+        <a href="tu-duy-phan-bien.html" class="card exam-pick reveal">
+          <span class="exam-pick__dot exam-pick__dot--coral"></span>
+          <span><strong>Tư duy phản biện</strong><span class="desc">Nền của mọi kỳ thi</span></span>
+          <span class="arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RATING STRIP ============ -->
+  <div class="rating-strip reveal">
+    <span class="stars" aria-hidden="true">★★★★★</span>
+    <strong>100% khuyên học</strong> · <span class="num">38</span> đánh giá trên <a href="https://www.facebook.com/scholish" class="link-sky">Facebook Scholish</a>
+  </div>
+
+  <!-- ============ MISSION + STATS (kiểu Magoosh) ============ -->
+  <section class="section pos-rel" id="ve-scholish">
+    <div class="decor" aria-hidden="true">
+      <svg class="doodle" style="top: 14%; left: 5%; --dur: 9s; --r: -5deg;" width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="15" fill="#B3E8BB" stroke="#1B1624" stroke-width="1.5"/><circle cx="20" cy="20" r="8.5" fill="#FFFFFF" stroke="#1B1624" stroke-width="1.3"/><circle cx="20" cy="20" r="3" fill="#1B1624"/></svg>
+      <svg class="doodle" style="top: 20%; right: 6%; --dur: 8s; --delay: 0.7s; --r: 8deg;" width="36" height="44" viewBox="0 0 36 44" fill="none"><path d="M11 27c-3-2.5-5-6-5-10C6 10 11 5 18 5s12 5 12 12c0 4-2 7.5-5 10v6H11v-6z" fill="#FEE7A8" stroke="#1B1624" stroke-width="1.5" stroke-linejoin="round"/><path d="M13 39h10" stroke="#1B1624" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </div>
+    <div class="container" style="position: relative;">
+      <div class="mission-block reveal">
+        <span class="microcaps">Sứ mệnh</span>
+        <h2>Chúng mình tin giáo dục tốt phải <span class="hl-yellow">hiệu quả, vừa túi tiền</span> — và mỗi lớp học mở ra phải <span class="hl-yellow">nuôi được một điều tử tế</span> khác ngoài kia.</h2>
+      </div>
+      <div class="stat-cards">
+        <div class="card stat-card reveal">
+          <span class="microcaps">Đánh giá công khai</span>
+          <span class="stat__value num"><span data-count="100">100</span>%</span>
+          <span class="stat__note">khuyên học, trên 38 review Facebook</span>
+        </div>
+        <div class="card stat-card reveal">
+          <span class="microcaps">Sĩ số mỗi lớp</span>
+          <span class="stat__value num">&lt; <span data-count="8">8</span></span>
+          <span class="stat__note">học viên — ai cũng được chữa bài riêng</span>
+        </div>
+        <div class="card stat-card reveal">
+          <span class="microcaps">Lợi nhuận cho xã hội</span>
+          <span class="stat__value num"><span data-count="50">50</span>%</span>
+          <span class="stat__note">mỗi tháng, dành cho hoạt động cộng đồng</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ANCHOR — LỚP SẮP KHAI GIẢNG (thẻ shadow DUY NHẤT của trang) ============ -->
+  <section class="section section--white">
+    <div class="container">
+      <div class="card--anchor reveal" style="padding: clamp(1.75rem, 4vw, 3rem);">
+        <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(1.5rem, 4vw, 3rem); align-items: center;" class="anchor-grid">
+          <div>
+            <span class="badge badge--yellow">Sắp khai giảng</span>
+            <!-- TODO: cập nhật tên lớp + ngày khai giảng thật của đợt tới -->
+            <h2 style="font-size: var(--fs-sub); margin-block: 14px 12px;">Lớp GMAT Trứng Rán — tháng <span class="num">8/2026</span></h2>
+            <p style="color: var(--fg-2);">Tên lớp nghe cho vui vậy thôi, chứ giáo trình thì nghiêm túc: Quant và Verbal dạy từ gốc trong 12 tuần. Mỗi đợt chúng mình chỉ mở một lớp dưới 8 bạn, thế nên chỗ thường hết trước ngày khai giảng khoảng một tuần.</p>
+            <ul style="display: grid; gap: 12px; margin-top: 20px;">
+              <li style="display: flex; gap: 10px; align-items: baseline;"><span style="width:10px;height:10px;border-radius:50%;background:var(--mint);flex-shrink:0;transform:translateY(-1px);"></span>Đăng ký sớm giảm 10% học phí (early bird)</li>
+              <li style="display: flex; gap: 10px; align-items: baseline;"><span style="width:10px;height:10px;border-radius:50%;background:var(--mint);flex-shrink:0;transform:translateY(-1px);"></span>Học thử buổi đầu, không hợp hoàn 100% học phí</li>
+              <li style="display: flex; gap: 10px; align-items: baseline;"><span style="width:10px;height:10px;border-radius:50%;background:var(--mint);flex-shrink:0;transform:translateY(-1px);"></span>Bản ghi mọi buổi + chấm chữa bài tập từng người</li>
+            </ul>
+          </div>
+          <div class="class-panel" style="background: var(--bg-2); border: 1px solid var(--hairline); border-radius: 16px;">
+            <span class="microcaps">Thông tin lớp</span>
+            <!-- TODO: cập nhật lịch khai giảng + lịch học + học phí thật -->
+            <div class="row"><span>Khai giảng</span><strong>Tháng 8/2026 — chốt qua Zalo</strong></div>
+            <div class="row"><span>Lịch học</span><strong>2 buổi tối / tuần</strong></div>
+            <div class="row"><span>Sĩ số</span><strong class="num">Dưới 8 học viên</strong></div>
+            <div class="row"><span>Học phí</span><strong>Nhắn Zalo để nhận báo phí</strong></div>
+            <a href="https://zalo.me/0963557153" class="btn btn--primary">Giữ chỗ qua Zalo</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HIGH ACHIEVERS — bảng vàng điểm số thật ============ -->
+  <section class="section section--ivory">
+    <div class="container">
+      <div class="section__head section__head--center reveal">
+        <span class="microcaps">High achievers</span>
+        <h2>Bảng vàng <span class="u-coral">điểm thật</span> của học viên</h2>
+        <p>Đây là những kết quả học viên Scholish đã mang về, đăng công khai trên trang Facebook của trung tâm — bạn có thể vào xem từng bài gốc.</p>
+      </div>
+      <div class="score-grid">
+        <div class="card score-card reveal">
+          <span class="dot" style="background: var(--mint);"></span>
+          <span class="score__num num">750</span>
+          <span class="microcaps">GMAT</span>
+          <span class="score__note">điểm nóng hổi từ một high achiever</span>
+        </div>
+        <div class="card score-card reveal">
+          <span class="dot" style="background: var(--sky);"></span>
+          <span class="score__num num">720</span>
+          <span class="microcaps">GMAT</span>
+          <span class="score__note">feedback điểm gửi về ngay sau ngày thi</span>
+        </div>
+        <div class="card score-card reveal">
+          <span class="dot" style="background: var(--coral);"></span>
+          <span class="score__num num">710</span>
+          <span class="microcaps">GMAT · 2 học viên</span>
+          <span class="score__note">một bạn trong đó ôn thi xuyên Tết</span>
+        </div>
+        <div class="card score-card reveal">
+          <span class="dot" style="background: var(--yellow);"></span>
+          <span class="score__num num">645</span>
+          <span class="microcaps">GMAT Focus · Top 10% toàn cầu</span>
+          <span class="score__note">bạn Dũng — thang điểm mới của GMAT</span>
+        </div>
+        <div class="card score-card reveal">
+          <span class="dot" style="background: var(--lavender);"></span>
+          <span class="score__num num">+210</span>
+          <span class="microcaps">Điểm tăng sau một khóa</span>
+          <span class="score__note">trước và sau lớp GMAT Trứng Rán</span>
+        </div>
+        <div class="card score-card reveal">
+          <span class="dot" style="background: var(--positive);"></span>
+          <span class="score__num">Học bổng</span>
+          <span class="microcaps">Admission đạt · học bổng cao</span>
+          <span class="score__note">điểm GMAT tốt đổi thành tiền học thật</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WALL OF LOVE (review thật từ Facebook) ============ -->
+  <section class="section section--white">
+    <div class="container">
+      <div class="section__head section__head--center reveal">
+        <span class="microcaps">Wall of love</span>
+        <h2>Học viên nói gì về Scholish</h2>
+        <p>Trích nguyên văn từ các đánh giá công khai trên Facebook của Scholish — cả 38 đánh giá đều khuyên học.</p>
+      </div>
+      <div class="wall">
+        <div class="card quote reveal">
+          <blockquote>&ldquo;Mình tham gia khoá Làm Chủ Tư Duy của Scholish và cảm nhận rõ thầy dạy rất có tâm, cách giảng chuyên nghiệp và dễ theo dõi. Kiến thức <b>mang tính ứng dụng cao, gắn với thực tế</b> nên có thể áp dụng cho nhiều ngành nghề khác nhau. Học xong thấy tư duy được mở rộng và nâng level mới.&rdquo;</blockquote>
+          <div class="quote__who">
+            <span class="quote__avatar quote__avatar--coral" data-avatar="chi-nguyen">C</span>
+            <div><div class="quote__name">Chí Nguyễn</div><div class="quote__result">Khóa tư duy · review Facebook</div></div>
+          </div>
+        </div>
+        <div class="card quote reveal">
+          <blockquote>&ldquo;Anh Nam Anh không chỉ giới thiệu lý thuyết suông mà còn cung cấp <b>7 ví dụ kèm lời giải chi tiết, chuyên sâu</b>. Một điều mình thích ở lớp học nữa là lớp mang <b>tính tương tác cao</b>, các học viên trả lời, tương tác liên tục. Highly recommend.&rdquo;</blockquote>
+          <div class="quote__who">
+            <span class="quote__avatar quote__avatar--mint" data-avatar="ho-dai-nam">N</span>
+            <div><div class="quote__name">Hồ Đại Nam</div><div class="quote__result">Review Facebook</div></div>
+          </div>
+        </div>
+        <div class="card quote reveal">
+          <blockquote>&ldquo;Cảm ơn anh Nam Anh và team đã tạo cơ hội trải nghiệm những <b>kiến thức rất thú vị</b>. Mong là sẽ có cơ hội học tập và hợp tác xa hơn.&rdquo;</blockquote>
+          <div class="quote__who">
+            <span class="quote__avatar quote__avatar--sky" data-avatar="duong-tung-bach">B</span>
+            <div><div class="quote__name">Dương Tùng Bách</div><div class="quote__result">Review Facebook</div></div>
+          </div>
+        </div>
+        <div class="card quote reveal">
+          <blockquote>&ldquo;Mình có cơ hội trải nghiệm thêm được kiến thức mới, <b>rất bổ ích và không khô khan</b>.&rdquo;</blockquote>
+          <div class="quote__who">
+            <span class="quote__avatar quote__avatar--lavender" data-avatar="vi-dang">V</span>
+            <div><div class="quote__name">Vi Đặng</div><div class="quote__result">Review Facebook</div></div>
+          </div>
+        </div>
+        <div class="card quote reveal">
+          <blockquote>&ldquo;Cảm ơn a Nam và team nhiều ạ.&rdquo;</blockquote>
+          <div class="quote__who">
+            <span class="quote__avatar quote__avatar--yellow" data-avatar="hai-dang">Đ</span>
+            <div><div class="quote__name">Hải Đăng</div><div class="quote__result">Review Facebook</div></div>
+          </div>
+        </div>
+        <div class="card quote reveal">
+          <blockquote>&ldquo;Chúc mừng Dũng đã chính thức ghi tên mình vào <b>top 10% toàn cầu GMAT Focus</b> với số điểm <b class="num">645</b>!&rdquo;</blockquote>
+          <div class="quote__who">
+            <span class="quote__avatar quote__avatar--mint">D</span>
+            <div><div class="quote__name">Dũng — học viên GMAT</div><div class="quote__result">Bài đăng kết quả trên Facebook</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEATURES TRIO (kiểu Magoosh) ============ -->
+  <section class="section section--ivory">
+    <div class="container">
+      <div class="section__head section__head--center reveal">
+        <span class="microcaps">Cách Scholish dạy</span>
+        <h2>Mọi thứ bạn cần, <span class="u-coral">không thừa thứ gì</span></h2>
+      </div>
+      <div class="feature-grid">
+        <div class="card feature reveal">
+          <svg viewBox="0 0 36 36" fill="none" aria-hidden="true">
+            <path d="M5 9a3 3 0 013-3h14a3 3 0 013 3v9a3 3 0 01-3 3h-8l-5 4v-4H8a3 3 0 01-3-3V9z" fill="#BFE7F7" stroke="#1C1C1C" stroke-width="1.5" stroke-linejoin="round"/>
+            <circle cx="11" cy="13.5" r="1.1" fill="#1C1C1C"/><circle cx="15" cy="13.5" r="1.1" fill="#1C1C1C"/><circle cx="19" cy="13.5" r="1.1" fill="#1C1C1C"/>
+            <circle cx="30" cy="8.5" r="5.5" fill="#5DCDF1" stroke="#1C1C1C" stroke-width="1.5"/>
+            <path d="M28 8.5h4M30 6.5v4" stroke="#1C1C1C" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+          <h3>Lớp live qua Zoom, không phải video quay sẵn</h3>
+          <p>Học trực tiếp theo lịch cố định, thảo luận là phần chính của buổi học. Mỗi buổi đều có bản ghi để ôn lại, nhưng bản ghi là để ôn chứ không thay được việc đến lớp.</p>
+        </div>
+        <div class="card feature reveal">
+          <svg viewBox="0 0 36 36" fill="none" aria-hidden="true">
+            <rect x="4" y="8" width="20" height="24" rx="2.5" fill="#B3E8BB" stroke="#1C1C1C" stroke-width="1.5" stroke-linejoin="round"/>
+            <path d="M8 14h12M8 18.5h12M8 23h7" stroke="#1C1C1C" stroke-width="1.2" stroke-linecap="round"/>
+            <path d="M9 27l3 2.5 5-5" stroke="#79D287" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
+            <circle cx="30" cy="8.5" r="5.5" fill="#79D287" stroke="#1C1C1C" stroke-width="1.5"/>
+            <path d="M27.5 8.5l1.8 1.8 3.2-3.6" stroke="#1C1C1C" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+          <h3>Chấm và chữa bài cho từng người</h3>
+          <p>Điểm kẹt thường không phải do thiếu chăm, mà do một lỗi tư duy lặp lại chưa ai chỉ ra. Lớp dưới 8 người tồn tại để người dạy bắt được đúng lỗi đó của riêng bạn.</p>
+        </div>
+        <div class="card feature reveal">
+          <svg viewBox="0 0 36 36" fill="none" aria-hidden="true">
+            <path d="M14 28v-3.2c-3-1.6-5-4.7-5-8.3C9 11.4 13 7.5 18 7.5s9 3.9 9 9c0 3.6-2 6.7-5 8.3V28h-8z" fill="#FDC7B1" stroke="#1C1C1C" stroke-width="1.5" stroke-linejoin="round"/>
+            <path d="M15 31h6" stroke="#1C1C1C" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M15.5 15.5c0-1.4 1.1-2.5 2.5-2.5s2.5 1.1 2.5 2.5c0 1.2-0.8 1.8-1.6 2.4-0.6 0.5-0.9 0.9-0.9 1.6" stroke="#1C1C1C" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+            <circle cx="18" cy="22" r="0.9" fill="#1C1C1C"/>
+            <circle cx="30" cy="8.5" r="5.5" fill="#FD976D" stroke="#1C1C1C" stroke-width="1.5"/>
+            <path d="M30 5.8l0.9 1.8 2 0.3-1.45 1.4 0.35 2-1.8-0.95L28.2 11.3l0.35-2-1.45-1.4 2-0.3L30 5.8z" fill="#FFFFFF" stroke="#1C1C1C" stroke-width="0.9" stroke-linejoin="round"/>
+          </svg>
+          <h3>Problem-based Learning thứ thiệt</h3>
+          <p>Nghe tên có vẻ xa vời, thực ra giống cách bạn học đi xe đạp: ngã trước rồi mới hiểu vì sao ngã. Bạn nhận bài toán trước buổi học, tự giải, rồi cả lớp cùng mổ xẻ chỗ sai.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DARK — ĐỘI NHỎ + 50% ============ -->
+  <section class="section section--dark pos-rel">
+    <div class="decor" aria-hidden="true">
+      <svg class="doodle" style="top: 16%; left: 8%; --dur: 8s; --r: -6deg; opacity: 0.7;" width="36" height="36" viewBox="0 0 40 40" fill="none"><path d="M20 4c1.5 7 3.5 11 9 12.5C23.5 18 21.5 22 20 29c-1.5-7-3.5-11-9-12.5C16.5 15 18.5 11 20 4z" fill="#79D287"/></svg>
+      <svg class="doodle" style="top: 24%; right: 9%; --dur: 9.5s; --delay: 0.9s; opacity: 0.65;" width="32" height="32" viewBox="0 0 34 34" fill="none"><circle cx="17" cy="17" r="12" stroke="#5DCDF1" stroke-width="4" fill="none"/></svg>
+      <svg class="doodle" style="bottom: 18%; left: 14%; --dur: 7.5s; --delay: 1.4s; opacity: 0.65;" width="26" height="26" viewBox="0 0 30 30" fill="none"><path d="M15 4v22M4 15h22" stroke="#FDD46B" stroke-width="4" stroke-linecap="round"/></svg>
+    </div>
+    <div class="container" style="position: relative;">
+      <div class="section__head section__head--center reveal" style="max-width: 760px;">
+        <span class="microcaps" style="color: rgba(255,255,255,0.45);">Education for brighter future</span>
+        <h2 style="color: var(--bg-1);">Chúng mình là một đội nhỏ, và một nửa lợi nhuận không thuộc về chúng mình</h2>
+        <p>Scholish được lập ra với nguyên tắc viết sẵn từ ngày đầu: 50% lợi nhuận hàng tháng dành cho các hoạt động xã hội ở Việt Nam — về giáo dục, môi trường và chất lượng sống. Nghĩa là khi bạn học ở đây, học phí của bạn cũng đang tài trợ cho một lớp học khác ở đâu đó.</p>
+      </div>
+      <div style="text-align: center;">
+        <div class="num-highlight num reveal"><span data-count="50">50</span>%</div>
+        <div class="dark-cta reveal">
+          <a href="https://www.facebook.com/scholish" class="btn btn--light">Xem hoạt động trên Facebook</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="section">
+    <div class="container">
+      <div class="section__head section__head--center reveal">
+        <span class="microcaps">Câu hỏi thường gặp</span>
+        <h2>Trước khi bạn hỏi</h2>
+      </div>
+      <div class="faq reveal">
+        <div class="faq__item">
+          <button class="faq__q" aria-expanded="false">Mình chưa biết gì về GMAT/SAT, học được không?</button>
+          <div class="faq__a">Được, và thật ra đây là nhóm học viên hợp với Scholish nhất. Vì chúng mình dạy từ gốc chứ không dạy mẹo, nên bạn chưa từng ôn ở đâu lại đỡ phải "gỡ" thói quen cũ. Trước khi vào lớp, bạn sẽ làm một bài kiểm tra đầu vào ngắn để người dạy biết bạn đang ở đâu.</div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__q" aria-expanded="false">Học online thì có tương tác thật không, hay chỉ xem video?</button>
+          <div class="faq__a">Lớp học trực tiếp qua Zoom theo lịch cố định, và vì dạy theo kiểu thảo luận với sĩ số dưới 8, bạn sẽ phải bật mic khá thường xuyên. Mỗi buổi đều có bản ghi để xem lại khi lỡ buổi hoặc muốn ôn.</div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__q" aria-expanded="false">Học phí bao nhiêu?</button>
+          <div class="faq__a">Học phí từng khóa chúng mình báo khi bạn nhắn Zalo, vì mức phí phụ thuộc lộ trình sau bài kiểm tra đầu vào. Đăng ký sớm trước khai giảng thường có ưu đãi early bird giảm 10%. Và bạn học thử buổi đầu trước — không hợp thì hoàn 100% học phí.</div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__q" aria-expanded="false">Khoản "50% lợi nhuận cho hoạt động xã hội" hoạt động thế nào?</button>
+          <div class="faq__a">Cuối mỗi tháng, một nửa lợi nhuận (sau chi phí vận hành và trả người dạy) được chuyển cho các tổ chức cộng đồng. Các hoạt động đã làm đều đăng công khai trên trang Facebook của Scholish.</div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__q" aria-expanded="false">Nếu học xong mà chưa đạt điểm mục tiêu thì sao?</button>
+          <div class="faq__a">Chúng mình không hứa "cam kết đầu ra" kiểu quảng cáo, vì điểm thi phụ thuộc nhiều nhất vào thời gian bạn tự luyện giữa các buổi. Điều chúng mình làm được là: theo sát bài tập từng tuần, báo sớm khi tiến độ lệch, và học viên cũ được vào ôn lại các buổi của khóa sau miễn phí.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA CUỐI ============ -->
+  <section class="section section--white">
+    <div class="container contact-panel reveal">
+      <img class="notioly notioly--inline" src="assets/notioly/taking-notes.svg" alt="" aria-hidden="true">
+      <span class="microcaps">Bắt đầu</span>
+      <h2>Kể chúng mình nghe mục tiêu của bạn</h2>
+      <p>Nhắn một tin qua Zalo, cho chúng mình biết bạn đang nhắm kỳ thi nào và mốc thời gian ra sao. Chúng mình sẽ trả lời trong ngày, kèm lộ trình gợi ý — tư vấn không mất phí và không ai gọi điện làm phiền bạn.</p>
+      <div class="hero__ctas">
+        <a href="https://zalo.me/0963557153" class="btn btn--primary">Nhắn Zalo cho Scholish</a>
+        <a href="tel:0963557153" class="btn btn--secondary">Gọi 096 355 71 53</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="index.html" class="nav__logo">Scholish</a>
+          <p>Trung tâm học online cho người Việt trẻ muốn du học và đi xa hơn điểm số. 50% lợi nhuận dành cho các hoạt động xã hội.</p>
+        </div>
+        <div>
+          <h4>Khóa học</h4>
+          <ul>
+            <li><a href="gmat.html">GMAT</a></li>
+            <li><a href="sat.html">SAT</a></li>
+            <li><a href="tu-duy-phan-bien.html">Tư duy phản biện</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Liên hệ</h4>
+          <ul>
+            <li><a href="https://www.facebook.com/scholish">Facebook</a></li>
+            <li><a href="https://zalo.me/0963557153">Zalo: 096 355 71 53</a></li>
+            <li><a href="tel:0963557153">096 355 71 53</a></li>
+            <li><a href="mailto:thescholish@gmail.com">thescholish@gmail.com</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>© 2026 Scholish. Education for brighter future.</span>
+        <span>Learning Stylishly.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
