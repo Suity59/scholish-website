@@ -345,23 +345,163 @@ a.exam-pick--thinking { --exam-bg: #E9DFFD; --exam-accent: var(--lavender); }
 .rating-strip strong { font-weight: 700; color: var(--fg-1); }
 .rating-strip .stars { color: var(--coral); letter-spacing: 2px; margin-right: 6px; }
 
-/* Mission statement — centered, highlight vàng */
-.mission-block { text-align: center; max-width: 780px; margin-inline: auto; }
-.mission-block .microcaps { display: inline-flex; align-items: center; gap: 8px; }
+/* Mission notebook collage */
+.mission-section {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--bg-3);
+  background-image:
+    linear-gradient(var(--rowline) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rowline) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+.mission-layout { position: relative; }
+.mission-block {
+  max-width: 1000px;
+  margin-inline: auto;
+  padding: clamp(2.25rem, 5vw, 4.25rem) clamp(1.5rem, 6vw, 5rem);
+  text-align: center;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(27, 22, 36, 0.46);
+  border-radius: 16px;
+}
+.mission-block .microcaps {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+}
+.mission-block .microcaps::after,
+.stat-card .microcaps::after {
+  content: "";
+  width: 56px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--coral);
+}
 .mission-block h2 {
-  font-size: var(--fs-sub); line-height: 1.3; margin-top: 18px; font-weight: 600;
+  max-width: 880px;
+  margin: 22px auto 0;
+  font-size: clamp(2rem, 4.1vw, 3.85rem);
+  line-height: 1.16;
+  font-weight: 600;
 }
 
-/* Stat cards — kiểu Magoosh */
-.stat-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 980px; margin: clamp(2rem, 5vw, 3.5rem) auto 0; }
-.stat-card { padding: 26px 28px; text-align: left; }
-.stat-card .microcaps { display: block; margin-bottom: 10px; }
+.stat-cards {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1.12fr 1fr;
+  align-items: center;
+  gap: clamp(2rem, 4.5vw, 4.25rem);
+  max-width: 1040px;
+  margin: clamp(2.5rem, 6vw, 4.5rem) auto 0;
+}
+.stat-cards::before {
+  content: "";
+  position: absolute;
+  left: 10%;
+  right: 8%;
+  top: 52%;
+  border-top: 2px dashed var(--fg-1);
+  opacity: 0.9;
+}
+.stat-card {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  padding: 34px 28px;
+  text-align: center;
+  border: 1px solid var(--hairline);
+  color: var(--fg-1);
+}
+.stat-card .microcaps {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 14px;
+  color: var(--fg-1);
+}
 .stat-card .stat__value {
-  font-family: var(--font-heading); font-weight: 700;
-  font-size: clamp(2rem, 3.5vw, 2.875rem); line-height: 1.1;
+  display: block;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(3.25rem, 5.5vw, 5rem);
+  line-height: 1;
   font-variant-numeric: tabular-nums;
 }
-.stat-card .stat__note { font-size: 13.5px; color: var(--fg-3); margin-top: 6px; }
+.stat-card .stat__note {
+  max-width: 220px;
+  margin-top: 14px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--fg-2);
+}
+.stat-card--circle {
+  aspect-ratio: 1;
+  border-radius: 50%;
+  margin-top: -20px;
+  background: var(--mint-soft);
+}
+.stat-card--ticket {
+  min-height: 250px;
+  border-radius: 20px;
+  margin-top: 48px;
+  background: var(--sky-soft);
+}
+.stat-card--sticker {
+  isolation: isolate;
+  min-height: 290px;
+  border: 0;
+  background: transparent;
+}
+.stat-card--sticker::before,
+.stat-card--sticker::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  background: var(--lavender-soft);
+}
+.stat-card--sticker::before {
+  inset: 8% -3%;
+  border-radius: 38% / 48%;
+}
+.stat-card--sticker::after {
+  inset: -3% 8%;
+  border-radius: 48% / 38%;
+}
+.stat-card__heart {
+  position: absolute;
+  top: -11px;
+  right: 8%;
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  z-index: 2;
+  border: 1px solid var(--hairline);
+  border-radius: 50%;
+  background: var(--sky-soft);
+  font-family: var(--font-heading);
+  font-size: 31px;
+  line-height: 1;
+  transform: rotate(8deg);
+}
+.mission-doodle {
+  position: absolute;
+  z-index: 0;
+  color: var(--fg-1);
+  font-family: var(--font-heading);
+  line-height: 1;
+  pointer-events: none;
+}
+.mission-doodle--star { top: 16%; left: 5%; font-size: 58px; transform: rotate(-10deg); }
+.mission-doodle--heart { top: 12%; right: 5%; font-size: 64px; transform: rotate(8deg); }
+.mission-doodle--spark { right: 8%; bottom: 10%; font-size: 38px; color: var(--yellow); }
 
 /* ---------- Sections ---------- */
 .section { padding-block: var(--sp-section); }
@@ -951,6 +1091,7 @@ body.has-open-dialog { overflow: hidden; }
 
 /* Chỉ hiện minh họa hai bên khi viewport đủ rộng để không chạm vào dải giá trị */
 @media (max-width: 1500px) { .notioly--hero { display: none; } }
+@media (max-width: 1100px) { .mission-doodle { display: none; } }
 @media (max-width: 900px) { .doodle { display: none; } }
 
 @media (prefers-reduced-motion: reduce) {
@@ -967,6 +1108,9 @@ body.has-open-dialog { overflow: hidden; }
   .wall, .feature-grid { grid-template-columns: 1fr 1fr; }
   .footer__grid { grid-template-columns: 1fr 1fr; }
   .exam-picker { grid-template-columns: 1fr; max-width: 480px; }
+  .stat-cards { gap: 24px; }
+  .stat-card { padding: 28px 20px; }
+  .stat-card .stat__note { font-size: 14px; }
 }
 @media (max-width: 767px) {
   .nav__links {
@@ -990,6 +1134,16 @@ body.has-open-dialog { overflow: hidden; }
   .hero-value::before { top: -1px; left: 0; width: 28px; }
 
   .wall, .feature-grid, .stat-cards, .compare, .upcoming__classes { grid-template-columns: 1fr; }
+  .mission-section { background-size: 32px 32px; }
+  .mission-block { padding: 30px 20px 34px; }
+  .mission-block h2 { font-size: clamp(1.65rem, 8vw, 2.25rem); line-height: 1.22; }
+  .stat-cards { gap: 26px; max-width: 360px; margin-top: 34px; }
+  .stat-cards::before { display: none; }
+  .stat-card { width: 100%; margin: 0; min-height: 0; padding: 34px 24px; }
+  .stat-card--circle { width: min(100%, 310px); justify-self: center; }
+  .stat-card--ticket { min-height: 230px; }
+  .stat-card--sticker { min-height: 280px; }
+  .stat-card .stat__value { font-size: clamp(3.5rem, 20vw, 5rem); }
   .course-hero__grid { grid-template-columns: 1fr; }
   .footer__grid { grid-template-columns: 1fr; gap: 28px; }
   .card--anchor { box-shadow: 4px 4px 0 #000; }
