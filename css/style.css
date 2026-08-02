@@ -234,8 +234,6 @@ a.card { text-decoration: none; display: block; }
   width: min(920px, calc(100vw - (2 * var(--sp-lg))));
   max-width: 920px;
   position: relative;
-  left: 50%;
-  transform: translateX(-50%);
   margin-inline: auto;
   text-align: left;
 }

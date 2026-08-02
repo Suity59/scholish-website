@@ -257,7 +257,7 @@
           story.hidden = expanded;
         });
         moreButton.setAttribute('aria-expanded', expanded ? 'false' : 'true');
-        moreButton.textContent = expanded ? 'Xem thêm câu chuyện' : 'Thu gọn';
+        moreButton.textContent = expanded ? 'Xem thêm các câu chuyện khác' : 'Thu gọn';
       });
     }
 
