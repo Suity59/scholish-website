@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Scholish">
+  <rect width="64" height="64" rx="14" fill="#F3EDE9"/>
+  <text x="32" y="46" fill="#1B1624" font-family="Georgia, 'Times New Roman', serif" font-size="52" font-weight="700" text-anchor="middle">S</text>
+  <path d="M17 54c9-2.2 20-2.2 30-.4" fill="none" stroke="#FD976D" stroke-width="4" stroke-linecap="round"/>
+</svg>

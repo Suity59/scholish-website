@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Scholish — Trung tâm học online: GMAT, SAT & Tư duy phản biện</title>
   <meta name="description" content="Scholish dạy GMAT, SAT và tư duy phản biện theo phương pháp Problem-based Learning. Lớp dưới 8 học viên, 100% học viên khuyên học. 5% lợi nhuận mỗi tháng dành cho các hoạt động từ thiện.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/favicon-32x32.png" sizes="32x32" type="image/png">
+  <link rel="shortcut icon" href="assets/favicon.ico">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <meta name="theme-color" content="#F3EDE9">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -543,6 +548,225 @@
         </div>
       </div>
     </div>
+  </section>
+
+  <!-- ============ FACULTY - hồ sơ giảng viên mở ngay trên website ============ -->
+  <section class="section section--white faculty-section" id="giang-vien">
+    <div class="container faculty-layout">
+      <div class="faculty-intro reveal">
+          <h2>Các tutors tại Scholish</h2>
+        <p>Đội ngũ Scholish kết hợp nền tảng học thuật, kinh nghiệm giảng dạy và trải nghiệm du học thật để theo sát từng học viên.</p>
+        <span class="faculty-intro__note">Chọn một giảng viên để xem hồ sơ chi tiết.</span>
+      </div>
+
+      <div class="faculty-list" aria-label="Đội ngũ giảng viên Scholish">
+        <button class="faculty-person reveal" type="button" data-teacher-profile="teacher-nam-anh" aria-haspopup="dialog">
+          <span class="faculty-person__portrait faculty-person__portrait--photo">
+            <img src="assets/teachers/le-nam-anh.jpg" alt="Giảng viên Lê Nam Anh" width="1600" height="900" loading="lazy">
+          </span>
+          <span class="faculty-person__copy">
+            <span class="faculty-person__role">GMAT và Tư duy phản biện</span>
+            <strong>Lê Nam Anh</strong>
+            <small>GMAT 730, học bổng 100% Orange Tulip, 6 năm kinh nghiệm dạy GMAT.</small>
+          </span>
+          <span class="faculty-person__action">Xem hồ sơ</span>
+        </button>
+
+        <button class="faculty-person reveal" type="button" data-teacher-profile="teacher-trong-hieu" aria-haspopup="dialog">
+          <span class="faculty-person__portrait">
+            <img src="assets/teachers/nguyen-trong-hieu.png" alt="Giảng viên Nguyễn Trọng Hiếu" width="1080" height="1080" loading="lazy">
+          </span>
+          <span class="faculty-person__copy">
+            <span class="faculty-person__role">GMAT Quant và Verbal</span>
+            <strong>Nguyễn Trọng Hiếu</strong>
+            <small>GMAT 740, huy chương Vàng UKMT Senior Maths Challenge.</small>
+          </span>
+          <span class="faculty-person__action">Xem hồ sơ</span>
+        </button>
+
+        <button class="faculty-person reveal" type="button" data-teacher-profile="teacher-anh-vu" aria-haspopup="dialog">
+          <span class="faculty-person__portrait">
+            <img src="assets/teachers/bui-anh-vu.jpg" alt="Giảng viên Bùi Anh Vũ" width="1080" height="1080" loading="lazy">
+          </span>
+          <span class="faculty-person__copy">
+            <span class="faculty-person__role">GMAT Verbal và SAT</span>
+            <strong>Bùi Anh Vũ</strong>
+            <small>GMAT 740, DSAT 1580, học bổng 100% tại Drexel University.</small>
+          </span>
+          <span class="faculty-person__action">Xem hồ sơ</span>
+        </button>
+
+        <button class="faculty-person reveal" type="button" data-teacher-profile="teacher-thao-hoang" aria-haspopup="dialog">
+          <span class="faculty-person__portrait faculty-person__portrait--photo">
+            <img src="assets/teachers/thao-hoang.png" alt="Giảng viên Thảo Hoàng" width="330" height="408" loading="lazy">
+          </span>
+          <span class="faculty-person__copy">
+            <span class="faculty-person__role">GMAT Quant, SAT và Toán quốc tế</span>
+            <strong>Thảo Hoàng</strong>
+            <small>7 năm giảng dạy Toán quốc tế, nhiều học viên đạt điểm tuyệt đối.</small>
+          </span>
+          <span class="faculty-person__action">Xem hồ sơ</span>
+        </button>
+      </div>
+    </div>
+
+    <dialog class="faculty-dialog" id="facultyDialog" aria-labelledby="facultyDialogTitle">
+      <div class="faculty-dialog__shell">
+        <button class="faculty-dialog__close" type="button" data-teacher-close aria-label="Đóng hồ sơ giảng viên">Đóng</button>
+        <div data-teacher-content></div>
+      </div>
+    </dialog>
+
+    <template id="teacher-nam-anh">
+      <article class="faculty-profile">
+        <div class="faculty-profile__lead">
+          <div class="faculty-profile__portrait faculty-profile__portrait--photo"><img src="assets/teachers/le-nam-anh.jpg" alt="Giảng viên Lê Nam Anh" width="1600" height="900"></div>
+          <div>
+            <span class="faculty-profile__role">GMAT và Tư duy phản biện</span>
+            <h2 id="facultyDialogTitle">Lê Nam Anh</h2>
+            <p>Giảng viên GMAT với 6 năm kinh nghiệm, đồng thời giảng dạy đại học và phát triển nội dung về tư duy, học tập và sự nghiệp cho người trẻ.</p>
+          </div>
+        </div>
+        <div class="faculty-profile__details">
+          <section>
+            <h3>Học vấn</h3>
+            <ul>
+              <li>Thạc sĩ Kinh doanh quốc tế, chuyên ngành Entrepreneurship tại Maastricht University, Hà Lan.</li>
+              <li>Cử nhân Quản trị kinh doanh tại Học viện Ngân hàng.</li>
+            </ul>
+          </section>
+          <section>
+            <h3>Kinh nghiệm</h3>
+            <ul>
+              <li>Giảng viên tại Trường Đại học Công nghệ Giao thông Vận tải.</li>
+              <li>Từng là GMAT Instructor tại Clever Academy.</li>
+              <li>6 năm giảng dạy GMAT và 5 năm giảng dạy IELTS.</li>
+              <li>Kinh nghiệm trong vai trò Business Analyst Lead và Business Development Manager.</li>
+            </ul>
+          </section>
+          <section>
+            <h3>Thành tích nổi bật</h3>
+            <ul>
+              <li>GMAT 730, thuộc top 5% thế giới.</li>
+              <li>Học bổng toàn phần Orange Tulip Scholarship.</li>
+            </ul>
+          </section>
+        </div>
+      </article>
+    </template>
+
+    <template id="teacher-trong-hieu">
+      <article class="faculty-profile">
+        <div class="faculty-profile__lead">
+          <div class="faculty-profile__portrait"><img src="assets/teachers/nguyen-trong-hieu.png" alt="Giảng viên Nguyễn Trọng Hiếu" width="1080" height="1080"></div>
+          <div>
+            <span class="faculty-profile__role">GMAT Quant và Verbal</span>
+            <h2 id="facultyDialogTitle">Nguyễn Trọng Hiếu</h2>
+            <p>Giảng viên GMAT có nền tảng chuyên sâu về tài chính, đầu tư và toán học, với kinh nghiệm giảng dạy Verbal tại nhiều đơn vị giáo dục.</p>
+          </div>
+        </div>
+        <div class="faculty-profile__details">
+          <section>
+            <h3>Học vấn</h3>
+            <ul>
+              <li>Cử nhân danh dự Accounting and Finance tại University of Bath, Vương quốc Anh.</li>
+              <li>Thạc sĩ Finance and Investment tại Erasmus University Rotterdam, Hà Lan.</li>
+            </ul>
+          </section>
+          <section>
+            <h3>Kinh nghiệm</h3>
+            <ul>
+              <li>ACT Verbal Instructor tại 7A* Tutorial.</li>
+              <li>GMAT Instructor tại ILIAT và Clever Academy.</li>
+            </ul>
+          </section>
+          <section>
+            <h3>Thành tích nổi bật</h3>
+            <ul>
+              <li>GMAT 740 với Quant 51 và Verbal 40.</li>
+              <li>Huy chương Vàng UKMT Senior Maths Challenge 2011.</li>
+              <li>Học bổng A-Level theo thành tích tại Bosworth Independent College.</li>
+              <li>CFA Level 1.</li>
+            </ul>
+          </section>
+        </div>
+      </article>
+    </template>
+
+    <template id="teacher-anh-vu">
+      <article class="faculty-profile">
+        <div class="faculty-profile__lead">
+          <div class="faculty-profile__portrait"><img src="assets/teachers/bui-anh-vu.jpg" alt="Giảng viên Bùi Anh Vũ" width="1080" height="1080"></div>
+          <div>
+            <span class="faculty-profile__role">GMAT Verbal và SAT</span>
+            <h2 id="facultyDialogTitle">Bùi Anh Vũ</h2>
+            <p>Giảng viên có 7 năm học tập và làm việc tại Hoa Kỳ, chuyên GMAT Verbal, SAT và đồng hành cùng học sinh trong quá trình chuẩn bị hồ sơ du học.</p>
+          </div>
+        </div>
+        <div class="faculty-profile__details">
+          <section>
+            <h3>Học vấn</h3>
+            <ul>
+              <li>Học bổng 100% tại Drexel University, tốt nghiệp hạng 7 trên 120 sinh viên.</li>
+              <li>Ba chuyên ngành: Quản trị Khách sạn, Quản trị Kinh doanh và Ngôn ngữ Tây Ban Nha.</li>
+              <li>12 kỳ liên tiếp đạt Dean's List và tốt nghiệp sớm 2 kỳ.</li>
+            </ul>
+          </section>
+          <section>
+            <h3>Kinh nghiệm</h3>
+            <ul>
+              <li>Giảng dạy GMAT Verbal từ năm 2023.</li>
+              <li>Dạy SAT, IELTS và TOEFL từ năm 2018.</li>
+              <li>Tư vấn giáo dục và hỗ trợ hồ sơ du học Mỹ cho hơn 30 học sinh trúng tuyển trường mục tiêu.</li>
+              <li>Từng trợ giảng Thống kê, Kế toán và Viết học thuật tại đại học.</li>
+            </ul>
+          </section>
+          <section>
+            <h3>Thành tích nổi bật</h3>
+            <ul>
+              <li>GMAT 740, điểm Quant tuyệt đối.</li>
+              <li>DSAT 1580 trên 1600, điểm Verbal tuyệt đối.</li>
+              <li>IELTS 8.5 và TOEFL 115 trên 120.</li>
+            </ul>
+          </section>
+        </div>
+      </article>
+    </template>
+
+    <template id="teacher-thao-hoang">
+      <article class="faculty-profile">
+        <div class="faculty-profile__lead">
+          <div class="faculty-profile__portrait faculty-profile__portrait--photo"><img src="assets/teachers/thao-hoang.png" alt="Giảng viên Thảo Hoàng" width="330" height="408"></div>
+          <div>
+            <span class="faculty-profile__role">GMAT Quant, SAT và Toán quốc tế</span>
+            <h2 id="facultyDialogTitle">Thảo Hoàng</h2>
+            <p>Giảng viên Toán quốc tế với 7 năm kinh nghiệm, đồng thời có kinh nghiệm quản lý giáo dục và tư vấn du học.</p>
+          </div>
+        </div>
+        <div class="faculty-profile__details">
+          <section>
+            <h3>Học vấn</h3>
+            <ul>
+              <li>Cử nhân Kinh tế đối ngoại tại Đại học Ngoại thương.</li>
+            </ul>
+          </section>
+          <section>
+            <h3>Kinh nghiệm</h3>
+            <ul>
+              <li>Quản lý trung tâm tiếng Anh Clever Academy tại Hà Nội và Thành phố Hồ Chí Minh từ năm 2016.</li>
+              <li>Tư vấn du học tại VNIS Education từ năm 2020.</li>
+              <li>7 năm giảng dạy Toán quốc tế cho SSAT, SAT, ACT, GMAT, IGCSE và IB.</li>
+            </ul>
+          </section>
+          <section>
+            <h3>Thành tích nổi bật</h3>
+            <ul>
+              <li>Đồng hành cùng nhiều học viên đạt điểm tuyệt đối trong các kỳ thi và chương trình Toán quốc tế.</li>
+            </ul>
+          </section>
+        </div>
+      </article>
+    </template>
   </section>
 
   <!-- ============ DARK - ĐỘI NHỎ + 5% ============ -->

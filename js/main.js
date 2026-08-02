@@ -277,6 +277,51 @@
     });
   })();
 
+  // Đội ngũ giảng viên: mở hồ sơ chi tiết ngay trên homepage.
+  (function setupTeacherProfiles() {
+    var dialog = document.getElementById('facultyDialog');
+    var content = dialog ? dialog.querySelector('[data-teacher-content]') : null;
+    var closeButton = dialog ? dialog.querySelector('[data-teacher-close]') : null;
+    var triggers = document.querySelectorAll('[data-teacher-profile]');
+    var activeTrigger = null;
+
+    if (!dialog || !content || !closeButton || !triggers.length) return;
+
+    function openProfile(trigger) {
+      var templateId = trigger.getAttribute('data-teacher-profile');
+      var template = templateId ? document.getElementById(templateId) : null;
+      if (!template) return;
+
+      activeTrigger = trigger;
+      content.textContent = '';
+      content.appendChild(template.content.cloneNode(true));
+      document.body.classList.add('has-open-dialog');
+      dialog.showModal();
+      closeButton.focus();
+    }
+
+    triggers.forEach(function (trigger) {
+      trigger.addEventListener('click', function () {
+        openProfile(trigger);
+      });
+    });
+
+    closeButton.addEventListener('click', function () {
+      dialog.close();
+    });
+
+    dialog.addEventListener('click', function (event) {
+      if (event.target === dialog) dialog.close();
+    });
+
+    dialog.addEventListener('close', function () {
+      document.body.classList.remove('has-open-dialog');
+      content.textContent = '';
+      if (activeTrigger) activeTrigger.focus();
+      activeTrigger = null;
+    });
+  })();
+
   var counters = document.querySelectorAll('[data-count]');
   if (counters.length && !reduced && 'IntersectionObserver' in window) {
     var countObserver = new IntersectionObserver(function (entries) {
