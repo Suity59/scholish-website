@@ -1258,80 +1258,72 @@ body.has-open-dialog { overflow: hidden; }
 .course-map__legend .is-verbal { background: var(--track-verbal); }
 .course-map__legend .is-quant { background: var(--track-quant); }
 .course-map__legend .is-data { background: var(--track-data); }
-.course-map__legend .is-review { background: var(--track-review); }
-.course-map__tabs {
+.course-map__grid {
   display: grid;
-  grid-template-columns: repeat(10, minmax(0, 1fr));
-  gap: 8px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
 }
-.course-week-tab {
-  --track-one: var(--track-verbal);
-  --track-two: var(--track-quant);
-  position: relative;
+.course-week-card {
   min-width: 0;
-  height: 58px;
   overflow: hidden;
   border: 1px solid var(--hairline);
-  border-radius: 12px;
+  border-radius: 14px;
   background: var(--bg-1);
-  color: var(--fg-1);
-  font: inherit;
-  font-weight: 700;
-  cursor: pointer;
-  transition: transform .2s ease, border-color .2s ease, background-color .2s ease, color .2s ease;
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
 }
-.course-week-tab::after {
-  content: '';
-  position: absolute;
-  right: 9px;
-  bottom: 7px;
-  left: 9px;
-  height: 4px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--track-one) 0 47%, transparent 47% 53%, var(--track-two) 53% 100%);
+.course-week-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(27, 22, 36, .26);
+  box-shadow: 0 12px 28px rgba(27, 22, 36, .07);
 }
-.course-week-tab--vd { --track-two: var(--track-data); }
-.course-week-tab--dr { --track-one: var(--track-data); --track-two: var(--track-review); }
-.course-week-tab:hover { transform: translateY(-2px); border-color: rgba(27, 22, 36, .28); }
-.course-week-tab.is-active {
-  border-color: var(--fg-1);
-  background: var(--fg-1);
-  color: var(--bg-1);
-}
-.course-week-tab:focus-visible {
-  outline: 3px solid var(--coral);
-  outline-offset: 3px;
-}
-.course-map__panels { min-height: 184px; }
-.course-week {
+.course-week-card__head {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
+  grid-template-columns: auto auto 1fr;
+  gap: 5px;
+  align-items: baseline;
+  padding: 14px 15px 12px;
+  border-bottom: 1px solid var(--hairline);
 }
-.course-week[hidden] { display: none; }
-.course-map:not(.is-enhanced) .course-week + .course-week { margin-top: 14px; }
-.course-topic {
-  min-height: 170px;
-  padding: 25px 26px;
-  border-left: 4px solid var(--topic-accent);
-  border-radius: 12px;
-  background: var(--topic-bg);
-}
-.course-topic--verbal { --topic-accent: var(--track-verbal); --topic-bg: var(--track-verbal-soft); }
-.course-topic--quant { --topic-accent: var(--track-quant); --topic-bg: var(--track-quant-soft); }
-.course-topic--data { --topic-accent: var(--track-data); --topic-bg: var(--track-data-soft); }
-.course-topic--review { --topic-accent: var(--track-review); --topic-bg: var(--track-review-soft); }
-.course-topic__label {
-  display: block;
-  margin-bottom: 18px;
+.course-week-card__head span,
+.course-week-card__head small {
   color: var(--fg-3);
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
   letter-spacing: .07em;
   text-transform: uppercase;
 }
-.course-topic strong { display: block; margin-bottom: 7px; font-size: 19px; line-height: 1.3; }
-.course-topic p { max-width: 46ch; color: var(--fg-2); font-size: 14.5px; line-height: 1.55; }
+.course-week-card__head strong { font-family: var(--font-heading); font-size: 25px; line-height: 1; }
+.course-week-card__head small { justify-self: end; letter-spacing: .03em; }
+.course-week-card__topic {
+  position: relative;
+  min-height: 78px;
+  padding: 14px 14px 14px 18px;
+  background: var(--topic-bg);
+}
+.course-week-card__topic + .course-week-card__topic { border-top: 1px solid rgba(27, 22, 36, .08); }
+.course-week-card__topic::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 4px;
+  background: var(--topic-accent);
+}
+.course-week-card__topic--verbal { --topic-accent: var(--track-verbal); --topic-bg: var(--track-verbal-soft); }
+.course-week-card__topic--quant { --topic-accent: var(--track-quant); --topic-bg: var(--track-quant-soft); }
+.course-week-card__topic--data { --topic-accent: var(--track-data); --topic-bg: var(--track-data-soft); }
+.course-week-card__topic--review { --topic-accent: var(--track-review); --topic-bg: var(--track-review-soft); }
+.course-week-card__topic span {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--fg-3);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+.course-week-card__topic strong { display: block; font-size: 14px; line-height: 1.25; }
 
 /* ---------- GMAT enrollment and teachers ---------- */
 .enrollment-grid {
@@ -1447,18 +1439,52 @@ body.has-open-dialog { overflow: hidden; }
 }
 .teacher-profile:hover { transform: translateY(-4px); border-color: rgba(27, 22, 36, .25); }
 .teacher-profile__portrait {
-  display: grid;
-  place-content: center;
+  position: relative;
+  width: 150px;
   aspect-ratio: 1;
-  border: 1.5px solid var(--fg-1);
-  border-radius: 50% 50% 44% 56% / 45% 50% 50% 55%;
-  text-align: center;
   transform: rotate(-2deg);
 }
-.teacher-profile__portrait--mint { background: var(--mint-soft); }
-.teacher-profile__portrait--sky { background: var(--sky-soft); transform: rotate(2deg); }
-.teacher-profile__portrait span { font-family: var(--font-heading); font-size: 42px; font-weight: 700; line-height: 1; }
-.teacher-profile__portrait small { margin-top: 7px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
+.teacher-profile__portrait--sky { transform: rotate(2deg); }
+.teacher-profile__photo {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border: 1.5px solid var(--fg-1);
+  border-radius: 50% 50% 44% 56% / 45% 50% 50% 55%;
+}
+.teacher-profile__photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 54% center;
+}
+.teacher-profile__portrait--sky .teacher-profile__photo img {
+  position: absolute;
+  top: -15%;
+  left: -20%;
+  width: 300%;
+  max-width: none;
+  height: 300%;
+  object-position: left center;
+}
+.teacher-profile__score {
+  position: absolute;
+  right: -12px;
+  bottom: -10px;
+  display: grid;
+  min-width: 92px;
+  padding: 8px 11px 7px;
+  border: 1.5px solid var(--fg-1);
+  border-radius: 999px;
+  background: var(--yellow-soft);
+  text-align: center;
+  transform: rotate(2deg);
+}
+.teacher-profile__score strong { font-family: var(--font-heading); font-size: 22px; line-height: 1; }
+.teacher-profile__score small { margin-top: 3px; font-size: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
 .teacher-profile h3 { margin: 6px 0 10px; font-size: 27px; }
 .teacher-profile p { color: var(--fg-2); font-size: 15px; }
 .teacher-profile ul { display: grid; gap: 7px; margin-top: 16px; }
@@ -1633,7 +1659,7 @@ body.has-open-dialog { overflow: hidden; }
   .quiz.anim-wrong, .quiz.anim-right { animation: none; }
   .stat-card__flower { opacity: 1; transform: none; transition: none; }
   .stat-path path, .stat-path__dot, .stat-card__heart, .stat-card__heart img { animation: none; }
-  .course-week-tab, .teacher-profile { transition: none; }
+  .course-week-card, .teacher-profile { transition: none; }
   .faculty-person, .faculty-person__portrait img { transition: none; }
 }
 
@@ -1649,6 +1675,7 @@ body.has-open-dialog { overflow: hidden; }
   .stat-card .stat__note { font-size: 14px; }
   .faculty-layout { grid-template-columns: 1fr; gap: 34px; }
   .faculty-intro { max-width: 680px; padding-top: 0; }
+  .course-map__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .tutor-one-to-one { grid-template-columns: 1fr; gap: 28px; }
   .tutor-one-to-one__intro { max-width: 680px; }
   .tutor-one-to-one__intro::after { display: none; }
@@ -1693,19 +1720,10 @@ body.has-open-dialog { overflow: hidden; }
   .faculty-profile__portrait img { width: 150%; }
   .faculty-profile__details { grid-template-columns: 1fr; gap: 26px; margin-top: 32px; padding-top: 26px; }
   .course-map__legend { gap: 9px 16px; }
-  .course-map__tabs {
-    display: flex;
-    margin-inline: -20px;
-    padding: 3px 20px 8px;
-    overflow-x: auto;
-    scroll-snap-type: x proximity;
-    scrollbar-width: none;
-  }
-  .course-map__tabs::-webkit-scrollbar { display: none; }
-  .course-week-tab { flex: 0 0 62px; scroll-snap-align: start; }
-  .course-map__panels { min-height: 344px; }
-  .course-week { grid-template-columns: 1fr; }
-  .course-topic { min-height: 0; padding: 22px; }
+  .course-map__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .course-week-card__head { grid-template-columns: auto auto; }
+  .course-week-card__head small { grid-column: 1 / -1; justify-self: start; }
+  .course-week-card__topic { min-height: 82px; padding: 13px 12px 13px 16px; }
   .teacher-profile { grid-template-columns: 1fr; }
   .teacher-profile__portrait { width: 132px; }
   .launch-card__price { grid-template-columns: 1fr; }
@@ -1745,4 +1763,8 @@ body.has-open-dialog { overflow: hidden; }
   .achiever-post__copy { padding: 32px 22px 42px; }
   .achiever-post__gallery { grid-template-columns: 1fr; }
   .achiever-post__gallery img { height: auto; max-height: 620px; object-fit: contain; background: var(--fg-1); }
+}
+
+@media (max-width: 359px) {
+  .course-map__grid { grid-template-columns: 1fr; }
 }

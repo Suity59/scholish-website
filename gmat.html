@@ -153,7 +153,7 @@
     .bank-mini__set { margin-top: 9px; padding-top: 8px; border-top: 1px solid rgba(27,22,36,.1); }
     .bank-mini__set strong { display: block; font-size: 12px; }
     .bank-mini__set span { color: var(--fg-2); }
-    .bank-mini__clock { margin-top: 3px; font-family: var(--font-heading); font-size: 28px; line-height: 1; }
+    .bank-mini__clock { margin-top: 3px; font-family: var(--font-heading); font-size: 28px; line-height: 1; font-variant-numeric: tabular-nums; }
     .bank-mini__track { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; margin-top: 11px; }
     .bank-mini__track span { height: 7px; border-radius: 99px; background: rgba(27,22,36,.12); }
     .bank-mini__track .is-done { background: var(--sky); }
@@ -176,7 +176,9 @@
     .bank-mini__skill i { display: block; height: 5px; margin-top: 3px; border-radius: 99px; background: rgba(27,22,36,.1); }
     .bank-mini__skill i::after { content: ''; display: block; width: var(--score); height: 100%; border-radius: inherit; background: var(--lavender); }
     .bank-product { grid-row: span 2; min-height: 702px; padding: 16px; border-radius: 16px; background: var(--fg-1); color: var(--fg-1); }
-    .bank-product__frame { height: 100%; overflow: hidden; border-radius: 12px; background: #fbfaf8; }
+    .bank-product__frame { position: relative; height: 100%; overflow: hidden; border-radius: 12px; background: #fbfaf8; }
+    .bank-product__frame::after { content: ''; position: absolute; z-index: 2; inset: 0 auto 0 -45%; width: 28%; pointer-events: none; background: linear-gradient(100deg, transparent, rgba(255,255,255,.5), transparent); opacity: 0; transform: skewX(-12deg); }
+    .bank-bento.is-demoing .bank-product__frame::after { animation: bank-scan 5.4s ease-in-out infinite; }
     .bank-product__top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 20px; border-bottom: 1px solid var(--hairline); }
     .bank-product__brand { display: flex; align-items: center; gap: 10px; font-weight: 700; }
     .bank-product__logo { display: grid; place-items: center; width: 34px; height: 34px; border: 1.5px solid var(--fg-1); border-radius: 9px; background: var(--mint); box-shadow: 3px 3px 0 var(--fg-1); font-family: var(--font-heading); }
@@ -186,16 +188,16 @@
     .bank-product__body h3 { margin-top: 5px; font-size: 32px; }
     .bank-product__progress-head { display: flex; justify-content: space-between; margin-top: 24px; font-size: 13px; font-weight: 700; }
     .bank-product__progress { height: 10px; margin-top: 8px; overflow: hidden; border-radius: 99px; background: #e8e4e0; }
-    .bank-product__progress span { display: block; width: 68%; height: 100%; border-radius: inherit; background: var(--lavender); }
+    .bank-product__progress span { display: block; width: 68%; height: 100%; border-radius: inherit; background: var(--lavender); transition: width .75s cubic-bezier(.2,.8,.2,1); }
     .bank-question { margin-top: 22px; padding: 22px; border: 1px solid var(--hairline); border-radius: 14px; background: white; box-shadow: 0 12px 28px rgba(27,22,36,.07); }
     .bank-question__meta { display: flex; justify-content: space-between; gap: 12px; color: var(--fg-2); font-size: 12px; font-weight: 700; }
     .bank-question h4 { margin: 14px 0 0; font-size: 17px; line-height: 1.42; }
     .bank-question__answers { display: grid; gap: 8px; margin-top: 16px; }
-    .bank-question__answer { display: flex; align-items: center; gap: 11px; padding: 10px 12px; border: 1px solid var(--hairline); border-radius: 9px; font-size: 13px; }
+    .bank-question__answer { display: flex; align-items: center; gap: 11px; padding: 10px 12px; border: 1px solid var(--hairline); border-radius: 9px; font-size: 13px; transition: border-color .3s ease, background-color .3s ease, transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s ease; }
     .bank-question__answer b { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: #eeeae6; font-size: 11px; }
-    .bank-question__answer.is-active { border-color: var(--lavender); background: var(--lavender-soft); }
+    .bank-question__answer.is-active { border-color: var(--lavender); background: var(--lavender-soft); transform: translateX(5px); box-shadow: -3px 0 0 var(--lavender); }
     .bank-question__actions { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 18px; }
-    .bank-question__timer { color: var(--fg-2); font-size: 12px; }
+    .bank-question__timer { color: var(--fg-2); font-size: 12px; font-variant-numeric: tabular-nums; }
     .bank-question__submit { border: 0; border-radius: 9px; padding: 10px 16px; background: var(--fg-1); color: white; font-weight: 700; }
     .bank-proof { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 20px; }
     .bank-proof div { display: flex; align-items: center; gap: 14px; padding: 14px 4px; border-top: 1px solid var(--hairline); color: var(--fg-2); }
@@ -245,12 +247,93 @@
     .gmat-student-proof__head h2 { margin-top: 10px; font-size: var(--fs-sub); }
     .gmat-student-proof__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
     .gmat-student-proof__grid .quote { height: 100%; padding: 26px; }
+    .gmat-enroll-dialog {
+      width: min(1180px, calc(100vw - 32px));
+      max-width: none;
+      max-height: calc(100dvh - 32px);
+      padding: 0;
+      overflow: auto;
+      border: 0;
+      border-radius: 20px;
+      background: var(--bg-2);
+      color: var(--fg-1);
+      box-shadow: 0 28px 90px rgba(27, 22, 36, .28);
+    }
+    .gmat-enroll-dialog::backdrop { background: rgba(27, 22, 36, .66); backdrop-filter: blur(5px); }
+    .gmat-enroll-dialog__shell { position: relative; padding: clamp(24px, 4vw, 42px); }
+    .gmat-enroll-dialog__close {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      display: grid;
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      place-items: center;
+      border: 1px solid var(--hairline);
+      border-radius: 50%;
+      background: white;
+      color: var(--fg-1);
+      font-size: 22px;
+      line-height: 1;
+    }
+    .gmat-enroll-dialog__close:focus-visible { outline: 3px solid var(--fg-1); outline-offset: 3px; }
+    .gmat-enroll-dialog__head { max-width: 740px; padding-right: 48px; margin-bottom: 26px; }
+    .gmat-enroll-dialog__head h2 { margin: 9px 0 7px; font-size: clamp(2rem, 4vw, 3.3rem); }
+    .gmat-enroll-dialog__head p { color: var(--fg-2); }
+    .gmat-enroll-dialog__grid { display: grid; grid-template-columns: 1.25fr .75fr; gap: 20px; }
+    .gmat-enroll-step { padding: clamp(22px, 3vw, 30px); border: 1px solid var(--hairline); border-radius: 16px; }
+    .gmat-enroll-step--form { background: var(--yellow-soft); }
+    .gmat-enroll-step--payment { background: var(--lavender-soft); }
+    .gmat-enroll-step__number {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      margin-bottom: 24px;
+      place-items: center;
+      border: 1.5px solid var(--fg-1);
+      border-radius: 50%;
+      background: white;
+      font-family: var(--font-heading);
+      font-weight: 700;
+    }
+    .gmat-enroll-step h3 { margin-bottom: 9px; font-size: clamp(1.45rem, 2.5vw, 2rem); }
+    .gmat-enroll-step > p { color: var(--fg-2); }
+    .gmat-enroll-form-frame {
+      display: block;
+      width: 100%;
+      height: 600px;
+      margin-top: 18px;
+      border: 0;
+      border-radius: 12px;
+      background: white;
+    }
+    .gmat-enroll-form-fallback { margin-top: 10px; color: var(--fg-2); font-size: 12px; }
+    .gmat-enroll-form-fallback a { color: var(--fg-1); font-weight: 700; }
+    .gmat-payment-qr {
+      height: min(50dvh, 470px);
+      margin-top: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(27, 22, 36, .12);
+      border-radius: 14px;
+      background: #f1e8fb;
+    }
+    .gmat-payment-qr img { display: block; width: 100%; height: auto; transform: translateY(-13%); }
+    .gmat-payment-account { display: flex; justify-content: space-between; gap: 18px; margin-top: 14px; font-size: 13px; }
+    .gmat-payment-account span { color: var(--fg-2); }
+    .gmat-payment-account strong { text-align: right; }
     @keyframes bank-pulse { 50% { opacity: .4; transform: scaleX(.82); } }
+    @keyframes bank-scan {
+      0%, 58% { left: -45%; opacity: 0; }
+      64% { opacity: .75; }
+      86%, 100% { left: 125%; opacity: 0; }
+    }
     @media (max-width: 900px) {
       .bank-bento { grid-template-columns: 1fr 1fr; }
       .bank-product { grid-column: 1 / -1; grid-row: auto; order: -1; min-height: 650px; }
       .bank-explanation__demo { grid-template-columns: 1fr; }
       .bank-explanation__question { border-right: 0; border-bottom: 1px solid var(--hairline); }
+      .gmat-enroll-dialog__grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 640px) {
       .bank-bento, .bank-proof { grid-template-columns: 1fr; }
@@ -261,9 +344,13 @@
       .bank-explanation__demo { border-radius: 14px; }
       .bank-explanation__note { align-items: flex-start; flex-direction: column; }
       .gmat-student-proof__grid { grid-template-columns: 1fr; }
+      .gmat-enroll-form-frame { height: 560px; }
+      .gmat-payment-qr { height: 390px; }
+      .gmat-payment-account { align-items: flex-start; flex-direction: column; gap: 3px; }
+      .gmat-payment-account strong { text-align: left; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .bank-card, .bank-mini__track .is-live { transition: none; animation: none; }
+      .bank-card, .bank-question__answer, .bank-product__progress span, .bank-mini__track .is-live, .bank-product__frame::after { transition: none; animation: none; }
     }
   </style>
 </head>
@@ -595,7 +682,7 @@
         <p>Mỗi lần luyện là một lần nhìn rõ điểm yếu, sửa đúng cách và tiến gần hơn tới mục tiêu 700+.</p>
       </div>
 
-      <div class="bank-bento">
+      <div class="bank-bento" data-bank-demo>
         <article class="bank-card bank-card--practice reveal">
           <span class="bank-card__index num">01</span>
           <h3>Practice set đúng trọng tâm</h3>
@@ -616,18 +703,18 @@
             <div class="bank-product__body">
               <p>Practice set hôm nay</p>
               <h3>Critical Reasoning</h3>
-              <div class="bank-product__progress-head"><span>Câu 12 / 20</span><span>68% hoàn thành</span></div>
-              <div class="bank-product__progress"><span></span></div>
+              <div class="bank-product__progress-head"><span data-bank-question-count>Câu 12 / 20</span><span data-bank-progress-label>68% hoàn thành</span></div>
+              <div class="bank-product__progress"><span data-bank-progress-bar></span></div>
               <div class="bank-question">
                 <div class="bank-question__meta"><span>Evaluate the Argument</span><span>02:00 / câu</span></div>
                 <h4>Which of the following would be most useful to determine in evaluating the argument?</h4>
                 <div class="bank-question__answers">
-                  <div class="bank-question__answer"><b>A</b>Whether the survey included...</div>
-                  <div class="bank-question__answer is-active"><b>B</b>Whether customers who returned...</div>
-                  <div class="bank-question__answer"><b>C</b>Whether the company plans to...</div>
-                  <div class="bank-question__answer"><b>D</b>Whether competitors also...</div>
+                  <div class="bank-question__answer" data-bank-answer><b>A</b>Whether the survey included...</div>
+                  <div class="bank-question__answer is-active" data-bank-answer><b>B</b>Whether customers who returned...</div>
+                  <div class="bank-question__answer" data-bank-answer><b>C</b>Whether the company plans to...</div>
+                  <div class="bank-question__answer" data-bank-answer><b>D</b>Whether competitors also...</div>
                 </div>
-                <div class="bank-question__actions"><span class="bank-question__timer">Còn 01:12</span><span class="bank-question__submit">Nộp đáp án</span></div>
+                <div class="bank-question__actions"><span class="bank-question__timer" data-bank-timer>Còn 01:12</span><span class="bank-question__submit">Nộp đáp án</span></div>
               </div>
             </div>
           </div>
@@ -639,7 +726,7 @@
           <p>Làm quen áp lực thời gian và nhịp độ phòng thi trước khi bước vào bài thi thật.</p>
           <div class="bank-mini" aria-label="Minh họa đồng hồ mock test">
             <div class="bank-mini__row"><span class="bank-mini__label">Mock test 01</span><strong>Q 17 / 21</strong></div>
-            <div class="bank-mini__clock num">01:42:18</div>
+            <div class="bank-mini__clock num" data-bank-clock>01:42:18</div>
             <div class="bank-mini__track"><span class="is-done"></span><span class="is-done"></span><span class="is-live"></span><span></span></div>
             <div class="bank-mini__foot"><span>Quant</span><span>Đang tính giờ</span></div>
           </div>
@@ -784,71 +871,26 @@
     <div class="container">
       <div class="section__head reveal">
         <span class="microcaps">Lộ trình</span>
-        <h2>Trọn vẹn <span class="num">20</span> buổi trong <span class="num">10</span> tuần</h2>
+        <h2>Lộ trình học</h2>
         <p>9 buổi Verbal, 8 buổi Quant, 2 buổi Data Insights và 1 buổi tổng ôn. Mỗi tuần có hai nhánh kiến thức chạy song song.</p>
       </div>
-      <div class="course-map reveal" data-course-map>
+      <div class="course-map reveal">
         <div class="course-map__legend" aria-label="Màu phân loại nội dung">
           <span><i class="is-verbal" aria-hidden="true"></i>Verbal</span>
           <span><i class="is-quant" aria-hidden="true"></i>Quant</span>
           <span><i class="is-data" aria-hidden="true"></i>Data Insights</span>
-          <span><i class="is-review" aria-hidden="true"></i>Tổng ôn</span>
         </div>
-
-        <div class="course-map__tabs" role="tablist" aria-label="Chọn tuần học">
-          <button class="course-week-tab course-week-tab--vq is-active" id="course-week-tab-01" type="button" role="tab" aria-selected="true" aria-controls="course-week-01" data-course-week-tab="0"><span class="num">01</span></button>
-          <button class="course-week-tab course-week-tab--vq" id="course-week-tab-02" type="button" role="tab" aria-selected="false" aria-controls="course-week-02" data-course-week-tab="1" tabindex="-1"><span class="num">02</span></button>
-          <button class="course-week-tab course-week-tab--vq" id="course-week-tab-03" type="button" role="tab" aria-selected="false" aria-controls="course-week-03" data-course-week-tab="2" tabindex="-1"><span class="num">03</span></button>
-          <button class="course-week-tab course-week-tab--vq" id="course-week-tab-04" type="button" role="tab" aria-selected="false" aria-controls="course-week-04" data-course-week-tab="3" tabindex="-1"><span class="num">04</span></button>
-          <button class="course-week-tab course-week-tab--vq" id="course-week-tab-05" type="button" role="tab" aria-selected="false" aria-controls="course-week-05" data-course-week-tab="4" tabindex="-1"><span class="num">05</span></button>
-          <button class="course-week-tab course-week-tab--vq" id="course-week-tab-06" type="button" role="tab" aria-selected="false" aria-controls="course-week-06" data-course-week-tab="5" tabindex="-1"><span class="num">06</span></button>
-          <button class="course-week-tab course-week-tab--vq" id="course-week-tab-07" type="button" role="tab" aria-selected="false" aria-controls="course-week-07" data-course-week-tab="6" tabindex="-1"><span class="num">07</span></button>
-          <button class="course-week-tab course-week-tab--vq" id="course-week-tab-08" type="button" role="tab" aria-selected="false" aria-controls="course-week-08" data-course-week-tab="7" tabindex="-1"><span class="num">08</span></button>
-          <button class="course-week-tab course-week-tab--vd" id="course-week-tab-09" type="button" role="tab" aria-selected="false" aria-controls="course-week-09" data-course-week-tab="8" tabindex="-1"><span class="num">09</span></button>
-          <button class="course-week-tab course-week-tab--dr" id="course-week-tab-10" type="button" role="tab" aria-selected="false" aria-controls="course-week-10" data-course-week-tab="9" tabindex="-1"><span class="num">10</span></button>
-        </div>
-
-        <div class="course-map__panels">
-          <article class="course-week is-active" id="course-week-01" role="tabpanel" aria-labelledby="course-week-tab-01" data-course-week-panel>
-            <div class="course-topic course-topic--verbal"><span class="course-topic__label">Verbal</span><strong>Master Comprehension</strong><p>Verbal Intro, cách đọc lập luận và nền tảng hiểu câu.</p></div>
-            <div class="course-topic course-topic--quant"><span class="course-topic__label">Quant</span><strong>Number Theory</strong><p>Tổng quan Quant, DI, số học và số dư.</p></div>
-          </article>
-          <article class="course-week" id="course-week-02" role="tabpanel" aria-labelledby="course-week-tab-02" data-course-week-panel>
-            <div class="course-topic course-topic--verbal"><span class="course-topic__label">Verbal</span><strong>Inference</strong><p>Nhận diện điều bắt buộc đúng từ dữ kiện.</p></div>
-            <div class="course-topic course-topic--quant"><span class="course-topic__label">Quant</span><strong>Algebra</strong><p>Biểu thức, phương trình và tư duy biến đổi.</p></div>
-          </article>
-          <article class="course-week" id="course-week-03" role="tabpanel" aria-labelledby="course-week-tab-03" data-course-week-panel>
-            <div class="course-topic course-topic--verbal"><span class="course-topic__label">Verbal</span><strong>Assumption</strong><p>Tìm giả định ẩn giữ cho lập luận đứng vững.</p></div>
-            <div class="course-topic course-topic--quant"><span class="course-topic__label">Quant</span><strong>Sequences</strong><p>Dãy số và cấp số trong bài toán GMAT.</p></div>
-          </article>
-          <article class="course-week" id="course-week-04" role="tabpanel" aria-labelledby="course-week-tab-04" data-course-week-panel>
-            <div class="course-topic course-topic--verbal"><span class="course-topic__label">Verbal</span><strong>Weaken &amp; Strengthen</strong><p>Làm yếu và củng cố lập luận có hệ thống.</p></div>
-            <div class="course-topic course-topic--quant"><span class="course-topic__label">Quant</span><strong>Functions</strong><p>Hàm số và hình học tọa độ.</p></div>
-          </article>
-          <article class="course-week" id="course-week-05" role="tabpanel" aria-labelledby="course-week-tab-05" data-course-week-panel>
-            <div class="course-topic course-topic--verbal"><span class="course-topic__label">Verbal</span><strong>Evaluate</strong><p>Chọn thông tin quyết định chất lượng lập luận.</p></div>
-            <div class="course-topic course-topic--quant"><span class="course-topic__label">Quant</span><strong>Word Problems</strong><p>Chuyển bài toán chữ thành mô hình rõ ràng.</p></div>
-          </article>
-          <article class="course-week" id="course-week-06" role="tabpanel" aria-labelledby="course-week-tab-06" data-course-week-panel>
-            <div class="course-topic course-topic--verbal"><span class="course-topic__label">Verbal</span><strong>Bold-Face &amp; CR khác</strong><p>Vai trò câu chữ và các dạng Critical Reasoning còn lại.</p></div>
-            <div class="course-topic course-topic--quant"><span class="course-topic__label">Quant</span><strong>Overlapping Sets</strong><p>Tập hợp giao nhau và cách biểu diễn dữ kiện.</p></div>
-          </article>
-          <article class="course-week" id="course-week-07" role="tabpanel" aria-labelledby="course-week-tab-07" data-course-week-panel>
-            <div class="course-topic course-topic--verbal"><span class="course-topic__label">Verbal</span><strong>Reading Comprehension I</strong><p>Cấu trúc bài đọc và ý chính.</p></div>
-            <div class="course-topic course-topic--quant"><span class="course-topic__label">Quant</span><strong>Probability</strong><p>Xác suất từ nền tảng đến bài toán kết hợp.</p></div>
-          </article>
-          <article class="course-week" id="course-week-08" role="tabpanel" aria-labelledby="course-week-tab-08" data-course-week-panel>
-            <div class="course-topic course-topic--verbal"><span class="course-topic__label">Verbal</span><strong>Reading Comprehension II</strong><p>Chi tiết, suy luận và thái độ tác giả.</p></div>
-            <div class="course-topic course-topic--quant"><span class="course-topic__label">Quant</span><strong>Combinations</strong><p>Tổ hợp và độ lệch chuẩn.</p></div>
-          </article>
-          <article class="course-week" id="course-week-09" role="tabpanel" aria-labelledby="course-week-tab-09" data-course-week-panel>
-            <div class="course-topic course-topic--verbal"><span class="course-topic__label">Verbal</span><strong>Reading Comprehension III</strong><p>Tốc độ đọc và chiến thuật bài dài.</p></div>
-            <div class="course-topic course-topic--data"><span class="course-topic__label">Data Insights</span><strong>Data Insights I</strong><p>Multi-Source Reasoning và Two-Part Analysis.</p></div>
-          </article>
-          <article class="course-week" id="course-week-10" role="tabpanel" aria-labelledby="course-week-tab-10" data-course-week-panel>
-            <div class="course-topic course-topic--data"><span class="course-topic__label">Data Insights</span><strong>Data Insights II</strong><p>Graphics Interpretation và Table Analysis.</p></div>
-            <div class="course-topic course-topic--review"><span class="course-topic__label">Tổng ôn</span><strong>Comprehensive Review</strong><p>Tổng ôn, thi thử và chiến thuật phòng thi.</p></div>
-          </article>
+        <div class="course-map__grid" aria-label="Nội dung 10 tuần học">
+          <article class="course-week-card"><div class="course-week-card__head"><span>Tuần</span><strong class="num">01</strong><small>Nền tảng</small></div><div class="course-week-card__topic course-week-card__topic--verbal"><span>Verbal</span><strong>Master Comprehension</strong></div><div class="course-week-card__topic course-week-card__topic--quant"><span>Quant</span><strong>Number Theory</strong></div></article>
+          <article class="course-week-card"><div class="course-week-card__head"><span>Tuần</span><strong class="num">02</strong><small>Nền tảng</small></div><div class="course-week-card__topic course-week-card__topic--verbal"><span>Verbal</span><strong>Inference</strong></div><div class="course-week-card__topic course-week-card__topic--quant"><span>Quant</span><strong>Algebra</strong></div></article>
+          <article class="course-week-card"><div class="course-week-card__head"><span>Tuần</span><strong class="num">03</strong><small>Nền tảng</small></div><div class="course-week-card__topic course-week-card__topic--verbal"><span>Verbal</span><strong>Assumption</strong></div><div class="course-week-card__topic course-week-card__topic--quant"><span>Quant</span><strong>Sequences</strong></div></article>
+          <article class="course-week-card"><div class="course-week-card__head"><span>Tuần</span><strong class="num">04</strong><small>Chiến thuật</small></div><div class="course-week-card__topic course-week-card__topic--verbal"><span>Verbal</span><strong>Weaken &amp; Strengthen</strong></div><div class="course-week-card__topic course-week-card__topic--quant"><span>Quant</span><strong>Functions</strong></div></article>
+          <article class="course-week-card"><div class="course-week-card__head"><span>Tuần</span><strong class="num">05</strong><small>Chiến thuật</small></div><div class="course-week-card__topic course-week-card__topic--verbal"><span>Verbal</span><strong>Evaluate</strong></div><div class="course-week-card__topic course-week-card__topic--quant"><span>Quant</span><strong>Word Problems</strong></div></article>
+          <article class="course-week-card"><div class="course-week-card__head"><span>Tuần</span><strong class="num">06</strong><small>Chiến thuật</small></div><div class="course-week-card__topic course-week-card__topic--verbal"><span>Verbal</span><strong>Bold-Face &amp; CR khác</strong></div><div class="course-week-card__topic course-week-card__topic--quant"><span>Quant</span><strong>Overlapping Sets</strong></div></article>
+          <article class="course-week-card"><div class="course-week-card__head"><span>Tuần</span><strong class="num">07</strong><small>Tăng tốc</small></div><div class="course-week-card__topic course-week-card__topic--verbal"><span>Verbal</span><strong>Reading Comprehension I</strong></div><div class="course-week-card__topic course-week-card__topic--quant"><span>Quant</span><strong>Probability</strong></div></article>
+          <article class="course-week-card"><div class="course-week-card__head"><span>Tuần</span><strong class="num">08</strong><small>Tăng tốc</small></div><div class="course-week-card__topic course-week-card__topic--verbal"><span>Verbal</span><strong>Reading Comprehension II</strong></div><div class="course-week-card__topic course-week-card__topic--quant"><span>Quant</span><strong>Combinations</strong></div></article>
+          <article class="course-week-card"><div class="course-week-card__head"><span>Tuần</span><strong class="num">09</strong><small>Tích hợp</small></div><div class="course-week-card__topic course-week-card__topic--verbal"><span>Verbal</span><strong>Reading Comprehension III</strong></div><div class="course-week-card__topic course-week-card__topic--data"><span>Data Insights</span><strong>Data Insights I</strong></div></article>
+          <article class="course-week-card"><div class="course-week-card__head"><span>Tuần</span><strong class="num">10</strong><small>Về đích</small></div><div class="course-week-card__topic course-week-card__topic--data"><span>Data Insights</span><strong>Data Insights II</strong></div><div class="course-week-card__topic course-week-card__topic--review"><span>Tổng ôn</span><strong>Comprehensive Review</strong></div></article>
         </div>
       </div>
     </div>
@@ -859,7 +901,7 @@
     <div class="container gmat-enrollment" id="hoc-phi">
       <div class="section__head section__head--center reveal">
         <span class="badge badge--yellow">Sắp khai giảng</span>
-        <h2>Hai lớp GMAT gần nhất</h2>
+        <h2>Lịch khai giảng gần nhất</h2>
         <p>Chọn lịch học phù hợp với kế hoạch của bạn. Cả hai lớp đều học trực tuyến, kéo dài 20 buổi trong 10 tuần và giới hạn tối đa 8 học viên.</p>
       </div>
 
@@ -875,7 +917,7 @@
           <div class="row"><span>Sĩ số</span><strong class="num">Tối đa 8 học viên</strong></div>
           <div class="row"><span>Học phí</span><strong class="num">8.500.000đ</strong></div>
           <div class="launch-card__price"><span>Early Bird</span><strong class="num">7.650.000đ</strong><small>Đăng ký trước khai giảng ít nhất 20 ngày</small></div>
-          <a href="https://zalo.me/0963557153" class="btn btn--primary">Giữ chỗ lớp gần nhất</a>
+          <a href="https://app.notion.com/p/namanhsuit/Link-ng-k-GMAT-1de173e83d5680b190eecea1958a96af?source=copy_link" class="btn btn--primary" data-gmat-enroll>Giữ chỗ lớp gần nhất</a>
         </article>
 
         <article class="card class-panel launch-card upcoming-class reveal" data-upcoming-class="2">
@@ -889,7 +931,7 @@
           <div class="row"><span>Sĩ số</span><strong class="num">Tối đa 8 học viên</strong></div>
           <div class="row"><span>Học phí</span><strong class="num">8.500.000đ</strong></div>
           <div class="launch-card__price"><span>Early Bird</span><strong class="num">7.650.000đ</strong><small>Đăng ký trước khai giảng ít nhất 20 ngày</small></div>
-          <a href="https://zalo.me/0963557153" class="btn btn--primary">Giữ chỗ lớp tiếp theo</a>
+          <a href="https://app.notion.com/p/namanhsuit/Link-ng-k-GMAT-1de173e83d5680b190eecea1958a96af?source=copy_link" class="btn btn--primary" data-gmat-enroll>Giữ chỗ lớp tiếp theo</a>
         </article>
       </div>
 
@@ -947,7 +989,10 @@
       </div>
       <div class="teacher-grid">
         <article class="teacher-profile reveal">
-          <div class="teacher-profile__portrait teacher-profile__portrait--mint"><span class="num">730</span><small>GMAT · Top 5%</small></div>
+          <div class="teacher-profile__portrait teacher-profile__portrait--mint">
+            <span class="teacher-profile__photo"><img src="assets/teachers/le-nam-anh.jpg" alt="Lê Nam Anh tại một buổi workshop"></span>
+            <span class="teacher-profile__score"><strong class="num">730</strong><small>GMAT · Top 5%</small></span>
+          </div>
           <div>
             <span class="microcaps">Giảng viên Verbal</span>
             <h3>Lê Nam Anh</h3>
@@ -956,7 +1001,10 @@
           </div>
         </article>
         <article class="teacher-profile reveal">
-          <div class="teacher-profile__portrait teacher-profile__portrait--sky"><span class="num">740</span><small>GMAT · Perfect Quant</small></div>
+          <div class="teacher-profile__portrait teacher-profile__portrait--sky">
+            <span class="teacher-profile__photo"><img src="assets/teachers/bui-anh-vu.jpg" alt="Bùi Anh Vũ"></span>
+            <span class="teacher-profile__score"><strong class="num">740</strong><small>GMAT · Perfect Quant</small></span>
+          </div>
           <div>
             <span class="microcaps">Giảng viên Verbal</span>
             <h3>Bùi Anh Vũ</h3>
@@ -1009,20 +1057,6 @@
     </div>
   </section>
 
-  <!-- ============ CTA CUỐI ============ -->
-  <section class="section section--white">
-    <div class="container contact-panel reveal">
-      <img class="notioly notioly--inline" src="assets/notioly/graduating.svg" alt="" aria-hidden="true">
-      <span class="microcaps">Bước tiếp theo</span>
-      <h2>Làm bài kiểm tra đầu vào miễn phí</h2>
-      <p>Nhắn Zalo cho chúng mình, bạn sẽ nhận một bài kiểm tra ngắn khoảng 30 phút. Dựa trên kết quả, chúng mình gợi ý lộ trình và báo học phí; sau đó quyết định học hay không hoàn toàn ở bạn.</p>
-      <div class="hero__ctas">
-        <a href="https://zalo.me/0963557153" class="btn btn--primary">Nhận bài kiểm tra đầu vào</a>
-        <a href="tel:0963557153" class="btn btn--secondary">Gọi 096 355 71 53</a>
-      </div>
-    </div>
-  </section>
-
   <footer class="footer">
     <div class="container">
       <div class="footer__grid">
@@ -1054,6 +1088,133 @@
     </div>
   </footer>
 
+  <dialog class="gmat-enroll-dialog" id="gmatEnrollDialog" aria-labelledby="gmatEnrollTitle" aria-describedby="gmatEnrollClass">
+    <div class="gmat-enroll-dialog__shell">
+      <button class="gmat-enroll-dialog__close" type="button" data-gmat-enroll-close aria-label="Đóng cửa sổ đăng ký">×</button>
+      <div class="gmat-enroll-dialog__head">
+        <span class="microcaps">Giữ chỗ GMAT Trứng Rán</span>
+        <h2 id="gmatEnrollTitle">Hoàn tất đăng ký trong hai bước</h2>
+        <p id="gmatEnrollClass">Lớp GMAT Trứng Rán</p>
+      </div>
+      <div class="gmat-enroll-dialog__grid">
+        <section class="gmat-enroll-step gmat-enroll-step--form">
+          <span class="gmat-enroll-step__number num">1</span>
+          <h3>Điền form đăng ký</h3>
+          <p>Cho Scholish biết mục tiêu, thời gian dự thi và thông tin liên hệ để đội ngũ xác nhận lớp phù hợp với bạn.</p>
+          <iframe class="gmat-enroll-form-frame" src="https://namanhsuit.notion.site/ebd/1de173e83d5680d3a1c3e51a70b68f28" title="Form đăng ký khóa GMAT" loading="lazy" allowfullscreen></iframe>
+          <p class="gmat-enroll-form-fallback">Nếu form không hiển thị, <a href="https://namanhsuit.notion.site/ebd/1de173e83d5680d3a1c3e51a70b68f28" target="_blank" rel="noopener">mở form trong tab mới</a>.</p>
+        </section>
+        <section class="gmat-enroll-step gmat-enroll-step--payment">
+          <span class="gmat-enroll-step__number num">2</span>
+          <h3>Quét QR thanh toán</h3>
+          <p>Quét mã bằng ứng dụng ngân hàng để hoàn tất bước thanh toán giữ chỗ.</p>
+          <div class="gmat-payment-qr">
+            <img src="assets/gmat-payment-qr.jpg" alt="Mã QR thanh toán TPBank của Lê Nam Anh">
+          </div>
+          <div class="gmat-payment-account"><span>TPBank</span><strong class="num">LÊ NAM ANH · 0429 6754 555</strong></div>
+        </section>
+      </div>
+    </div>
+  </dialog>
+
   <script src="js/main.js"></script>
+  <script>
+    (function () {
+      var demo = document.querySelector('[data-bank-demo]');
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      if (!demo || reduceMotion.matches) return;
+
+      var answers = Array.prototype.slice.call(demo.querySelectorAll('[data-bank-answer]'));
+      var questionCount = demo.querySelector('[data-bank-question-count]');
+      var progressLabel = demo.querySelector('[data-bank-progress-label]');
+      var progressBar = demo.querySelector('[data-bank-progress-bar]');
+      var timer = demo.querySelector('[data-bank-timer]');
+      var mockClock = demo.querySelector('[data-bank-clock]');
+      var step = 1;
+      var questionSeconds = 72;
+      var mockSeconds = 6138;
+      var demoInterval = null;
+      var clockInterval = null;
+
+      function formatClock(total, withHours) {
+        var hours = Math.floor(total / 3600);
+        var minutes = Math.floor((total % 3600) / 60);
+        var seconds = total % 60;
+        var parts = [minutes, seconds].map(function (part) { return String(part).padStart(2, '0'); });
+        return withHours ? String(hours).padStart(2, '0') + ':' + parts.join(':') : parts.join(':');
+      }
+
+      function advanceDemo() {
+        step = (step + 1) % 4;
+        answers.forEach(function (answer, index) { answer.classList.toggle('is-active', index === step); });
+
+        var progress = 68 + step * 4;
+        var question = 12 + step;
+        if (progressBar) progressBar.style.width = progress + '%';
+        if (progressLabel) progressLabel.textContent = progress + '% hoàn thành';
+        if (questionCount) questionCount.textContent = 'Câu ' + question + ' / 20';
+      }
+
+      function tickClocks() {
+        questionSeconds = questionSeconds > 0 ? questionSeconds - 1 : 120;
+        mockSeconds = mockSeconds > 0 ? mockSeconds - 1 : 6138;
+        if (timer) timer.textContent = 'Còn ' + formatClock(questionSeconds, false);
+        if (mockClock) mockClock.textContent = formatClock(mockSeconds, true);
+      }
+
+      function startDemo() {
+        if (demoInterval) return;
+        demo.classList.add('is-demoing');
+        demoInterval = window.setInterval(advanceDemo, 1800);
+        clockInterval = window.setInterval(tickClocks, 1000);
+      }
+
+      function stopDemo() {
+        demo.classList.remove('is-demoing');
+        window.clearInterval(demoInterval);
+        window.clearInterval(clockInterval);
+        demoInterval = null;
+        clockInterval = null;
+      }
+
+      var observer = new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) startDemo();
+        else stopDemo();
+      }, { threshold: 0.28 });
+      observer.observe(demo);
+    })();
+
+    (function () {
+      var dialog = document.getElementById('gmatEnrollDialog');
+      var triggers = document.querySelectorAll('[data-gmat-enroll]');
+      var closeButton = dialog ? dialog.querySelector('[data-gmat-enroll-close]') : null;
+      var selectedClass = dialog ? document.getElementById('gmatEnrollClass') : null;
+      var activeTrigger = null;
+
+      if (!dialog || !closeButton || !triggers.length || typeof HTMLDialogElement === 'undefined') return;
+
+      triggers.forEach(function (trigger) {
+        trigger.setAttribute('aria-haspopup', 'dialog');
+        trigger.addEventListener('click', function (event) {
+          var card = trigger.closest('[data-upcoming-class]');
+          var month = card ? card.querySelector('[data-upcoming-month]') : null;
+          event.preventDefault();
+          activeTrigger = trigger;
+          if (selectedClass) selectedClass.textContent = 'Bạn đang giữ chỗ lớp GMAT Trứng Rán · ' + (month ? month.textContent : 'sắp khai giảng');
+          document.body.classList.add('has-open-dialog');
+          dialog.showModal();
+          closeButton.focus();
+        });
+      });
+
+      closeButton.addEventListener('click', function () { dialog.close(); });
+      dialog.addEventListener('click', function (event) { if (event.target === dialog) dialog.close(); });
+      dialog.addEventListener('close', function () {
+        document.body.classList.remove('has-open-dialog');
+        if (activeTrigger) activeTrigger.focus();
+        activeTrigger = null;
+      });
+    })();
+  </script>
 </body>
 </html>

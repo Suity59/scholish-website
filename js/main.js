@@ -237,63 +237,6 @@
     }, 1000);
   })();
 
-  // Lộ trình GMAT: chọn một tuần và xem hai nhánh kiến thức tương ứng.
-  (function setupCourseMap() {
-    var map = document.querySelector('[data-course-map]');
-    if (!map) return;
-
-    var tabs = Array.prototype.slice.call(map.querySelectorAll('[data-course-week-tab]'));
-    var panels = Array.prototype.slice.call(map.querySelectorAll('[data-course-week-panel]'));
-    if (!tabs.length || tabs.length !== panels.length) return;
-
-    map.classList.add('is-enhanced');
-
-    function activateWeek(index, moveFocus) {
-      tabs.forEach(function (tab, tabIndex) {
-        var active = tabIndex === index;
-        tab.classList.toggle('is-active', active);
-        tab.setAttribute('aria-selected', active ? 'true' : 'false');
-        tab.setAttribute('tabindex', active ? '0' : '-1');
-      });
-
-      panels.forEach(function (panel, panelIndex) {
-        var active = panelIndex === index;
-        panel.classList.toggle('is-active', active);
-        panel.hidden = !active;
-      });
-
-      if (moveFocus) {
-        tabs[index].focus();
-        tabs[index].scrollIntoView({
-          behavior: reduced ? 'auto' : 'smooth',
-          block: 'nearest',
-          inline: 'center'
-        });
-      }
-    }
-
-    tabs.forEach(function (tab, index) {
-      tab.setAttribute('aria-label', 'Tuần ' + (index + 1));
-
-      tab.addEventListener('click', function () {
-        activateWeek(index, false);
-      });
-
-      tab.addEventListener('keydown', function (event) {
-        var nextIndex = index;
-        if (event.key === 'ArrowRight' || event.key === 'ArrowDown') nextIndex = (index + 1) % tabs.length;
-        if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') nextIndex = (index - 1 + tabs.length) % tabs.length;
-        if (event.key === 'Home') nextIndex = 0;
-        if (event.key === 'End') nextIndex = tabs.length - 1;
-        if (nextIndex === index) return;
-        event.preventDefault();
-        activateWeek(nextIndex, true);
-      });
-    });
-
-    activateWeek(0, false);
-  })();
-
   // Số năm kinh nghiệm được tính từ năm bắt đầu và tự cập nhật theo năm tại Việt Nam.
   function updateExperienceYears(root) {
     var currentYear = new Date().getFullYear();
