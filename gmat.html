@@ -106,78 +106,6 @@
     @media (prefers-reduced-motion: reduce) {
       .course-benefit, .course-benefit__art { transition: none; }
     }
-    .manual-layout {
-      display: grid;
-      grid-template-columns: minmax(250px, .75fr) minmax(0, 1.5fr);
-      gap: clamp(40px, 7vw, 90px);
-      align-items: start;
-    }
-    .manual-intro h2 { margin: 10px 0 18px; font-size: clamp(2.2rem, 4.8vw, 4.25rem); }
-    .manual-intro p { max-width: 42ch; color: var(--fg-2); }
-    .manual-flow { position: relative; display: grid; gap: 34px; }
-    .manual-flow::before {
-      content: '';
-      position: absolute;
-      top: 24px;
-      bottom: 24px;
-      left: 23px;
-      width: 2px;
-      background: linear-gradient(var(--coral), var(--mint), var(--sky));
-    }
-    .manual-step {
-      position: relative;
-      display: grid;
-      grid-template-columns: 48px 1fr;
-      gap: 20px;
-      align-items: start;
-    }
-    .manual-step__number {
-      z-index: 1;
-      display: grid;
-      place-items: center;
-      width: 48px;
-      height: 48px;
-      border: 1.5px solid var(--fg-1);
-      border-radius: 50%;
-      background: var(--yellow-soft);
-      font-family: var(--font-heading);
-      font-weight: 700;
-    }
-    .manual-step:nth-child(2) .manual-step__number { background: var(--mint-soft); }
-    .manual-step:nth-child(3) .manual-step__number { background: var(--sky-soft); }
-    .manual-step h3 { margin: 2px 0 6px; font-size: 21px; }
-    .manual-step p { max-width: 58ch; color: var(--fg-2); font-size: 15.5px; }
-    .manual-practice {
-      display: grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap: 28px;
-      margin-top: clamp(48px, 7vw, 80px);
-      padding: clamp(26px, 4vw, 42px);
-      border: 1.5px solid var(--fg-1);
-      border-radius: 16px;
-      background: var(--bg-1);
-    }
-    .manual-practice h3 { margin-bottom: 10px; font-size: clamp(1.55rem, 3vw, 2.3rem); }
-    .manual-practice p { color: var(--fg-2); }
-    .manual-materials { display: grid; grid-template-columns: repeat(3, 1fr); align-content: center; }
-    .manual-materials span {
-      padding: 14px 18px;
-      border-left: 1px solid var(--hairline);
-      font-size: 14px;
-      font-weight: 700;
-      text-align: center;
-    }
-    @media (max-width: 800px) {
-      .manual-layout, .manual-practice { grid-template-columns: 1fr; }
-      .manual-intro p { max-width: 58ch; }
-      .manual-materials span:first-child { border-left: 0; }
-    }
-    @media (max-width: 520px) {
-      .manual-materials { grid-template-columns: 1fr; }
-      .manual-materials span { border-left: 0; border-top: 1px solid var(--hairline); }
-      .manual-materials span:first-child { border-top: 0; }
-    }
-
     /* ScholishBank product proof */
     .bank-showcase { overflow: hidden; background-color: var(--bg-1); }
     .bank-showcase__head { max-width: 900px; margin: 0 auto 46px; text-align: center; }
@@ -310,6 +238,13 @@
     .bank-explanation__note { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 24px; padding: 22px 26px; border: 1px solid var(--hairline); border-radius: 16px; background: var(--lavender-soft); }
     .bank-explanation__note h3 { font-size: 25px; }
     .bank-explanation__note p { max-width: 520px; color: var(--fg-2); }
+    .gmat-enrollment > .upcoming__classes { margin-top: 0; }
+    .gmat-enrollment .launch-card { height: 100%; }
+    .gmat-student-proof { margin-top: clamp(64px, 9vw, 104px); }
+    .gmat-student-proof__head { max-width: 700px; margin: 0 auto 28px; text-align: center; }
+    .gmat-student-proof__head h2 { margin-top: 10px; font-size: var(--fs-sub); }
+    .gmat-student-proof__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+    .gmat-student-proof__grid .quote { height: 100%; padding: 26px; }
     @keyframes bank-pulse { 50% { opacity: .4; transform: scaleX(.82); } }
     @media (max-width: 900px) {
       .bank-bento { grid-template-columns: 1fr 1fr; }
@@ -325,6 +260,7 @@
       .bank-proof div { border-top: 0; padding: 2px 0; }
       .bank-explanation__demo { border-radius: 14px; }
       .bank-explanation__note { align-items: flex-start; flex-direction: column; }
+      .gmat-student-proof__grid { grid-template-columns: 1fr; }
     }
     @media (prefers-reduced-motion: reduce) {
       .bank-card, .bank-mini__track .is-live { transition: none; animation: none; }
@@ -424,45 +360,6 @@
           </ul>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- ============ TRẢI NGHIỆM HỌC TỪ COURSE MANUAL ============ -->
-  <section class="section section--ivory">
-    <div class="container">
-      <div class="manual-layout">
-        <div class="manual-intro reveal">
-          <span class="microcaps">Cách lớp học vận hành</span>
-          <h2>Một buổi học bắt đầu trước khi Zoom mở.</h2>
-          <p>Bạn không đến lớp để nghe lại tài liệu. Bạn đến để kiểm tra cách mình hiểu vấn đề, học từ góc nhìn của bạn bè và nhận phản hồi trực tiếp từ tutor.</p>
-        </div>
-        <div class="manual-flow">
-          <article class="manual-step reveal">
-            <span class="manual-step__number num">01</span>
-            <div><h3>Chuẩn bị trước buổi học</h3><p>Đọc tài liệu, làm bài và tự nghiên cứu chủ đề. Nhóm 1 - 2 học viên chuẩn bị phần facilitation tập trung vào ý chính, mối liên hệ và những điểm khó.</p></div>
-          </article>
-          <article class="manual-step reveal">
-            <span class="manual-step__number num">02</span>
-            <div><h3>Dẫn dắt, không chỉ thuyết trình</h3><p>Nhóm leader trình bày tối đa 20 - 25 phút, đưa thêm ví dụ và khuyến khích cả lớp đặt câu hỏi. Tutor quan sát, phản biện và chốt lại kiến thức cần nhớ.</p></div>
-          </article>
-          <article class="manual-step reveal">
-            <span class="manual-step__number num">03</span>
-            <div><h3>Luyện lại bằng câu hỏi thật</h3><p>Sau buổi học, bạn củng cố chủ đề bằng bài tập GMAT, Question Bank và phản hồi trong nhóm lớp để biến kiến thức thành kỹ năng làm bài.</p></div>
-          </article>
-        </div>
-      </div>
-      <aside class="manual-practice reveal">
-        <div>
-          <span class="microcaps">Học online nhưng không học một mình</span>
-          <h3>Bật camera, cùng chịu trách nhiệm cho buổi học.</h3>
-          <p>Việc nhìn thấy nhau giúp lớp kết nối, tập trung và hỗ trợ nhóm đang facilitation. Mỗi người đều góp phần tạo nên chất lượng của buổi thảo luận.</p>
-        </div>
-        <div class="manual-materials" aria-label="Tài liệu học chính">
-          <span>Official Guide</span>
-          <span>Manhattan Prep</span>
-          <span>CR Bible</span>
-        </div>
-      </aside>
     </div>
   </section>
 
@@ -890,52 +787,126 @@
         <h2>Trọn vẹn <span class="num">20</span> buổi trong <span class="num">10</span> tuần</h2>
         <p>9 buổi Verbal, 8 buổi Quant, 2 buổi Data Insights và 1 buổi tổng ôn. Mỗi tuần có hai nhánh kiến thức chạy song song.</p>
       </div>
-      <div class="course-map reveal">
-        <div class="course-map__rail" aria-hidden="true"><span></span></div>
-        <article class="course-week"><span class="course-week__no num">01</span><div><strong>Master Comprehension</strong><p>Verbal Intro, cách đọc lập luận và nền tảng hiểu câu.</p></div><div><strong>Number Theory</strong><p>Tổng quan Quant, DI, số học và số dư.</p></div></article>
-        <article class="course-week"><span class="course-week__no num">02</span><div><strong>Inference</strong><p>Nhận diện điều bắt buộc đúng từ dữ kiện.</p></div><div><strong>Algebra</strong><p>Biểu thức, phương trình và tư duy biến đổi.</p></div></article>
-        <article class="course-week"><span class="course-week__no num">03</span><div><strong>Assumption</strong><p>Tìm giả định ẩn giữ cho lập luận đứng vững.</p></div><div><strong>Sequences</strong><p>Dãy số và cấp số trong bài toán GMAT.</p></div></article>
-        <article class="course-week"><span class="course-week__no num">04</span><div><strong>Weaken &amp; Strengthen</strong><p>Làm yếu và củng cố lập luận có hệ thống.</p></div><div><strong>Functions</strong><p>Hàm số và hình học tọa độ.</p></div></article>
-        <article class="course-week"><span class="course-week__no num">05</span><div><strong>Evaluate</strong><p>Chọn thông tin quyết định chất lượng lập luận.</p></div><div><strong>Word Problems</strong><p>Chuyển bài toán chữ thành mô hình rõ ràng.</p></div></article>
-        <article class="course-week"><span class="course-week__no num">06</span><div><strong>Bold-Face &amp; CR khác</strong><p>Vai trò câu chữ và các dạng Critical Reasoning còn lại.</p></div><div><strong>Overlapping Sets</strong><p>Tập hợp giao nhau và cách biểu diễn dữ kiện.</p></div></article>
-        <article class="course-week"><span class="course-week__no num">07</span><div><strong>Reading Comprehension I</strong><p>Cấu trúc bài đọc và ý chính.</p></div><div><strong>Probability</strong><p>Xác suất từ nền tảng đến bài toán kết hợp.</p></div></article>
-        <article class="course-week"><span class="course-week__no num">08</span><div><strong>Reading Comprehension II</strong><p>Chi tiết, suy luận và thái độ tác giả.</p></div><div><strong>Combinations</strong><p>Tổ hợp và độ lệch chuẩn.</p></div></article>
-        <article class="course-week"><span class="course-week__no num">09</span><div><strong>Reading Comprehension III</strong><p>Tốc độ đọc và chiến thuật bài dài.</p></div><div><strong>Data Insights I</strong><p>Multi-Source Reasoning và Two-Part Analysis.</p></div></article>
-        <article class="course-week"><span class="course-week__no num">10</span><div><strong>Data Insights II</strong><p>Graphics Interpretation và Table Analysis.</p></div><div><strong>Comprehensive Review</strong><p>Tổng ôn, thi thử và chiến thuật phòng thi.</p></div></article>
+      <div class="course-map reveal" data-course-map>
+        <div class="course-map__legend" aria-label="Màu phân loại nội dung">
+          <span><i class="is-verbal" aria-hidden="true"></i>Verbal</span>
+          <span><i class="is-quant" aria-hidden="true"></i>Quant</span>
+          <span><i class="is-data" aria-hidden="true"></i>Data Insights</span>
+          <span><i class="is-review" aria-hidden="true"></i>Tổng ôn</span>
+        </div>
+
+        <div class="course-map__tabs" role="tablist" aria-label="Chọn tuần học">
+          <button class="course-week-tab course-week-tab--vq is-active" id="course-week-tab-01" type="button" role="tab" aria-selected="true" aria-controls="course-week-01" data-course-week-tab="0"><span class="num">01</span></button>
+          <button class="course-week-tab course-week-tab--vq" id="course-week-tab-02" type="button" role="tab" aria-selected="false" aria-controls="course-week-02" data-course-week-tab="1" tabindex="-1"><span class="num">02</span></button>
+          <button class="course-week-tab course-week-tab--vq" id="course-week-tab-03" type="button" role="tab" aria-selected="false" aria-controls="course-week-03" data-course-week-tab="2" tabindex="-1"><span class="num">03</span></button>
+          <button class="course-week-tab course-week-tab--vq" id="course-week-tab-04" type="button" role="tab" aria-selected="false" aria-controls="course-week-04" data-course-week-tab="3" tabindex="-1"><span class="num">04</span></button>
+          <button class="course-week-tab course-week-tab--vq" id="course-week-tab-05" type="button" role="tab" aria-selected="false" aria-controls="course-week-05" data-course-week-tab="4" tabindex="-1"><span class="num">05</span></button>
+          <button class="course-week-tab course-week-tab--vq" id="course-week-tab-06" type="button" role="tab" aria-selected="false" aria-controls="course-week-06" data-course-week-tab="5" tabindex="-1"><span class="num">06</span></button>
+          <button class="course-week-tab course-week-tab--vq" id="course-week-tab-07" type="button" role="tab" aria-selected="false" aria-controls="course-week-07" data-course-week-tab="6" tabindex="-1"><span class="num">07</span></button>
+          <button class="course-week-tab course-week-tab--vq" id="course-week-tab-08" type="button" role="tab" aria-selected="false" aria-controls="course-week-08" data-course-week-tab="7" tabindex="-1"><span class="num">08</span></button>
+          <button class="course-week-tab course-week-tab--vd" id="course-week-tab-09" type="button" role="tab" aria-selected="false" aria-controls="course-week-09" data-course-week-tab="8" tabindex="-1"><span class="num">09</span></button>
+          <button class="course-week-tab course-week-tab--dr" id="course-week-tab-10" type="button" role="tab" aria-selected="false" aria-controls="course-week-10" data-course-week-tab="9" tabindex="-1"><span class="num">10</span></button>
+        </div>
+
+        <div class="course-map__panels">
+          <article class="course-week is-active" id="course-week-01" role="tabpanel" aria-labelledby="course-week-tab-01" data-course-week-panel>
+            <div class="course-topic course-topic--verbal"><span class="course-topic__label">Verbal</span><strong>Master Comprehension</strong><p>Verbal Intro, cách đọc lập luận và nền tảng hiểu câu.</p></div>
+            <div class="course-topic course-topic--quant"><span class="course-topic__label">Quant</span><strong>Number Theory</strong><p>Tổng quan Quant, DI, số học và số dư.</p></div>
+          </article>
+          <article class="course-week" id="course-week-02" role="tabpanel" aria-labelledby="course-week-tab-02" data-course-week-panel>
+            <div class="course-topic course-topic--verbal"><span class="course-topic__label">Verbal</span><strong>Inference</strong><p>Nhận diện điều bắt buộc đúng từ dữ kiện.</p></div>
+            <div class="course-topic course-topic--quant"><span class="course-topic__label">Quant</span><strong>Algebra</strong><p>Biểu thức, phương trình và tư duy biến đổi.</p></div>
+          </article>
+          <article class="course-week" id="course-week-03" role="tabpanel" aria-labelledby="course-week-tab-03" data-course-week-panel>
+            <div class="course-topic course-topic--verbal"><span class="course-topic__label">Verbal</span><strong>Assumption</strong><p>Tìm giả định ẩn giữ cho lập luận đứng vững.</p></div>
+            <div class="course-topic course-topic--quant"><span class="course-topic__label">Quant</span><strong>Sequences</strong><p>Dãy số và cấp số trong bài toán GMAT.</p></div>
+          </article>
+          <article class="course-week" id="course-week-04" role="tabpanel" aria-labelledby="course-week-tab-04" data-course-week-panel>
+            <div class="course-topic course-topic--verbal"><span class="course-topic__label">Verbal</span><strong>Weaken &amp; Strengthen</strong><p>Làm yếu và củng cố lập luận có hệ thống.</p></div>
+            <div class="course-topic course-topic--quant"><span class="course-topic__label">Quant</span><strong>Functions</strong><p>Hàm số và hình học tọa độ.</p></div>
+          </article>
+          <article class="course-week" id="course-week-05" role="tabpanel" aria-labelledby="course-week-tab-05" data-course-week-panel>
+            <div class="course-topic course-topic--verbal"><span class="course-topic__label">Verbal</span><strong>Evaluate</strong><p>Chọn thông tin quyết định chất lượng lập luận.</p></div>
+            <div class="course-topic course-topic--quant"><span class="course-topic__label">Quant</span><strong>Word Problems</strong><p>Chuyển bài toán chữ thành mô hình rõ ràng.</p></div>
+          </article>
+          <article class="course-week" id="course-week-06" role="tabpanel" aria-labelledby="course-week-tab-06" data-course-week-panel>
+            <div class="course-topic course-topic--verbal"><span class="course-topic__label">Verbal</span><strong>Bold-Face &amp; CR khác</strong><p>Vai trò câu chữ và các dạng Critical Reasoning còn lại.</p></div>
+            <div class="course-topic course-topic--quant"><span class="course-topic__label">Quant</span><strong>Overlapping Sets</strong><p>Tập hợp giao nhau và cách biểu diễn dữ kiện.</p></div>
+          </article>
+          <article class="course-week" id="course-week-07" role="tabpanel" aria-labelledby="course-week-tab-07" data-course-week-panel>
+            <div class="course-topic course-topic--verbal"><span class="course-topic__label">Verbal</span><strong>Reading Comprehension I</strong><p>Cấu trúc bài đọc và ý chính.</p></div>
+            <div class="course-topic course-topic--quant"><span class="course-topic__label">Quant</span><strong>Probability</strong><p>Xác suất từ nền tảng đến bài toán kết hợp.</p></div>
+          </article>
+          <article class="course-week" id="course-week-08" role="tabpanel" aria-labelledby="course-week-tab-08" data-course-week-panel>
+            <div class="course-topic course-topic--verbal"><span class="course-topic__label">Verbal</span><strong>Reading Comprehension II</strong><p>Chi tiết, suy luận và thái độ tác giả.</p></div>
+            <div class="course-topic course-topic--quant"><span class="course-topic__label">Quant</span><strong>Combinations</strong><p>Tổ hợp và độ lệch chuẩn.</p></div>
+          </article>
+          <article class="course-week" id="course-week-09" role="tabpanel" aria-labelledby="course-week-tab-09" data-course-week-panel>
+            <div class="course-topic course-topic--verbal"><span class="course-topic__label">Verbal</span><strong>Reading Comprehension III</strong><p>Tốc độ đọc và chiến thuật bài dài.</p></div>
+            <div class="course-topic course-topic--data"><span class="course-topic__label">Data Insights</span><strong>Data Insights I</strong><p>Multi-Source Reasoning và Two-Part Analysis.</p></div>
+          </article>
+          <article class="course-week" id="course-week-10" role="tabpanel" aria-labelledby="course-week-tab-10" data-course-week-panel>
+            <div class="course-topic course-topic--data"><span class="course-topic__label">Data Insights</span><strong>Data Insights II</strong><p>Graphics Interpretation và Table Analysis.</p></div>
+            <div class="course-topic course-topic--review"><span class="course-topic__label">Tổng ôn</span><strong>Comprehensive Review</strong><p>Tổng ôn, thi thử và chiến thuật phòng thi.</p></div>
+          </article>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ THÔNG TIN LỚP + WALL OF LOVE ============ -->
+  <!-- ============ HAI LỚP SẮP KHAI GIẢNG + KẾT QUẢ HỌC VIÊN ============ -->
   <section class="section section--white">
-    <div class="container enrollment-grid" id="hoc-phi">
-      <div class="card class-panel launch-card reveal" data-upcoming-class="1">
-        <span class="badge badge--yellow">Lớp gần nhất</span>
-        <h2>GMAT Trứng Rán · <span class="num" data-upcoming-month>9/2026</span></h2>
-        <div class="row"><span>Khai giảng</span><strong><time data-upcoming-start datetime="2026-09-01">Thứ Ba, 01/09/2026</time></strong></div>
-        <div class="row"><span>Lịch học</span><strong data-upcoming-schedule>Thứ Ba và Thứ Bảy</strong></div>
-        <div class="row"><span>Giờ học</span><strong class="num">19:30 - 21:30</strong></div>
-        <div class="row"><span>Hình thức</span><strong>Zoom hoặc Google Meet</strong></div>
-        <div class="row"><span>Thời lượng</span><strong class="num">20 buổi · 10 tuần</strong></div>
-        <div class="row"><span>Sĩ số</span><strong class="num">Tối đa 8 học viên</strong></div>
-        <div class="row"><span>Học phí</span><strong class="num">8.500.000đ</strong></div>
-        <div class="launch-card__price"><span>Early Bird</span><strong class="num">7.650.000đ</strong><small>Đăng ký trước khai giảng ít nhất 20 ngày</small></div>
-        <a href="https://zalo.me/0963557153" class="btn btn--primary">Giữ chỗ lớp gần nhất</a>
+    <div class="container gmat-enrollment" id="hoc-phi">
+      <div class="section__head section__head--center reveal">
+        <span class="badge badge--yellow">Sắp khai giảng</span>
+        <h2>Hai lớp GMAT gần nhất</h2>
+        <p>Chọn lịch học phù hợp với kế hoạch của bạn. Cả hai lớp đều học trực tuyến, kéo dài 20 buổi trong 10 tuần và giới hạn tối đa 8 học viên.</p>
       </div>
-      <div class="student-proof">
-        <div class="section__head reveal" style="margin-bottom: 24px;">
+
+      <div class="upcoming__classes">
+        <article class="card class-panel launch-card upcoming-class reveal" data-upcoming-class="1">
+          <span class="microcaps">Lớp gần nhất</span>
+          <h2>GMAT Trứng Rán · <span class="num" data-upcoming-month>9/2026</span></h2>
+          <div class="row"><span>Khai giảng</span><strong><time data-upcoming-start datetime="2026-09-01">Thứ Ba, 01/09/2026</time></strong></div>
+          <div class="row"><span>Lịch học</span><strong data-upcoming-schedule>Thứ Ba và Thứ Bảy</strong></div>
+          <div class="row"><span>Giờ học</span><strong class="num">19:30 - 21:30</strong></div>
+          <div class="row"><span>Hình thức</span><strong>Zoom hoặc Google Meet</strong></div>
+          <div class="row"><span>Thời lượng</span><strong class="num">20 buổi · 10 tuần</strong></div>
+          <div class="row"><span>Sĩ số</span><strong class="num">Tối đa 8 học viên</strong></div>
+          <div class="row"><span>Học phí</span><strong class="num">8.500.000đ</strong></div>
+          <div class="launch-card__price"><span>Early Bird</span><strong class="num">7.650.000đ</strong><small>Đăng ký trước khai giảng ít nhất 20 ngày</small></div>
+          <a href="https://zalo.me/0963557153" class="btn btn--primary">Giữ chỗ lớp gần nhất</a>
+        </article>
+
+        <article class="card class-panel launch-card upcoming-class reveal" data-upcoming-class="2">
+          <span class="microcaps">Lớp tiếp theo</span>
+          <h2>GMAT Trứng Rán · <span class="num" data-upcoming-month>10/2026</span></h2>
+          <div class="row"><span>Khai giảng</span><strong><time data-upcoming-start datetime="2026-10-04">Chủ nhật, 04/10/2026</time></strong></div>
+          <div class="row"><span>Lịch học</span><strong data-upcoming-schedule>Thứ Tư và Chủ nhật</strong></div>
+          <div class="row"><span>Giờ học</span><strong class="num">19:30 - 21:30</strong></div>
+          <div class="row"><span>Hình thức</span><strong>Zoom hoặc Google Meet</strong></div>
+          <div class="row"><span>Thời lượng</span><strong class="num">20 buổi · 10 tuần</strong></div>
+          <div class="row"><span>Sĩ số</span><strong class="num">Tối đa 8 học viên</strong></div>
+          <div class="row"><span>Học phí</span><strong class="num">8.500.000đ</strong></div>
+          <div class="launch-card__price"><span>Early Bird</span><strong class="num">7.650.000đ</strong><small>Đăng ký trước khai giảng ít nhất 20 ngày</small></div>
+          <a href="https://zalo.me/0963557153" class="btn btn--primary">Giữ chỗ lớp tiếp theo</a>
+        </article>
+      </div>
+
+      <div class="gmat-student-proof">
+        <div class="gmat-student-proof__head reveal">
           <span class="microcaps">Học viên GMAT nói gì</span>
-          <h2 style="font-size: var(--fs-sub);">Kết quả và lời thật</h2>
+          <h2>Kết quả và lời thật</h2>
         </div>
-        <div style="display: grid; gap: 20px;">
-          <div class="card quote reveal" style="padding: 26px;">
+        <div class="gmat-student-proof__grid">
+          <div class="card quote reveal">
             <blockquote>&ldquo;Đạt target <b class="num">Q42 → Q48 trong 2 tháng</b> với chị Felix Bùi, tutor của Scholish. Em học với chị Felix, <b>tutor có tâm nhất hệ</b>.&rdquo;</blockquote>
             <div class="quote__who">
               <span class="quote__avatar quote__avatar--mint" data-avatar="phuong-tran">P</span>
               <div><div class="quote__name">Phương Trần</div><div class="quote__result num">GMAT · Q42 → Q48 · review Facebook</div></div>
             </div>
           </div>
-          <div class="card quote reveal" style="padding: 26px;">
+          <div class="card quote reveal">
             <blockquote>&ldquo;Chúc mừng Dũng đã chính thức ghi tên mình vào <b>top 10% toàn cầu GMAT Focus</b> với số điểm <b class="num">645</b>!&rdquo;</blockquote>
             <div class="quote__who">
               <span class="quote__avatar quote__avatar--yellow">D</span>
