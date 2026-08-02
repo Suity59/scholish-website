@@ -14,6 +14,64 @@
     });
   }
 
+  // Tất cả CTA Zalo mở cùng một danh thiếp QR; link trực tiếp và số điện thoại
+  // vẫn được giữ trong popup để người dùng chọn cách liên hệ thuận tiện nhất.
+  (function setupZaloConsultDialog() {
+    var triggers = document.querySelectorAll('a[href="https://zalo.me/0963557153"]');
+    if (!triggers.length || typeof HTMLDialogElement === 'undefined') return;
+
+    var dialog = document.createElement('dialog');
+    dialog.className = 'zalo-dialog';
+    dialog.id = 'zaloConsultDialog';
+    dialog.setAttribute('aria-labelledby', 'zaloDialogTitle');
+    dialog.innerHTML = [
+      '<div class="zalo-dialog__shell">',
+      '  <button class="zalo-dialog__close" type="button" data-zalo-close aria-label="Đóng cửa sổ tư vấn">×</button>',
+      '  <div class="zalo-dialog__copy">',
+      '    <span class="microcaps">Tư vấn cùng Scholish</span>',
+      '    <h2 id="zaloDialogTitle">Kết nối với Nam Anh qua Zalo</h2>',
+      '    <p>Quét mã bằng camera hoặc ứng dụng Zalo để trao đổi trực tiếp về mục tiêu, lịch học và khóa học phù hợp với bạn.</p>',
+      '    <div class="zalo-dialog__contact">',
+      '      <span>Số điện thoại / Zalo</span>',
+      '      <a class="num" href="tel:0963557153">096 355 71 53</a>',
+      '    </div>',
+      '    <a class="btn btn--primary" href="https://zalo.me/0963557153" target="_blank" rel="noopener">Mở Zalo trực tiếp</a>',
+      '  </div>',
+      '  <div class="zalo-dialog__qr">',
+      '    <img src="assets/zalo-le-nam-anh.jpg" alt="Mã QR Zalo của Lê Nam Anh">',
+      '  </div>',
+      '</div>'
+    ].join('');
+    document.body.appendChild(dialog);
+
+    var closeButton = dialog.querySelector('[data-zalo-close]');
+    var activeTrigger = null;
+
+    triggers.forEach(function (trigger) {
+      trigger.setAttribute('aria-haspopup', 'dialog');
+      trigger.setAttribute('aria-controls', 'zaloConsultDialog');
+      trigger.addEventListener('click', function (event) {
+        event.preventDefault();
+        activeTrigger = trigger;
+        if (links) links.classList.remove('is-open');
+        if (nav) nav.classList.remove('menu-open');
+        if (toggle) toggle.setAttribute('aria-expanded', 'false');
+        document.body.classList.add('has-open-dialog');
+        dialog.showModal();
+        dialog.scrollTop = 0;
+        closeButton.focus({ preventScroll: true });
+      });
+    });
+
+    closeButton.addEventListener('click', function () { dialog.close(); });
+    dialog.addEventListener('click', function (event) { if (event.target === dialog) dialog.close(); });
+    dialog.addEventListener('close', function () {
+      document.body.classList.remove('has-open-dialog');
+      if (activeTrigger) activeTrigger.focus();
+      activeTrigger = null;
+    });
+  })();
+
   // FAQ accordion
   document.querySelectorAll('.faq__q').forEach(function (btn) {
     btn.addEventListener('click', function () {

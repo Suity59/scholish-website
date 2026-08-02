@@ -1650,6 +1650,92 @@ body.has-open-dialog { overflow: hidden; }
 }
 @media (max-width: 900px) { .doodle { display: none; } }
 
+/* ---------- Shared Zalo consultation dialog ---------- */
+.zalo-dialog {
+  width: min(760px, calc(100vw - 32px));
+  max-width: none;
+  max-height: calc(100dvh - 32px);
+  padding: 0;
+  overflow: auto;
+  border: 0;
+  border-radius: 20px;
+  background: var(--bg-2);
+  color: var(--fg-1);
+  box-shadow: 0 28px 90px rgba(27, 22, 36, .28);
+}
+.zalo-dialog::backdrop {
+  background: rgba(27, 22, 36, .66);
+  backdrop-filter: blur(5px);
+}
+.zalo-dialog__shell {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 320px);
+  gap: clamp(24px, 4vw, 42px);
+  align-items: center;
+  padding: clamp(28px, 5vw, 48px);
+}
+.zalo-dialog__close {
+  position: absolute;
+  z-index: 1;
+  top: 16px;
+  right: 16px;
+  display: grid;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  place-items: center;
+  border: 1px solid var(--hairline);
+  border-radius: 50%;
+  background: white;
+  color: var(--fg-1);
+  font-size: 22px;
+  line-height: 1;
+}
+.zalo-dialog__close:focus-visible { outline: 3px solid var(--fg-1); outline-offset: 3px; }
+.zalo-dialog__copy { min-width: 0; }
+.zalo-dialog__copy h2 {
+  margin: 10px 0 14px;
+  font-size: clamp(2rem, 4vw, 3.15rem);
+  line-height: 1.02;
+}
+.zalo-dialog__copy > p { color: var(--fg-2); }
+.zalo-dialog__contact {
+  display: grid;
+  gap: 4px;
+  margin: 26px 0 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--hairline);
+}
+.zalo-dialog__contact span { color: var(--fg-2); font-size: 13px; }
+.zalo-dialog__contact a { color: var(--fg-1); font-size: 21px; font-weight: 800; }
+.zalo-dialog__copy .btn { width: 100%; }
+.zalo-dialog__qr {
+  overflow: hidden;
+  border: 1px solid var(--hairline);
+  background: #405e80;
+}
+.zalo-dialog__qr img { display: block; width: 100%; height: auto; }
+
+@media (max-width: 680px) {
+  .zalo-dialog {
+    width: calc(100vw - 16px);
+    max-height: calc(100dvh - 16px);
+    border-radius: 14px;
+  }
+  .zalo-dialog__shell {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 28px 20px 24px;
+  }
+  .zalo-dialog__copy { padding-right: 34px; }
+  .zalo-dialog__copy h2 { font-size: clamp(1.85rem, 10vw, 2.5rem); }
+  .zalo-dialog__copy > p,
+  .zalo-dialog__contact,
+  .zalo-dialog__copy .btn { grid-column: 1; }
+  .zalo-dialog__qr { width: min(100%, 310px); margin: 0 auto; }
+}
+
 /* ---------- Shared GMAT enrollment dialog ---------- */
 .gmat-enroll-dialog {
   width: min(1180px, calc(100vw - 32px));
