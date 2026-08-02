@@ -394,11 +394,11 @@ a.exam-pick--thinking { --exam-bg: #E9DFFD; --exam-accent: var(--lavender); }
 .stat-cards {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr 1.15fr 1fr;
+  grid-template-columns: 1fr 1.08fr 1.18fr;
   align-items: center;
-  gap: clamp(2.75rem, 5vw, 4.75rem);
-  max-width: 940px;
-  min-height: 310px;
+  gap: clamp(2.25rem, 4vw, 4.25rem);
+  max-width: 1000px;
+  min-height: 340px;
   margin: 18px auto 0;
 }
 .stat-path {
@@ -478,22 +478,33 @@ a.exam-pick--thinking { --exam-bg: #E9DFFD; --exam-accent: var(--lavender); }
 }
 .stat-card--sticker {
   isolation: isolate;
-  width: 260px;
-  min-height: 230px;
+  width: 300px;
+  max-width: 300px;
+  min-height: 270px;
   margin-top: 8px;
+  padding: 38px 30px;
   border: 0;
   background: transparent;
 }
+.stat-card--sticker .stat__note { max-width: 230px; }
 .stat-card__flower {
   position: absolute;
-  inset: -4px -8px;
+  inset: -8px -10px;
   z-index: -1;
-  width: calc(100% + 16px);
-  height: calc(100% + 8px);
+  width: calc(100% + 20px);
+  height: calc(100% + 16px);
   overflow: visible;
+  opacity: 0.35;
+  transform: scale(0.86) rotate(-3deg);
+  transform-origin: center;
+  transition: opacity 0.5s ease, transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .stat-card__flower path {
   fill: color-mix(in srgb, var(--lavender-soft) 78%, white);
+}
+.stat-card--sticker.is-visible .stat-card__flower {
+  opacity: 1;
+  transform: scale(1) rotate(0);
 }
 .stat-card__heart {
   position: absolute;
@@ -510,6 +521,37 @@ a.exam-pick--thinking { --exam-bg: #E9DFFD; --exam-accent: var(--lavender); }
   transform: rotate(8deg);
 }
 .stat-card__heart img { width: 27px; height: 27px; }
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .stat-card--sticker:hover .stat-card__flower { transform: scale(1.025) rotate(1deg); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .stat-path path { animation: mission-dash-flow 5.5s linear infinite; }
+  .stat-path__dot { transform-box: fill-box; transform-origin: center; animation: mission-dot-pulse 2.8s ease-in-out infinite; }
+  .stat-path__dot--sky { animation-delay: 0.45s; }
+  .stat-path__dot--lavender { animation-delay: 0.9s; }
+  .stat-card--sticker.is-visible .stat-card__heart { animation: mission-heart-bob 3.4s ease-in-out 0.75s infinite; }
+  .stat-card--sticker.is-visible .stat-card__heart img { animation: mission-heart-beat 3.4s ease-in-out 0.75s infinite; }
+}
+
+@keyframes mission-dash-flow {
+  to { stroke-dashoffset: -52; }
+}
+@keyframes mission-dot-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.28); }
+}
+@keyframes mission-heart-bob {
+  0%, 100% { transform: translateY(0) rotate(8deg); }
+  50% { transform: translateY(-6px) rotate(4deg); }
+}
+@keyframes mission-heart-beat {
+  0%, 42%, 100% { transform: scale(1); }
+  48% { transform: scale(1.12); }
+  54% { transform: scale(1); }
+  60% { transform: scale(1.08); }
+}
 .mission-icon,
 .mission-mark {
   position: absolute;
@@ -1147,6 +1189,8 @@ body.has-open-dialog { overflow: hidden; }
   .doodle { animation: none; }
   .nav__logo .squiggle path { animation: none; stroke-dashoffset: 0; }
   .quiz.anim-wrong, .quiz.anim-right { animation: none; }
+  .stat-card__flower { opacity: 1; transform: none; transition: none; }
+  .stat-path path, .stat-path__dot, .stat-card__heart, .stat-card__heart img { animation: none; }
 }
 
 /* ---------- Responsive ---------- */
@@ -1156,6 +1200,7 @@ body.has-open-dialog { overflow: hidden; }
   .exam-picker { grid-template-columns: 1fr; max-width: 480px; }
   .stat-cards { gap: 24px; }
   .stat-card { padding: 28px 20px; }
+  .stat-card--sticker { padding: 34px 26px; }
   .stat-card .stat__note { font-size: 14px; }
 }
 @media (max-width: 820px) {
@@ -1164,7 +1209,7 @@ body.has-open-dialog { overflow: hidden; }
   .stat-card { width: 100%; margin: 0; }
   .stat-card--circle { width: min(100%, 286px); }
   .stat-card--ticket { width: 100%; min-height: 210px; }
-  .stat-card--sticker { width: min(100%, 286px); min-height: 244px; }
+  .stat-card--sticker { width: min(100%, 310px); max-width: 310px; min-height: 276px; }
 }
 @media (max-width: 767px) {
   .nav__links {
@@ -1196,7 +1241,7 @@ body.has-open-dialog { overflow: hidden; }
   .stat-card { width: 100%; margin: 0; min-height: 0; padding: 34px 24px; }
   .stat-card--circle { width: min(100%, 310px); justify-self: center; }
   .stat-card--ticket { min-height: 230px; }
-  .stat-card--sticker { min-height: 250px; }
+  .stat-card--sticker { min-height: 276px; }
   .stat-card .stat__value { font-size: clamp(3.5rem, 20vw, 5rem); }
   .course-hero__grid { grid-template-columns: 1fr; }
   .footer__grid { grid-template-columns: 1fr; gap: 28px; }
