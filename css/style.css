@@ -890,6 +890,15 @@ body.has-open-dialog { overflow: hidden; }
   animation: floaty var(--dur, 8s) ease-in-out var(--delay, 0s) infinite;
   transform: rotate(var(--r, 0deg));
 }
+.doodle--hero-companion {
+  top: calc(40% - clamp(76px, 5.5vw, 104px));
+}
+.doodle--hero-book {
+  right: calc(50% + clamp(660px, 44vw, 720px));
+}
+.doodle--hero-pencil {
+  left: calc(50% + clamp(660px, 44vw, 720px));
+}
 @keyframes floaty {
   0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); }
   50% { transform: translateY(-9px) rotate(calc(var(--r, 0deg) + 2deg)); }
@@ -948,7 +957,10 @@ body.has-open-dialog { overflow: hidden; }
 .rating-strip .stars { display: inline-block; }
 
 /* Chỉ hiện minh họa hai bên khi viewport đủ rộng để không chạm vào dải giá trị */
-@media (max-width: 1500px) { .notioly--hero { display: none; } }
+@media (max-width: 1500px) {
+  .notioly--hero,
+  .doodle--hero-companion { display: none; }
+}
 @media (max-width: 900px) { .doodle { display: none; } }
 
 @media (prefers-reduced-motion: reduce) {
