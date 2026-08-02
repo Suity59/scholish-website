@@ -3,9 +3,176 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Khóa GMAT — Scholish</title>
-  <meta name="description" content="Khóa GMAT online của Scholish: Quant và Verbal dạy từ gốc bằng Problem-based Learning, lớp dưới 8 học viên, chữa bài từng người.">
+  <title>GMAT Trứng Rán | Beginners to Intermediate | Scholish</title>
+  <meta name="description" content="Khóa GMAT online 20 buổi của Scholish: Verbal, Quant và Data Insights từ nền tảng đến nâng cao, lớp tối đa 8 học viên.">
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    .course-benefits {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 20px;
+    }
+    .course-benefit {
+      position: relative;
+      isolation: isolate;
+      min-height: 260px;
+      overflow: hidden;
+      padding: clamp(26px, 3vw, 38px);
+      border: 1px solid rgba(27, 22, 36, 0.13);
+      border-radius: 16px;
+      transition: transform .25s cubic-bezier(.2,.8,.2,1), border-color .25s ease;
+    }
+    .course-benefit::before {
+      content: '';
+      position: absolute;
+      z-index: -1;
+      width: 190px;
+      height: 190px;
+      right: -72px;
+      top: -86px;
+      border: 1px solid rgba(27, 22, 36, .12);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .25);
+    }
+    .course-benefit:hover { transform: translateY(-5px); border-color: rgba(27, 22, 36, .32); }
+    .course-benefit--bank { grid-column: span 7; background: var(--yellow-soft); }
+    .course-benefit--mentor { grid-column: span 5; background: var(--mint-soft); }
+    .course-benefit--mock { grid-column: span 5; background: var(--sky-soft); }
+    .course-benefit--profile { grid-column: span 3; background: var(--coral-soft); }
+    .course-benefit--play { grid-column: span 4; background: var(--lavender-soft); }
+    .course-benefit__number {
+      display: grid;
+      place-items: center;
+      width: 46px;
+      height: 46px;
+      margin-bottom: 34px;
+      border: 1.5px solid var(--fg-1);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .64);
+      font-family: var(--font-heading);
+      font-size: 17px;
+      font-weight: 700;
+    }
+    .course-benefit__copy { position: relative; z-index: 2; max-width: 42ch; }
+    .course-benefit h3 { margin-bottom: 12px; font-size: clamp(1.35rem, 2.3vw, 2rem); line-height: 1.15; }
+    .course-benefit p { max-width: 38ch; color: var(--fg-2); font-size: 15.5px; }
+    .course-benefit__art {
+      position: absolute;
+      z-index: 1;
+      right: 12px;
+      bottom: -16px;
+      width: clamp(110px, 16vw, 210px);
+      opacity: .92;
+      transition: transform .35s cubic-bezier(.2,.8,.2,1);
+    }
+    .course-benefit:hover .course-benefit__art { transform: translateY(-7px) rotate(1.5deg); }
+    .course-benefit--bank .course-benefit__copy,
+    .course-benefit--mock .course-benefit__copy { max-width: 60%; }
+    .course-benefit--mentor .course-benefit__number { margin-left: auto; }
+    .course-benefit--mentor .course-benefit__copy { margin-top: 18px; }
+    .course-benefit--profile .course-benefit__number { margin-bottom: 50px; }
+    .course-benefit--profile h3 { font-size: clamp(1.3rem, 2vw, 1.7rem); }
+    .course-benefit--play .course-benefit__art { width: 130px; right: -2px; opacity: .75; }
+    .course-benefit--play .course-benefit__copy { max-width: 68%; }
+    @media (max-width: 900px) {
+      .course-benefit--bank,
+      .course-benefit--mentor,
+      .course-benefit--mock,
+      .course-benefit--profile,
+      .course-benefit--play { grid-column: span 6; }
+      .course-benefit--play { grid-column: 4 / span 6; }
+    }
+    @media (max-width: 640px) {
+      .course-benefits { grid-template-columns: 1fr; }
+      .course-benefit--bank,
+      .course-benefit--mentor,
+      .course-benefit--mock,
+      .course-benefit--profile,
+      .course-benefit--play { grid-column: 1; min-height: 250px; }
+      .course-benefit__number { margin-bottom: 30px; }
+      .course-benefit--mentor .course-benefit__number { margin-left: 0; }
+      .course-benefit--mentor .course-benefit__copy { margin-top: 0; }
+      .course-benefit--profile .course-benefit__number { margin-bottom: 30px; }
+      .course-benefit__art { width: 120px; opacity: .72; }
+      .course-benefit--bank .course-benefit__copy,
+      .course-benefit--mock .course-benefit__copy,
+      .course-benefit--play .course-benefit__copy { max-width: 68%; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .course-benefit, .course-benefit__art { transition: none; }
+    }
+    .manual-layout {
+      display: grid;
+      grid-template-columns: minmax(250px, .75fr) minmax(0, 1.5fr);
+      gap: clamp(40px, 7vw, 90px);
+      align-items: start;
+    }
+    .manual-intro h2 { margin: 10px 0 18px; font-size: clamp(2.2rem, 4.8vw, 4.25rem); }
+    .manual-intro p { max-width: 42ch; color: var(--fg-2); }
+    .manual-flow { position: relative; display: grid; gap: 34px; }
+    .manual-flow::before {
+      content: '';
+      position: absolute;
+      top: 24px;
+      bottom: 24px;
+      left: 23px;
+      width: 2px;
+      background: linear-gradient(var(--coral), var(--mint), var(--sky));
+    }
+    .manual-step {
+      position: relative;
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+    .manual-step__number {
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      border: 1.5px solid var(--fg-1);
+      border-radius: 50%;
+      background: var(--yellow-soft);
+      font-family: var(--font-heading);
+      font-weight: 700;
+    }
+    .manual-step:nth-child(2) .manual-step__number { background: var(--mint-soft); }
+    .manual-step:nth-child(3) .manual-step__number { background: var(--sky-soft); }
+    .manual-step h3 { margin: 2px 0 6px; font-size: 21px; }
+    .manual-step p { max-width: 58ch; color: var(--fg-2); font-size: 15.5px; }
+    .manual-practice {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 28px;
+      margin-top: clamp(48px, 7vw, 80px);
+      padding: clamp(26px, 4vw, 42px);
+      border: 1.5px solid var(--fg-1);
+      border-radius: 16px;
+      background: var(--bg-1);
+    }
+    .manual-practice h3 { margin-bottom: 10px; font-size: clamp(1.55rem, 3vw, 2.3rem); }
+    .manual-practice p { color: var(--fg-2); }
+    .manual-materials { display: grid; grid-template-columns: repeat(3, 1fr); align-content: center; }
+    .manual-materials span {
+      padding: 14px 18px;
+      border-left: 1px solid var(--hairline);
+      font-size: 14px;
+      font-weight: 700;
+      text-align: center;
+    }
+    @media (max-width: 800px) {
+      .manual-layout, .manual-practice { grid-template-columns: 1fr; }
+      .manual-intro p { max-width: 58ch; }
+      .manual-materials span:first-child { border-left: 0; }
+    }
+    @media (max-width: 520px) {
+      .manual-materials { grid-template-columns: 1fr; }
+      .manual-materials span { border-left: 0; border-top: 1px solid var(--hairline); }
+      .manual-materials span:first-child { border-top: 0; }
+    }
+  </style>
 </head>
 <body>
 
@@ -39,14 +206,14 @@
     </div>
     <div class="container course-hero__grid">
       <div>
-        <span class="badge badge--mint-soft reveal">Khóa GMAT · Lớp GMAT Trứng Rán · Online qua Zoom</span>
-        <h1 class="reveal">Cách <span class="u-coral">thông minh hơn</span> để học GMAT</h1>
-        <p class="hero__intro reveal">Nếu coi GMAT là một khoản đầu tư thì lợi tức của nó là suất MBA hoặc học bổng thạc sĩ — người sáng lập Scholish đã đi đúng con đường đó, với điểm GMAT thuộc nhóm top 5% thế giới và học bổng 100% tại Hà Lan. Khóa này dạy lại con đường ấy trong 12 tuần: Quant từ số nguyên, Verbal từ cấu trúc lập luận, lớp dưới 8 người và chữa bài cho từng người một.</p>
+        <span class="badge badge--mint-soft reveal">GMAT Trứng Rán · Beginners to Intermediate</span>
+        <h1 class="reveal">Từ người mới đến mục tiêu <span class="u-coral num">700+</span></h1>
+        <p class="hero__intro reveal">20 buổi xây chắc nền tảng GMAT Focus, làm chủ Verbal, Quant và Data Insights, cùng chiến thuật để tự tin hướng tới mục tiêu 700+.</p>
         <div class="hero__ctas reveal">
-          <a href="https://zalo.me/0963557153" class="btn btn--primary">Nhận bài kiểm tra đầu vào</a>
-          <a href="#lo-trinh" class="link-sky">Xem lộ trình 12 tuần →</a>
+          <a href="#hoc-phi" class="btn btn--primary">Xem lớp sắp khai giảng</a>
+          <a href="#lo-trinh" class="link-sky">Xem đủ 10 tuần học →</a>
         </div>
-        <p class="hero__note reveal">Học thử buổi đầu — không hợp hoàn 100% học phí. Early bird giảm 10%.</p>
+        <p class="hero__note reveal">20 buổi · 19:30 - 21:30 · Tối đa 8 học viên · Học online</p>
       </div>
 
       <!-- Quiz widget — thẻ shadow DUY NHẤT của trang, kiểu câu hỏi mẫu Magoosh -->
@@ -60,7 +227,7 @@
           <button class="quiz__opt">4 giờ 30 phút</button>
         </div>
         <div class="quiz__result">
-          <strong>Đáp án: 2 giờ.</strong> Mỗi giờ, A bơm 1/3 bể và B bơm 1/6 bể — cộng lại là 1/2 bể mỗi giờ, thế nên cần 2 giờ. Nếu bạn giải bằng cách "cộng 3 với 6 rồi chia đôi" thì đây chính là kiểu lỗi tư duy mà khóa học sửa từ gốc.
+          <strong>Đáp án: 2 giờ.</strong> Mỗi giờ, A bơm 1/3 bể và B bơm 1/6 bể. Tổng cộng là 1/2 bể mỗi giờ, vì vậy cần 2 giờ. Đây là cách khóa học đưa một bài toán dài về đúng cấu trúc cốt lõi.
         </div>
       </div>
     </div>
@@ -72,45 +239,173 @@
     <strong>100% khuyên học</strong> · <a href="https://www.facebook.com/scholish" class="link-sky">Xem các chia sẻ thật từ học viên tại Facebook Scholish</a>
   </div>
 
-  <!-- ============ COMPARE — kiểu "We offer more" của Magoosh ============ -->
+  <!-- ============ PHƯƠNG PHÁP HỌC ============ -->
   <section class="section section--white">
     <div class="container">
       <div class="section__head section__head--center reveal">
-        <span class="microcaps">Khác gì chỗ khác</span>
-        <h2>Dạy <span class="u-coral">cách nghĩ</span>, không dạy mẹo</h2>
+        <span class="microcaps">Problem-based Learning</span>
+        <h2>Không ngồi nghe chép. Bạn <span class="u-coral">tự giải thích</span> để hiểu thật.</h2>
+        <p>Mỗi buổi học biến học viên từ người nhận kiến thức thành người chủ động tìm lời giải, trình bày và phản biện.</p>
       </div>
       <div class="compare">
         <div class="compare__col compare__col--us reveal">
-          <h3>Học GMAT ở Scholish</h3>
+          <h3>Một buổi học diễn ra thế nào?</h3>
           <ul>
-            <li><span class="compare__icon compare__icon--yes">✓</span>Lớp dưới 8 học viên — ai cũng phải lên tiếng, ai cũng được chữa bài riêng</li>
-            <li><span class="compare__icon compare__icon--yes">✓</span>Dạy từ gốc: số nguyên, tỷ lệ, cấu trúc lập luận — không bắt đầu bằng mẹo loại đáp án</li>
-            <li><span class="compare__icon compare__icon--yes">✓</span>Người dạy tự đi qua kỳ thi với điểm top 5% thế giới</li>
-            <li><span class="compare__icon compare__icon--yes">✓</span>Học thử buổi đầu, không hợp hoàn 100% học phí</li>
-            <li><span class="compare__icon compare__icon--yes">✓</span>Bản ghi mọi buổi + tài liệu tự ôn giữa các buổi</li>
+            <li><span class="compare__icon compare__icon--yes num">1</span>Nhận chủ đề và câu hỏi trước buổi học để tự nghiên cứu</li>
+            <li><span class="compare__icon compare__icon--yes num">2</span>Nhóm 1 - 2 học viên chuẩn bị phần trình bày khoảng 20 - 25 phút</li>
+            <li><span class="compare__icon compare__icon--yes num">3</span>Cả lớp đặt câu hỏi, tranh luận và sửa những điểm chưa chặt chẽ</li>
+            <li><span class="compare__icon compare__icon--yes num">4</span>Giảng viên hệ thống hóa kiến thức và chốt chiến thuật làm bài</li>
           </ul>
         </div>
         <div class="compare__col compare__col--them reveal">
-          <h3 style="color: var(--fg-3);">Lớp luyện đề thông thường</h3>
+          <h3>Khóa học giúp bạn đạt gì?</h3>
           <ul>
-            <li><span class="compare__icon compare__icon--no">✕</span>Lớp 20–40 người, người dạy không kịp biết bạn sai kiểu gì</li>
-            <li><span class="compare__icon compare__icon--no">✕</span>Dạy mẹo giải nhanh — chạy tốt trên đề cũ, đuối khi đề đổi dạng</li>
-            <li><span class="compare__icon compare__icon--no">✕</span>Giáo viên dạy lại giáo trình, chưa chắc đã tự thi</li>
-            <li><span class="compare__icon compare__icon--no">✕</span>Đóng phí trước, học rồi mới biết hợp hay không</li>
-            <li><span class="compare__icon compare__icon--no">✕</span>Lỡ buổi là mất buổi</li>
+            <li><span class="compare__icon compare__icon--yes">✓</span>Nắm đầy đủ kiến thức GMAT Focus Edition</li>
+            <li><span class="compare__icon compare__icon--yes">✓</span>Vượt mốc 600 và tự tin hướng tới mục tiêu 700+</li>
+            <li><span class="compare__icon compare__icon--yes">✓</span>Biết phân bổ thời gian và xử lý áp lực phòng thi</li>
+            <li><span class="compare__icon compare__icon--yes">✓</span>Có chiến lược tự ôn rõ ràng sau khi kết thúc khóa</li>
           </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ HIGH ACHIEVERS — boarding pass "tấm vé đi du học" ============ -->
+  <!-- ============ TRẢI NGHIỆM HỌC TỪ COURSE MANUAL ============ -->
   <section class="section section--ivory">
+    <div class="container">
+      <div class="manual-layout">
+        <div class="manual-intro reveal">
+          <span class="microcaps">Cách lớp học vận hành</span>
+          <h2>Một buổi học bắt đầu trước khi Zoom mở.</h2>
+          <p>Bạn không đến lớp để nghe lại tài liệu. Bạn đến để kiểm tra cách mình hiểu vấn đề, học từ góc nhìn của bạn bè và nhận phản hồi trực tiếp từ tutor.</p>
+        </div>
+        <div class="manual-flow">
+          <article class="manual-step reveal">
+            <span class="manual-step__number num">01</span>
+            <div><h3>Chuẩn bị trước buổi học</h3><p>Đọc tài liệu, làm bài và tự nghiên cứu chủ đề. Nhóm 1 - 2 học viên chuẩn bị phần facilitation tập trung vào ý chính, mối liên hệ và những điểm khó.</p></div>
+          </article>
+          <article class="manual-step reveal">
+            <span class="manual-step__number num">02</span>
+            <div><h3>Dẫn dắt, không chỉ thuyết trình</h3><p>Nhóm leader trình bày tối đa 20 - 25 phút, đưa thêm ví dụ và khuyến khích cả lớp đặt câu hỏi. Tutor quan sát, phản biện và chốt lại kiến thức cần nhớ.</p></div>
+          </article>
+          <article class="manual-step reveal">
+            <span class="manual-step__number num">03</span>
+            <div><h3>Luyện lại bằng câu hỏi thật</h3><p>Sau buổi học, bạn củng cố chủ đề bằng bài tập GMAT, Question Bank và phản hồi trong nhóm lớp để biến kiến thức thành kỹ năng làm bài.</p></div>
+          </article>
+        </div>
+      </div>
+      <aside class="manual-practice reveal">
+        <div>
+          <span class="microcaps">Học online nhưng không học một mình</span>
+          <h3>Bật camera, cùng chịu trách nhiệm cho buổi học.</h3>
+          <p>Việc nhìn thấy nhau giúp lớp kết nối, tập trung và hỗ trợ nhóm đang facilitation. Mỗi người đều góp phần tạo nên chất lượng của buổi thảo luận.</p>
+        </div>
+        <div class="manual-materials" aria-label="Tài liệu học chính">
+          <span>Official Guide</span>
+          <span>Manhattan Prep</span>
+          <span>CR Bible</span>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============ HIGH ACHIEVERS: thư viện câu chuyện ============ -->
+  <section class="section section--ivory" id="high-achievers">
     <div class="container">
       <div class="section__head section__head--center reveal">
         <span class="microcaps">High achievers</span>
-        <h2>Điểm GMAT là <span class="u-coral">tấm vé</span> — đây là vé của học viên Scholish</h2>
-        <p>Tên, điểm và percentile thật — tất cả đều từ các bài đăng "điểm về" công khai trên Facebook của Scholish.</p>
+        <h2>Những <span class="u-coral">cột mốc</span> đáng nhớ</h2>
+        <p>Chọn một thành tích để đọc câu chuyện của một High Achiever tại Scholish ngay tại đây.</p>
+      </div>
+
+      <div class="achiever-library reveal">
+        <button class="achiever-story achiever-story--feature" type="button" data-achiever-post="post-dung-645" aria-haspopup="dialog">
+          <img src="assets/achievers/dung-645.jpg" alt="Bài đăng điểm GMAT Focus 645 của học viên Dũng">
+          <span class="achiever-story__copy">
+            <span class="microcaps">GMAT Focus</span>
+            <strong><span class="num">645</span>, top 10% toàn cầu</strong>
+            <small>Từ nỗi sợ Toán đến một kết quả đáng tự hào</small>
+            <span class="achiever-story__read">Đọc trọn câu chuyện</span>
+          </span>
+        </button>
+
+        <button class="achiever-story achiever-story--side" type="button" data-achiever-post="post-750" aria-haspopup="dialog">
+          <img src="assets/achievers/750-top2.jpg" alt="Bài đăng kết quả GMAT 750">
+          <span class="achiever-story__copy">
+            <span class="microcaps">GMAT</span>
+            <strong><span class="num">750</span>, top 2%</strong>
+            <small>Điểm về ngay trong lần thi đầu tiên</small>
+            <span class="achiever-story__read">Đọc bài viết</span>
+          </span>
+        </button>
+
+        <button class="achiever-story achiever-story--side" type="button" data-achiever-post="post-720" aria-haspopup="dialog">
+          <img src="assets/achievers/720-girl.jpg" alt="Bài đăng kết quả GMAT 720 của học viên tại Huế">
+          <span class="achiever-story__copy">
+            <span class="microcaps">GMAT</span>
+            <strong><span class="num">720</span>, Verbal 41</strong>
+            <small>Cô bạn học viên từ Huế mang điểm về</small>
+            <span class="achiever-story__read">Đọc bài viết</span>
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <dialog class="achiever-dialog" id="achieverDialog" aria-labelledby="achieverDialogTitle">
+      <div class="achiever-dialog__shell">
+        <button class="achiever-dialog__close" type="button" data-achiever-close aria-label="Đóng bài viết">Đóng</button>
+        <div data-achiever-content></div>
+      </div>
+    </dialog>
+
+    <template id="post-dung-645">
+      <article class="achiever-post">
+        <img class="achiever-post__hero" src="assets/achievers/dung-645.jpg" alt="Bài đăng điểm GMAT Focus 645 của học viên Dũng">
+        <div class="achiever-post__copy">
+          <span class="microcaps">GMAT Focus, top 10% toàn cầu</span>
+          <h2 id="achieverDialogTitle">Chúc mừng Dũng đạt GMAT Focus <span class="num">645</span></h2>
+          <p>Chúc mừng Dũng đã chính thức ghi tên mình vào top 10% toàn cầu GMAT Focus với số điểm 645!</p>
+          <p>Từ một người bắt đầu với tâm lý “em học dốt toán lắm anh ơi...” đến một chiến binh kiên trì, học đều đặn mỗi ngày và không bao giờ bỏ cuộc.</p>
+          <p>Điểm số chỉ là phần nổi. Điều mình tự hào hơn cả là sự bền bỉ và dũng khí dám bắt đầu lại từ đầu của em.</p>
+          <img src="assets/achievers/cut-645.jpg" alt="Chi tiết kết quả GMAT Focus 645">
+        </div>
+      </article>
+    </template>
+
+    <template id="post-750">
+      <article class="achiever-post">
+        <img class="achiever-post__hero" src="assets/achievers/750-top2.jpg" alt="Bài đăng kết quả GMAT 750">
+        <div class="achiever-post__copy">
+          <span class="microcaps">GMAT, top 2% thế giới</span>
+          <h2 id="achieverDialogTitle">Điểm GMAT <span class="num">750</span> ngay lần thi đầu tiên</h2>
+          <p>Học viên Scholish sau khóa học được truy cập 1-3-3 Roadmap, lộ trình giúp hệ thống hóa kiến thức và rèn ba kỹ năng thi quan trọng: Stamina, Timing và Question Approach.</p>
+          <p>Áp dụng lộ trình này, học viên đã đạt 750, thuộc top 2% thế giới, ngay trong lần thi đầu tiên.</p>
+          <img class="achiever-post__portrait" src="assets/achievers/cut-750.jpg" alt="Phiếu điểm GMAT 750">
+        </div>
+      </article>
+    </template>
+
+    <template id="post-720">
+      <article class="achiever-post">
+        <img class="achiever-post__hero achiever-post__hero--portrait" src="assets/achievers/720-girl.jpg" alt="Bài đăng kết quả GMAT 720 của học viên tại Huế">
+        <div class="achiever-post__copy">
+          <span class="microcaps">GMAT, Verbal 41</span>
+          <h2 id="achieverDialogTitle">Điểm GMAT <span class="num">720</span> nóng hổi</h2>
+          <p>Chúc mừng cô bạn học viên đến từ Huế đã thành công trên con đường chinh phục GMAT với điểm số cao chót vót của mình.</p>
+          <p>Mong em sẽ luôn thành công, apply đỗ các trường đại học hàng đầu trên thế giới và nhận được nhiều học bổng danh giá.</p>
+          <img src="assets/achievers/cut-720.jpg" alt="Chi tiết bài đăng kết quả GMAT 720">
+        </div>
+      </article>
+    </template>
+  </section>
+
+  <!-- Cụm boarding pass cũ được giữ tạm trong mã để đối chiếu, không hiển thị -->
+  <section hidden aria-hidden="true">
+    <div class="container">
+      <div class="section__head section__head--center reveal">
+        <span class="microcaps">High achievers</span>
+        <h2>Điểm GMAT là <span class="u-coral">tấm vé</span>, đây là vé của học viên Scholish</h2>
+        <p>Tên, điểm và percentile thật, tất cả đều từ các bài đăng "điểm về" công khai trên Facebook của Scholish.</p>
       </div>
       <div class="passes reveal">
         <div class="pass">
@@ -124,7 +419,7 @@
               <span class="pass__score num">750</span>
               <span class="pct-badge">Top 2% thế giới</span>
             </div>
-            <p class="pass__note">Ngay lần thi đầu tiên, sau khóa Trứng Rán và lộ trình luyện thi 1-3-3 Roadmap — Q50 V41.</p>
+            <p class="pass__note">Ngay lần thi đầu tiên, sau khóa Trứng Rán và lộ trình luyện thi 1-3-3 Roadmap: Q50 V41.</p>
           </div>
           <div class="pass__stub">
             <span class="microcaps">Percentile</span>
@@ -137,14 +432,14 @@
           <div class="pass__main">
             <div class="pass__route">Scholish <svg viewBox="0 0 30 10" aria-hidden="true"><path d="M0 5h26M26 5l-4-3M26 5l-4 3" stroke="#8D8A91" stroke-width="1.3" fill="none"/></svg> Du học</div>
             <div class="pass__fields">
-              <div><span class="microcaps">Hành khách</span><strong>Hiếu — Huế</strong></div>
+              <div><span class="microcaps">Hành khách</span><strong>Hiếu, Huế</strong></div>
               <div><span class="microcaps">Khóa</span><strong>GMAT</strong></div>
             </div>
             <div class="pass__scoreline">
               <span class="pass__score num">720</span>
               <span class="pct-badge">Top 6%</span>
             </div>
-            <p class="pass__note">Cô bạn học viên đến từ Huế mang bảng điểm 720 về ngay sau khóa — Verbal 41, percentile 93.</p>
+            <p class="pass__note">Cô bạn học viên đến từ Huế mang bảng điểm 720 về ngay sau khóa, Verbal 41, percentile 93.</p>
           </div>
           <div class="pass__stub">
             <span class="microcaps">Percentile</span>
@@ -237,38 +532,52 @@
     </div>
   </section>
 
-  <!-- ============ FEATURES GRID 6 — kiểu Magoosh ============ -->
+  <!-- ============ QUYỀN LỢI ============ -->
   <section class="section section--white">
     <div class="container">
       <div class="section__head section__head--center reveal">
-        <span class="microcaps">Trong khóa có gì</span>
-        <h2>Mọi thứ đi kèm khóa học</h2>
+        <span class="microcaps">Học phí gồm những gì</span>
+        <h2>Không chỉ là <span class="num">20</span> buổi trên lớp</h2>
       </div>
-      <div class="feature-grid">
-        <div class="card feature reveal">
-          <h3>Mock test có chữa</h3>
-          <p>Thi thử theo đúng cấu trúc bài thi thật ở giai đoạn cuối khóa, rồi chữa chi tiết từng phần — bạn biết mình đứng ở đâu trước khi đăng ký thi thật.</p>
-        </div>
-        <div class="card feature reveal">
-          <h3>Lộ trình theo tuần</h3>
-          <p>Mỗi tuần một chủ đề Quant và một chủ đề Verbal chạy song song, có bài tập giao trước buổi học để bạn tự vật lộn trước khi cả lớp cùng mổ xẻ.</p>
-        </div>
-        <div class="card feature reveal">
-          <h3>Chấm chữa từng người</h3>
-          <p>Bài về nhà được chấm riêng, và lời phê nhắm vào nếp nghĩ gây lỗi chứ không chỉ ghi đúng/sai.</p>
-        </div>
-        <div class="card feature reveal">
-          <h3>Bản ghi mọi buổi</h3>
-          <p>Lỡ buổi nào xem lại buổi đó, kèm 15 phút hỏi riêng với người dạy để lấp chỗ trống trước khi vào buổi kế tiếp.</p>
-        </div>
-        <div class="card feature reveal">
-          <h3>Course manual + cheat-sheet</h3>
-          <p>Tài liệu từng chủ đề và cheat-sheet công thức để ôn nhanh trước ngày thi — khỏi lục lại cả vở ghi 12 tuần.</p>
-        </div>
-        <div class="card feature reveal">
-          <h3>Hỏi được người thật</h3>
-          <p>Kẹt một câu giữa tuần thì nhắn thẳng vào nhóm lớp, người dạy trả lời trong ngày chứ không đợi đến buổi học sau.</p>
-        </div>
+      <div class="course-benefits">
+        <article class="course-benefit course-benefit--bank reveal">
+          <span class="course-benefit__number num">01</span>
+          <div class="course-benefit__copy">
+            <h3>Question Bank trong 1 năm</h3>
+            <p>Hàng nghìn câu từ Official Guide, E-GMAT, Manhattan Prep, GMAT Club Test và ngân hàng nâng cao trong giao diện mô phỏng bài thi.</p>
+          </div>
+          <img class="course-benefit__art" src="assets/notioly/studying.svg" alt="" aria-hidden="true">
+        </article>
+        <article class="course-benefit course-benefit--mentor reveal">
+          <span class="course-benefit__number num">02</span>
+          <div class="course-benefit__copy">
+            <h3>Mentor hỗ trợ không giới hạn</h3>
+            <p>Hỏi bài trong nhóm lớp trong và sau khóa, không phải đợi đến buổi học kế tiếp mới được giải đáp.</p>
+          </div>
+        </article>
+        <article class="course-benefit course-benefit--mock reveal">
+          <span class="course-benefit__number num">03</span>
+          <div class="course-benefit__copy">
+            <h3>Mock test và tổng ôn</h3>
+            <p>Mô phỏng bài thi, chữa chi tiết và chốt chiến thuật trước khi bước vào giai đoạn ôn thi thật.</p>
+          </div>
+          <img class="course-benefit__art" src="assets/notioly/taking-notes.svg" alt="" aria-hidden="true">
+        </article>
+        <article class="course-benefit course-benefit--profile reveal">
+          <span class="course-benefit__number num">04</span>
+          <div class="course-benefit__copy">
+            <h3>Hỗ trợ hồ sơ du học</h3>
+            <p>Được góp ý CV và Personal Statement theo thời gian trống của đội ngũ Scholish.</p>
+          </div>
+        </article>
+        <article class="course-benefit course-benefit--play reveal">
+          <span class="course-benefit__number num">05</span>
+          <div class="course-benefit__copy">
+            <h3>Học tư duy qua trò chơi</h3>
+            <p>True Detective, Werewolf và hoạt động phản biện giúp luyện suy luận trong không khí nhẹ nhàng.</p>
+          </div>
+          <img class="course-benefit__art" src="assets/notioly/thinking.svg" alt="" aria-hidden="true">
+        </article>
       </div>
     </div>
   </section>
@@ -278,50 +587,49 @@
     <div class="container">
       <div class="section__head reveal">
         <span class="microcaps">Lộ trình</span>
-        <h2>Học gì trong <span class="num">12</span> tuần</h2>
-        <p>Verbal và Quant chạy song song, mỗi tuần một chủ đề của mỗi phần. Bạn nhận bài toán trước buổi học, tự giải, rồi cả lớp cùng mổ xẻ trong buổi.</p>
+        <h2>Trọn vẹn <span class="num">20</span> buổi trong <span class="num">10</span> tuần</h2>
+        <p>9 buổi Verbal, 8 buổi Quant, 2 buổi Data Insights và 1 buổi tổng ôn. Mỗi tuần có hai nhánh kiến thức chạy song song.</p>
       </div>
-      <div class="syllabus reveal">
-        <span class="microcaps" style="display:block; margin-bottom: 8px;">Verbal</span>
-        <div class="syllabus__row"><span class="microcaps num">Tuần 01</span><strong>Chủ ngữ – động từ &amp; đại từ</strong><span class="desc">Sentence Correction</span></div>
-        <div class="syllabus__row"><span class="microcaps num">Tuần 02</span><strong>Modifiers &amp; Parallelism</strong><span class="desc">Sentence Correction</span></div>
-        <div class="syllabus__row"><span class="microcaps num">Tuần 03</span><strong>Giả định trong lập luận (Assumption)</strong><span class="desc">Critical Reasoning</span></div>
-        <div class="syllabus__row"><span class="microcaps num">Tuần 04</span><strong>Strengthen, Weaken &amp; Flaw</strong><span class="desc">Critical Reasoning</span></div>
-        <div class="syllabus__row"><span class="microcaps num">Tuần 05</span><strong>Đọc hiểu học thuật (RC)</strong><span class="desc">Reading Comprehension</span></div>
-        <span class="microcaps" style="display:block; margin: 24px 0 8px;">Quant</span>
-        <div class="syllabus__row"><span class="microcaps num">Tuần 01</span><strong>Số nguyên, chẵn lẻ &amp; chia hết</strong><span class="desc">Number Theory</span></div>
-        <div class="syllabus__row"><span class="microcaps num">Tuần 02</span><strong>Lũy thừa, tỷ lệ &amp; phần trăm</strong><span class="desc">Ratio &amp; Percentage</span></div>
-        <div class="syllabus__row"><span class="microcaps num">Tuần 03</span><strong>Phân tích nhân tử &amp; phương trình</strong><span class="desc">Algebra</span></div>
-        <div class="syllabus__row"><span class="microcaps num">Tuần 04</span><strong>Trung bình, trung vị &amp; bài toán thực tế</strong><span class="desc">Statistics · Word Problems</span></div>
-        <div class="syllabus__row"><span class="microcaps num">Tuần 05</span><strong>Hình học: tam giác, tứ giác, đường tròn</strong><span class="desc">Geometry</span></div>
-        <span class="microcaps" style="display:block; margin: 24px 0 8px;">Giai đoạn cuối</span>
-        <div class="syllabus__row"><span class="microcaps num">Tuần 06+</span><strong>Data Sufficiency chuyên sâu &amp; luyện đề có chữa</strong><span class="desc">Mock test hàng tuần</span></div>
+      <div class="course-map reveal">
+        <div class="course-map__rail" aria-hidden="true"><span></span></div>
+        <article class="course-week"><span class="course-week__no num">01</span><div><strong>Master Comprehension</strong><p>Verbal Intro, cách đọc lập luận và nền tảng hiểu câu.</p></div><div><strong>Number Theory</strong><p>Tổng quan Quant, DI, số học và số dư.</p></div></article>
+        <article class="course-week"><span class="course-week__no num">02</span><div><strong>Inference</strong><p>Nhận diện điều bắt buộc đúng từ dữ kiện.</p></div><div><strong>Algebra</strong><p>Biểu thức, phương trình và tư duy biến đổi.</p></div></article>
+        <article class="course-week"><span class="course-week__no num">03</span><div><strong>Assumption</strong><p>Tìm giả định ẩn giữ cho lập luận đứng vững.</p></div><div><strong>Sequences</strong><p>Dãy số và cấp số trong bài toán GMAT.</p></div></article>
+        <article class="course-week"><span class="course-week__no num">04</span><div><strong>Weaken &amp; Strengthen</strong><p>Làm yếu và củng cố lập luận có hệ thống.</p></div><div><strong>Functions</strong><p>Hàm số và hình học tọa độ.</p></div></article>
+        <article class="course-week"><span class="course-week__no num">05</span><div><strong>Evaluate</strong><p>Chọn thông tin quyết định chất lượng lập luận.</p></div><div><strong>Word Problems</strong><p>Chuyển bài toán chữ thành mô hình rõ ràng.</p></div></article>
+        <article class="course-week"><span class="course-week__no num">06</span><div><strong>Bold-Face &amp; CR khác</strong><p>Vai trò câu chữ và các dạng Critical Reasoning còn lại.</p></div><div><strong>Overlapping Sets</strong><p>Tập hợp giao nhau và cách biểu diễn dữ kiện.</p></div></article>
+        <article class="course-week"><span class="course-week__no num">07</span><div><strong>Reading Comprehension I</strong><p>Cấu trúc bài đọc và ý chính.</p></div><div><strong>Probability</strong><p>Xác suất từ nền tảng đến bài toán kết hợp.</p></div></article>
+        <article class="course-week"><span class="course-week__no num">08</span><div><strong>Reading Comprehension II</strong><p>Chi tiết, suy luận và thái độ tác giả.</p></div><div><strong>Combinations</strong><p>Tổ hợp và độ lệch chuẩn.</p></div></article>
+        <article class="course-week"><span class="course-week__no num">09</span><div><strong>Reading Comprehension III</strong><p>Tốc độ đọc và chiến thuật bài dài.</p></div><div><strong>Data Insights I</strong><p>Multi-Source Reasoning và Two-Part Analysis.</p></div></article>
+        <article class="course-week"><span class="course-week__no num">10</span><div><strong>Data Insights II</strong><p>Graphics Interpretation và Table Analysis.</p></div><div><strong>Comprehensive Review</strong><p>Tổng ôn, thi thử và chiến thuật phòng thi.</p></div></article>
       </div>
     </div>
   </section>
 
   <!-- ============ THÔNG TIN LỚP + WALL OF LOVE ============ -->
   <section class="section section--white">
-    <div class="container" style="display: grid; grid-template-columns: 1fr 1.4fr; gap: clamp(1.5rem, 4vw, 3rem); align-items: start;" id="hoc-phi">
-      <div class="card class-panel reveal" style="background: var(--bg-2);">
-        <span class="microcaps">Lớp GMAT sắp khai giảng</span>
-        <!-- TODO: cập nhật lịch khai giảng + lịch học + học phí thật của đợt tới -->
-        <div class="row"><span>Khai giảng</span><strong>Tháng 8/2026 — chốt qua Zalo</strong></div>
-        <div class="row"><span>Lịch học</span><strong>2 buổi tối / tuần</strong></div>
-        <div class="row"><span>Thời lượng</span><strong class="num">12 tuần</strong></div>
-        <div class="row"><span>Sĩ số</span><strong class="num">Dưới 8 học viên</strong></div>
-        <div class="row"><span>Học phí</span><strong>Nhắn Zalo nhận báo phí</strong></div>
-        <div class="row"><span>Early bird</span><strong class="num">Giảm 10% khi đăng ký sớm</strong></div>
-        <a href="https://zalo.me/0963557153" class="btn btn--primary">Giữ chỗ qua Zalo</a>
+    <div class="container enrollment-grid" id="hoc-phi">
+      <div class="card class-panel launch-card reveal" data-upcoming-class="1">
+        <span class="badge badge--yellow">Lớp gần nhất</span>
+        <h2>GMAT Trứng Rán · <span class="num" data-upcoming-month>9/2026</span></h2>
+        <div class="row"><span>Khai giảng</span><strong><time data-upcoming-start datetime="2026-09-01">Thứ Ba, 01/09/2026</time></strong></div>
+        <div class="row"><span>Lịch học</span><strong data-upcoming-schedule>Thứ Ba và Thứ Bảy</strong></div>
+        <div class="row"><span>Giờ học</span><strong class="num">19:30 - 21:30</strong></div>
+        <div class="row"><span>Hình thức</span><strong>Zoom hoặc Google Meet</strong></div>
+        <div class="row"><span>Thời lượng</span><strong class="num">20 buổi · 10 tuần</strong></div>
+        <div class="row"><span>Sĩ số</span><strong class="num">Tối đa 8 học viên</strong></div>
+        <div class="row"><span>Học phí</span><strong class="num">8.500.000đ</strong></div>
+        <div class="launch-card__price"><span>Early Bird</span><strong class="num">7.650.000đ</strong><small>Đăng ký trước khai giảng ít nhất 20 ngày</small></div>
+        <a href="https://zalo.me/0963557153" class="btn btn--primary">Giữ chỗ lớp gần nhất</a>
       </div>
-      <div>
+      <div class="student-proof">
         <div class="section__head reveal" style="margin-bottom: 24px;">
           <span class="microcaps">Học viên GMAT nói gì</span>
           <h2 style="font-size: var(--fs-sub);">Kết quả và lời thật</h2>
         </div>
         <div style="display: grid; gap: 20px;">
           <div class="card quote reveal" style="padding: 26px;">
-            <blockquote>&ldquo;Đạt target <b class="num">Q42 → Q48 trong 2 tháng</b> với chị Felix Bùi — tutor của Scholish. 2 tháng trước khi đi thi em test thử GMAT với điểm Quant 42 khá thấp, quyết định học tutor Quant chạy đua cho kịp đi thi. Em học với chị Felix — <b>tutor có tâm nhất hệ</b>.&rdquo;</blockquote>
+            <blockquote>&ldquo;Đạt target <b class="num">Q42 → Q48 trong 2 tháng</b> với chị Felix Bùi, tutor của Scholish. Em học với chị Felix, <b>tutor có tâm nhất hệ</b>.&rdquo;</blockquote>
             <div class="quote__who">
               <span class="quote__avatar quote__avatar--mint" data-avatar="phuong-tran">P</span>
               <div><div class="quote__name">Phương Trần</div><div class="quote__result num">GMAT · Q42 → Q48 · review Facebook</div></div>
@@ -331,10 +639,41 @@
             <blockquote>&ldquo;Chúc mừng Dũng đã chính thức ghi tên mình vào <b>top 10% toàn cầu GMAT Focus</b> với số điểm <b class="num">645</b>!&rdquo;</blockquote>
             <div class="quote__who">
               <span class="quote__avatar quote__avatar--yellow">D</span>
-              <div><div class="quote__name">Dũng — học viên GMAT</div><div class="quote__result">Bài đăng kết quả trên Facebook</div></div>
+              <div><div class="quote__name">Dũng, học viên GMAT</div><div class="quote__result">Bài đăng kết quả trên Facebook</div></div>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GIẢNG VIÊN ============ -->
+  <section class="section section--ivory teacher-section">
+    <div class="container">
+      <div class="section__head section__head--center reveal">
+        <span class="microcaps">Người đồng hành</span>
+        <h2>Học với người đã <span class="u-coral">thi thật, dạy thật</span></h2>
+        <p>Hai giảng viên kết hợp nền tảng học thuật, trải nghiệm du học và nhiều năm giảng dạy GMAT.</p>
+      </div>
+      <div class="teacher-grid">
+        <article class="teacher-profile reveal">
+          <div class="teacher-profile__portrait teacher-profile__portrait--mint"><span class="num">730</span><small>GMAT · Top 5%</small></div>
+          <div>
+            <span class="microcaps">Giảng viên Verbal</span>
+            <h3>Lê Nam Anh</h3>
+            <p>6 năm giảng dạy GMAT. Thạc sĩ International Business Entrepreneurship tại Maastricht University và nhận học bổng Orange Tulip 100%.</p>
+            <ul><li>GMAT 730, top 5% thế giới</li><li>IELTS 7.5</li><li>Từng là giảng viên đại học, BA Lead tại Sotatek và BDM tại VinBrain</li></ul>
+          </div>
+        </article>
+        <article class="teacher-profile reveal">
+          <div class="teacher-profile__portrait teacher-profile__portrait--sky"><span class="num">740</span><small>GMAT · Perfect Quant</small></div>
+          <div>
+            <span class="microcaps">Giảng viên Verbal</span>
+            <h3>Bùi Anh Vũ</h3>
+            <p>7 năm học tập tại Mỹ và giảng dạy GMAT Verbal từ 2023. Tốt nghiệp sớm Drexel University với ba chuyên ngành.</p>
+            <ul><li>GMAT 740, tuyệt đối Quant, IR và Essay</li><li>IELTS 8.5, TOEFL 115, DSAT 1580</li><li>Học bổng 100%, xếp hạng 7/120 và 12 kỳ Dean's List</li></ul>
+          </div>
+        </article>
       </div>
     </div>
   </section>
@@ -347,8 +686,8 @@
     </div>
     <div class="container guarantee reveal" style="position: relative;">
       <h2>Học thử buổi đầu. Không hợp, hoàn <span class="num" style="color: var(--mint);">100%</span> học phí.</h2>
-      <p>Chúng mình không cần điều khoản nhỏ ở mục này: bạn vào học buổi đầu tiên như học viên chính thức, thấy cách dạy không hợp thì nhắn một tin, tiền về trong tuần — không hỏi lý do.</p>
-      <a href="https://zalo.me/0963557153" class="btn btn--light">Nhắn Zalo giữ chỗ lớp tháng 8</a>
+      <p>Chúng mình không cần điều khoản nhỏ ở mục này: bạn vào học buổi đầu tiên như học viên chính thức, thấy cách dạy không hợp thì nhắn một tin, tiền về trong tuần và không hỏi lý do.</p>
+      <a href="https://zalo.me/0963557153" class="btn btn--light">Nhắn Zalo giữ chỗ lớp gần nhất</a>
     </div>
   </section>
 
@@ -362,19 +701,19 @@
       <div class="faq reveal">
         <div class="faq__item">
           <button class="faq__q" aria-expanded="false">Mình nên có nền tiếng Anh mức nào trước khi học?</button>
-          <div class="faq__a">Bạn cần đọc hiểu được tiếng Anh phổ thông (tương đương IELTS 5.5+ hoặc đọc báo tiếng Anh không quá chật vật). GMAT không thi từ vựng khó, nó thi cách bạn xử lý lập luận — phần đó chúng mình dạy từ đầu.</div>
+          <div class="faq__a">Khóa dành cho người mới đến trình độ trung cấp. Bạn nên đọc hiểu được tiếng Anh phổ thông để theo kịp tài liệu GMAT; phần tư duy lập luận và phương pháp xử lý câu hỏi sẽ được xây từ đầu.</div>
         </div>
         <div class="faq__item">
-          <button class="faq__q" aria-expanded="false">Học 12 tuần có đủ để thi không?</button>
-          <div class="faq__a">Tùy điểm xuất phát và mục tiêu của bạn. Khóa học đưa bạn qua toàn bộ nền tảng cộng giai đoạn luyện đề, nhưng phần lớn học viên cần thêm 4–8 tuần tự luyện sau khóa trước khi thi thật. Chúng mình sẽ nói thẳng con số ước tính cho trường hợp của bạn sau bài kiểm tra đầu vào.</div>
+          <button class="faq__q" aria-expanded="false">20 buổi có đủ để thi không?</button>
+          <div class="faq__a">Khóa học bao phủ kiến thức GMAT Focus, chiến thuật làm bài và kỹ năng phòng thi. Thời gian tự luyện sau khóa phụ thuộc điểm xuất phát và mục tiêu của bạn; mentor sẽ giúp bạn lên kế hoạch phù hợp.</div>
         </div>
         <div class="faq__item">
           <button class="faq__q" aria-expanded="false">Bỏ lỡ một buổi thì sao?</button>
-          <div class="faq__a">Mọi buổi đều có bản ghi, và bạn được đặt lịch 15 phút hỏi riêng với người dạy để lấp buổi đã lỡ. Nhưng vì lớp học theo kiểu thảo luận, chúng mình khuyên bạn không nên vắng quá 2 buổi trong khóa.</div>
+          <div class="faq__a">Hãy báo sớm trong nhóm lớp để được hướng dẫn phần cần bù. Vì Problem-based Learning dựa nhiều vào thảo luận, bạn nên ưu tiên tham gia trực tiếp và bật camera trong buổi học.</div>
         </div>
         <div class="faq__item">
           <button class="faq__q" aria-expanded="false">Tên lớp "Trứng Rán" nghĩa là gì vậy?</button>
-          <div class="faq__a">Là truyền thống đặt tên lớp theo món ăn của Scholish — trước đó có lớp GMAT Lạp Xưởng. Tên cho dễ nhớ và đỡ căng thẳng thôi, còn giáo trình bên trong thì nghiêm túc đúng chuẩn kỳ thi.</div>
+          <div class="faq__a">Đây là truyền thống đặt tên lớp theo món ăn của Scholish. Tên vui để hành trình bớt căng thẳng, còn chương trình học bám đầy đủ cấu trúc GMAT Focus Edition.</div>
         </div>
       </div>
     </div>
@@ -386,7 +725,7 @@
       <img class="notioly notioly--inline" src="assets/notioly/graduating.svg" alt="" aria-hidden="true">
       <span class="microcaps">Bước tiếp theo</span>
       <h2>Làm bài kiểm tra đầu vào miễn phí</h2>
-      <p>Nhắn Zalo cho chúng mình, bạn sẽ nhận một bài kiểm tra ngắn khoảng 30 phút. Dựa trên kết quả, chúng mình gợi ý lộ trình và báo học phí — sau đó quyết định học hay không hoàn toàn ở bạn.</p>
+      <p>Nhắn Zalo cho chúng mình, bạn sẽ nhận một bài kiểm tra ngắn khoảng 30 phút. Dựa trên kết quả, chúng mình gợi ý lộ trình và báo học phí; sau đó quyết định học hay không hoàn toàn ở bạn.</p>
       <div class="hero__ctas">
         <a href="https://zalo.me/0963557153" class="btn btn--primary">Nhận bài kiểm tra đầu vào</a>
         <a href="tel:0963557153" class="btn btn--secondary">Gọi 096 355 71 53</a>

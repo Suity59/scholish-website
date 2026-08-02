@@ -71,7 +71,7 @@
   // Hai lớp khai giảng gần nhất:
   // - luôn lấy tháng kế tiếp và tháng sau nữa, nên chỉ đổi khi bước sang tháng mới
   // - tháng chẵn học Thứ Tư + Chủ nhật
-  // - tháng lẻ học Thứ Ba + Thứ Năm
+  // - tháng lẻ học Thứ Ba + Thứ Bảy
   // - khai giảng vào buổi học đầu tiên của tháng
   (function renderUpcomingClasses() {
     var cards = document.querySelectorAll('[data-upcoming-class]');
@@ -108,8 +108,8 @@
       var monthIndex = monthTotal % 12;
       var monthNumber = monthIndex + 1;
       var evenMonth = monthNumber % 2 === 0;
-      var studyDays = evenMonth ? [3, 0] : [2, 4];
-      var schedule = evenMonth ? 'Thứ Tư và Chủ nhật' : 'Thứ Ba và Thứ Năm';
+      var studyDays = evenMonth ? [3, 0] : [2, 6];
+      var schedule = evenMonth ? 'Thứ Tư và Chủ nhật' : 'Thứ Ba và Thứ Bảy';
       var startDay = 1;
 
       for (var day = 1; day <= 7; day += 1) {
@@ -122,7 +122,7 @@
 
       var startDate = new Date(Date.UTC(year, monthIndex, startDay));
       var startWeekday = weekdayNames[startDate.getUTCDay()];
-      var earlyBirdDate = new Date(startDate.getTime() - (15 * 24 * 60 * 60 * 1000));
+      var earlyBirdDate = new Date(startDate.getTime() - (20 * 24 * 60 * 60 * 1000));
       var earlyBirdDay = earlyBirdDate.getUTCDate();
       var earlyBirdMonth = earlyBirdDate.getUTCMonth() + 1;
       var earlyBirdYear = earlyBirdDate.getUTCFullYear();
