@@ -219,6 +219,29 @@
     }, 1000);
   })();
 
+  // Số năm kinh nghiệm được tính từ năm bắt đầu và tự cập nhật theo năm tại Việt Nam.
+  function updateExperienceYears(root) {
+    var currentYear = new Date().getFullYear();
+
+    try {
+      var vietnamYear = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'Asia/Ho_Chi_Minh',
+        year: 'numeric'
+      }).format(new Date());
+      currentYear = parseInt(vietnamYear, 10);
+    } catch (err) {
+      // Trình duyệt cũ sẽ dùng năm theo múi giờ của thiết bị.
+    }
+
+    root.querySelectorAll('[data-years-since]').forEach(function (element) {
+      var startYear = parseInt(element.getAttribute('data-years-since'), 10);
+      if (!startYear || startYear > currentYear) return;
+      element.textContent = currentYear - startYear;
+    });
+  }
+
+  updateExperienceYears(document);
+
   // High Achievers: mở trọn bài viết ngay trên website.
   (function setupAchieverStories() {
     var dialog = document.getElementById('achieverDialog');
@@ -295,6 +318,7 @@
       activeTrigger = trigger;
       content.textContent = '';
       content.appendChild(template.content.cloneNode(true));
+      updateExperienceYears(content);
       document.body.classList.add('has-open-dialog');
       dialog.showModal();
       closeButton.focus();
