@@ -347,20 +347,26 @@ a.exam-pick--thinking { --exam-bg: #E9DFFD; --exam-accent: var(--lavender); }
 .mission-section {
   position: relative;
   overflow: hidden;
+  scroll-margin-top: 76px;
   background-color: var(--bg-3);
   background-image:
     linear-gradient(var(--rowline) 1px, transparent 1px),
     linear-gradient(90deg, var(--rowline) 1px, transparent 1px);
   background-size: 44px 44px;
 }
-.mission-layout { position: relative; }
+.mission-layout {
+  position: relative;
+  padding-block: 4px 22px;
+}
 .mission-block {
-  max-width: 1000px;
+  position: relative;
+  z-index: 2;
+  max-width: 760px;
   margin-inline: auto;
-  padding: clamp(2.25rem, 5vw, 4.25rem) clamp(1.5rem, 6vw, 5rem);
+  padding: clamp(2rem, 4vw, 3rem) clamp(1.5rem, 5vw, 3.75rem);
   text-align: center;
-  background: rgba(255, 255, 255, 0.82);
-  border: 1px solid rgba(27, 22, 36, 0.46);
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(27, 22, 36, 0.72);
   border-radius: 16px;
 }
 .mission-block .microcaps {
@@ -378,31 +384,43 @@ a.exam-pick--thinking { --exam-bg: #E9DFFD; --exam-accent: var(--lavender); }
   background: var(--coral);
 }
 .mission-block h2 {
-  max-width: 880px;
-  margin: 22px auto 0;
-  font-size: clamp(2rem, 4.1vw, 3.85rem);
-  line-height: 1.16;
+  max-width: 680px;
+  margin: 18px auto 0;
+  font-size: clamp(2rem, 3vw, 2.65rem);
+  line-height: 1.18;
   font-weight: 600;
 }
 
 .stat-cards {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr 1.12fr 1fr;
+  grid-template-columns: 1fr 1.15fr 1fr;
   align-items: center;
-  gap: clamp(2rem, 4.5vw, 4.25rem);
-  max-width: 1040px;
-  margin: clamp(2.5rem, 6vw, 4.5rem) auto 0;
+  gap: clamp(2.75rem, 5vw, 4.75rem);
+  max-width: 940px;
+  min-height: 310px;
+  margin: 18px auto 0;
 }
-.stat-cards::before {
-  content: "";
+.stat-path {
   position: absolute;
-  left: 10%;
-  right: 8%;
-  top: 52%;
-  border-top: 2px dashed var(--fg-1);
-  opacity: 0.9;
+  inset: 22px -28px 0;
+  z-index: 0;
+  width: calc(100% + 56px);
+  height: calc(100% - 22px);
+  overflow: visible;
+  pointer-events: none;
 }
+.stat-path path {
+  fill: none;
+  stroke: var(--fg-1);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 4 9;
+}
+.stat-path__dot { stroke: var(--bg-3); stroke-width: 3; }
+.stat-path__dot--mint { fill: #8FD9AD; }
+.stat-path__dot--sky { fill: var(--sky); }
+.stat-path__dot--lavender { fill: var(--lavender); }
 .stat-card {
   position: relative;
   z-index: 1;
@@ -411,7 +429,10 @@ a.exam-pick--thinking { --exam-bg: #E9DFFD; --exam-accent: var(--lavender); }
   align-items: center;
   justify-content: center;
   min-width: 0;
-  padding: 34px 28px;
+  width: 100%;
+  max-width: 270px;
+  justify-self: center;
+  padding: 30px 24px;
   text-align: center;
   border: 1px solid var(--hairline);
   color: var(--fg-1);
@@ -428,54 +449,56 @@ a.exam-pick--thinking { --exam-bg: #E9DFFD; --exam-accent: var(--lavender); }
   display: block;
   font-family: var(--font-heading);
   font-weight: 700;
-  font-size: clamp(3.25rem, 5.5vw, 5rem);
+  font-size: clamp(3.15rem, 5vw, 4.45rem);
   line-height: 1;
   font-variant-numeric: tabular-nums;
 }
 .stat-card .stat__note {
-  max-width: 220px;
-  margin-top: 14px;
-  font-size: 15px;
-  line-height: 1.5;
+  max-width: 200px;
+  margin-top: 12px;
+  font-size: 14px;
+  line-height: 1.45;
   color: var(--fg-2);
 }
 .stat-card--circle {
+  width: 238px;
   aspect-ratio: 1;
   border-radius: 50%;
-  margin-top: -20px;
-  background: var(--mint-soft);
+  margin-top: -18px;
+  background: color-mix(in srgb, var(--mint-soft) 48%, white);
 }
 .stat-card--ticket {
-  min-height: 250px;
-  border-radius: 20px;
-  margin-top: 48px;
-  background: var(--sky-soft);
+  width: 276px;
+  max-width: 276px;
+  min-height: 194px;
+  padding: 24px 20px;
+  border-radius: 16px;
+  margin-top: 42px;
+  background: color-mix(in srgb, var(--sky-soft) 70%, white);
 }
 .stat-card--sticker {
   isolation: isolate;
-  min-height: 290px;
+  width: 260px;
+  min-height: 230px;
+  margin-top: 8px;
   border: 0;
   background: transparent;
 }
-.stat-card--sticker::before,
-.stat-card--sticker::after {
-  content: "";
+.stat-card__flower {
   position: absolute;
+  inset: -4px -8px;
   z-index: -1;
-  background: var(--lavender-soft);
+  width: calc(100% + 16px);
+  height: calc(100% + 8px);
+  overflow: visible;
 }
-.stat-card--sticker::before {
-  inset: 8% -3%;
-  border-radius: 38% / 48%;
-}
-.stat-card--sticker::after {
-  inset: -3% 8%;
-  border-radius: 48% / 38%;
+.stat-card__flower path {
+  fill: color-mix(in srgb, var(--lavender-soft) 78%, white);
 }
 .stat-card__heart {
   position: absolute;
-  top: -11px;
-  right: 8%;
+  top: -7px;
+  right: 7%;
   display: grid;
   width: 48px;
   height: 48px;
@@ -484,22 +507,30 @@ a.exam-pick--thinking { --exam-bg: #E9DFFD; --exam-accent: var(--lavender); }
   border: 1px solid var(--hairline);
   border-radius: 50%;
   background: var(--sky-soft);
-  font-family: var(--font-heading);
-  font-size: 31px;
-  line-height: 1;
   transform: rotate(8deg);
 }
-.mission-doodle {
+.stat-card__heart img { width: 27px; height: 27px; }
+.mission-icon,
+.mission-mark {
   position: absolute;
-  z-index: 0;
+  z-index: 1;
   color: var(--fg-1);
-  font-family: var(--font-heading);
-  line-height: 1;
   pointer-events: none;
 }
-.mission-doodle--star { top: 16%; left: 5%; font-size: 58px; transform: rotate(-10deg); }
-.mission-doodle--heart { top: 12%; right: 5%; font-size: 64px; transform: rotate(8deg); }
-.mission-doodle--spark { right: 8%; bottom: 10%; font-size: 38px; color: var(--yellow); }
+.mission-icon { width: 44px; height: 44px; }
+.mission-icon--star { top: 70px; left: 10px; width: 48px; height: 48px; transform: rotate(-10deg); }
+.mission-icon--heart { top: 66px; right: 16px; width: 46px; height: 46px; transform: rotate(9deg); }
+.mission-icon--book { left: 18px; bottom: 5px; width: 58px; height: 58px; transform: rotate(-9deg); }
+.mission-icon--plant { right: 24px; bottom: 17px; width: 46px; height: 46px; transform: rotate(8deg); }
+.mission-mark {
+  font-family: var(--font-body);
+  font-weight: 500;
+  line-height: 1;
+}
+.mission-mark--circle { top: 265px; left: 31px; width: 15px; height: 15px; border: 2px solid var(--fg-1); border-radius: 50%; }
+.mission-mark--plus { top: 226px; right: 30px; font-size: 28px; }
+.mission-mark--spark { top: 286px; right: 55px; color: var(--yellow); font-size: 34px; }
+.mission-mark--cross { left: 78px; bottom: 2px; font-size: 23px; transform: rotate(8deg); }
 
 /* ---------- Sections ---------- */
 .section { padding-block: var(--sp-section); }
@@ -1089,7 +1120,6 @@ body.has-open-dialog { overflow: hidden; }
 
 /* Chỉ hiện minh họa hai bên khi viewport đủ rộng để không chạm vào dải giá trị */
 @media (max-width: 1500px) { .notioly--hero { display: none; } }
-@media (max-width: 1100px) { .mission-doodle { display: none; } }
 @media (max-width: 900px) { .doodle { display: none; } }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1109,6 +1139,14 @@ body.has-open-dialog { overflow: hidden; }
   .stat-cards { gap: 24px; }
   .stat-card { padding: 28px 20px; }
   .stat-card .stat__note { font-size: 14px; }
+}
+@media (max-width: 820px) {
+  .stat-cards { grid-template-columns: 1fr; gap: 26px; max-width: 360px; min-height: 0; margin-top: 34px; }
+  .stat-path, .mission-icon, .mission-mark { display: none; }
+  .stat-card { width: 100%; margin: 0; }
+  .stat-card--circle { width: min(100%, 286px); }
+  .stat-card--ticket { width: 100%; min-height: 210px; }
+  .stat-card--sticker { width: min(100%, 286px); min-height: 244px; }
 }
 @media (max-width: 767px) {
   .nav__links {
@@ -1136,11 +1174,10 @@ body.has-open-dialog { overflow: hidden; }
   .mission-block { padding: 30px 20px 34px; }
   .mission-block h2 { font-size: clamp(1.65rem, 8vw, 2.25rem); line-height: 1.22; }
   .stat-cards { gap: 26px; max-width: 360px; margin-top: 34px; }
-  .stat-cards::before { display: none; }
   .stat-card { width: 100%; margin: 0; min-height: 0; padding: 34px 24px; }
   .stat-card--circle { width: min(100%, 310px); justify-self: center; }
   .stat-card--ticket { min-height: 230px; }
-  .stat-card--sticker { min-height: 280px; }
+  .stat-card--sticker { min-height: 250px; }
   .stat-card .stat__value { font-size: clamp(3.5rem, 20vw, 5rem); }
   .course-hero__grid { grid-template-columns: 1fr; }
   .footer__grid { grid-template-columns: 1fr; gap: 28px; }
