@@ -933,6 +933,49 @@ body.has-open-dialog { overflow: hidden; }
 .course-hero__grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
 .course-hero h1 { font-size: clamp(2.5rem, 5vw, 4.25rem); font-weight: 700; margin-block: 18px 20px; }
 .course-hero .hero__intro { font-size: var(--fs-intro); color: var(--fg-2); margin-bottom: 32px; }
+
+/* ---------- SAT coming soon ---------- */
+.sat-soon {
+  min-height: calc(100svh - 76px);
+  display: grid;
+  align-items: center;
+  overflow: hidden;
+  padding-block: clamp(4.5rem, 10vw, 8rem);
+}
+.sat-soon__inner { display: grid; place-items: center; }
+.sat-soon__panel {
+  position: relative;
+  width: min(100%, 820px);
+  text-align: center;
+}
+.sat-soon__panel::before {
+  content: "SAT";
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  color: rgba(191, 231, 247, 0.42);
+  font-family: var(--font-heading);
+  font-size: clamp(10rem, 28vw, 21rem);
+  font-weight: 700;
+  line-height: 0.75;
+  transform: translate(-50%, -52%);
+  pointer-events: none;
+}
+.sat-soon__panel h1 {
+  max-width: 760px;
+  margin: 22px auto 20px;
+  font-size: clamp(3rem, 7vw, 6rem);
+  line-height: 1.02;
+}
+.sat-soon__panel > p {
+  max-width: 640px;
+  margin: 0 auto 32px;
+  color: var(--fg-2);
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  line-height: 1.65;
+}
+.sat-soon__panel .hero__ctas { justify-content: center; }
 .hero__ctas { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
 .hero__note { font-size: 14px; color: var(--fg-3); margin-top: 14px; }
 
