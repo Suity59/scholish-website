@@ -177,6 +177,158 @@
       .manual-materials span { border-left: 0; border-top: 1px solid var(--hairline); }
       .manual-materials span:first-child { border-top: 0; }
     }
+
+    /* ScholishBank product proof */
+    .bank-showcase { overflow: hidden; background-color: var(--bg-1); }
+    .bank-showcase__head { max-width: 900px; margin: 0 auto 46px; text-align: center; }
+    .bank-showcase__head h2 { margin: 14px auto 18px; font-size: clamp(2.8rem, 6.8vw, 5.9rem); line-height: 1.02; }
+    .bank-showcase__head p { max-width: 630px; margin: 0 auto; color: var(--fg-2); font-size: 18px; }
+    .bank-marker { background: linear-gradient(transparent 64%, var(--yellow-soft) 0); }
+    .bank-bento { display: grid; grid-template-columns: .82fr 1.36fr .82fr; gap: 18px; align-items: stretch; }
+    .bank-card {
+      position: relative;
+      display: flex;
+      min-width: 0;
+      min-height: 342px;
+      overflow: hidden;
+      padding: 24px;
+      border: 1px solid rgba(27,22,36,.13);
+      border-radius: 16px;
+      flex-direction: column;
+      transition: transform .28s cubic-bezier(.2,.8,.2,1), box-shadow .28s ease;
+    }
+    .bank-card:hover { transform: translateY(-5px); box-shadow: 0 18px 44px rgba(54,42,36,.1); }
+    .bank-card--practice { background: var(--mint-soft); }
+    .bank-card--mock { background: var(--sky-soft); }
+    .bank-card--explain { background: var(--yellow-soft); }
+    .bank-card--progress { background: var(--lavender-soft); }
+    .bank-card__index { display: grid; place-items: center; width: 42px; height: 42px; border: 1.5px solid var(--fg-1); border-radius: 50%; font-family: var(--font-heading); font-weight: 700; }
+    .bank-card h3 { margin-top: 28px; font-size: clamp(1.45rem, 2.2vw, 1.8rem); line-height: 1.12; }
+    .bank-card > p { margin: 8px 0 20px; color: var(--fg-2); font-size: 14px; line-height: 1.42; }
+    .bank-mini {
+      position: relative;
+      margin-top: auto;
+      padding: 13px;
+      overflow: hidden;
+      border: 1px solid rgba(27,22,36,.14);
+      border-radius: 12px;
+      background: rgba(255,255,255,.76);
+      box-shadow: 0 8px 20px rgba(27,22,36,.06);
+      font-size: 11px;
+    }
+    .bank-mini__label { color: var(--fg-2); font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .bank-mini__row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .bank-mini__chips { display: flex; gap: 5px; margin-top: 8px; }
+    .bank-mini__chip { padding: 5px 7px; border: 1px solid rgba(27,22,36,.12); border-radius: 999px; background: white; color: var(--fg-2); font-weight: 700; }
+    .bank-mini__chip.is-active { border-color: var(--fg-1); background: var(--fg-1); color: white; }
+    .bank-mini__button { border: 0; border-radius: 7px; padding: 6px 8px; background: var(--fg-1); color: white; font-size: 10px; font-weight: 700; }
+    .bank-mini__set { margin-top: 9px; padding-top: 8px; border-top: 1px solid rgba(27,22,36,.1); }
+    .bank-mini__set strong { display: block; font-size: 12px; }
+    .bank-mini__set span { color: var(--fg-2); }
+    .bank-mini__clock { margin-top: 3px; font-family: var(--font-heading); font-size: 28px; line-height: 1; }
+    .bank-mini__track { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; margin-top: 11px; }
+    .bank-mini__track span { height: 7px; border-radius: 99px; background: rgba(27,22,36,.12); }
+    .bank-mini__track .is-done { background: var(--sky); }
+    .bank-mini__track .is-live { background: var(--coral); animation: bank-pulse 1.5s ease-in-out infinite; }
+    .bank-mini__foot { display: flex; justify-content: space-between; margin-top: 8px; color: var(--fg-2); }
+    .bank-mini--explain { display: grid; grid-template-columns: 52px 1fr; gap: 10px; }
+    .bank-mini__answers { display: grid; gap: 5px; }
+    .bank-mini__answers span { display: grid; place-items: center; height: 21px; border: 1px solid rgba(27,22,36,.12); border-radius: 6px; background: white; font-weight: 700; }
+    .bank-mini__answers .is-wrong { border-color: var(--coral); background: var(--coral-soft); }
+    .bank-mini__answers .is-right { border-color: var(--mint); background: var(--mint-soft); }
+    .bank-mini__reason { padding: 9px; border-radius: 9px; background: white; }
+    .bank-mini__reason strong { display: block; font-size: 11px; }
+    .bank-mini__reason p { margin-top: 3px; color: var(--fg-2); font-size: 9px; line-height: 1.3; }
+    .bank-mini__rule { width: 82%; height: 4px; margin-top: 7px; border-radius: 99px; background: var(--coral); }
+    .bank-mini--analytics { display: grid; grid-template-columns: 72px 1fr; gap: 11px; align-items: center; }
+    .bank-mini__donut { display: grid; place-items: center; width: 68px; height: 68px; border-radius: 50%; background: conic-gradient(var(--lavender) 0 74%, rgba(27,22,36,.1) 74% 100%); }
+    .bank-mini__donut::before { content: '74%'; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; background: white; font-weight: 700; }
+    .bank-mini__skills { display: grid; gap: 6px; }
+    .bank-mini__skill .bank-mini__row { font-size: 9px; }
+    .bank-mini__skill i { display: block; height: 5px; margin-top: 3px; border-radius: 99px; background: rgba(27,22,36,.1); }
+    .bank-mini__skill i::after { content: ''; display: block; width: var(--score); height: 100%; border-radius: inherit; background: var(--lavender); }
+    .bank-product { grid-row: span 2; min-height: 702px; padding: 16px; border-radius: 16px; background: var(--fg-1); color: var(--fg-1); }
+    .bank-product__frame { height: 100%; overflow: hidden; border-radius: 12px; background: #fbfaf8; }
+    .bank-product__top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 20px; border-bottom: 1px solid var(--hairline); }
+    .bank-product__brand { display: flex; align-items: center; gap: 10px; font-weight: 700; }
+    .bank-product__logo { display: grid; place-items: center; width: 34px; height: 34px; border: 1.5px solid var(--fg-1); border-radius: 9px; background: var(--mint); box-shadow: 3px 3px 0 var(--fg-1); font-family: var(--font-heading); }
+    .bank-product__pill { padding: 7px 12px; border-radius: 999px; background: var(--lavender-soft); font-size: 12px; font-weight: 700; }
+    .bank-product__body { padding: 24px; }
+    .bank-product__body > p { color: var(--fg-2); font-size: 13px; }
+    .bank-product__body h3 { margin-top: 5px; font-size: 32px; }
+    .bank-product__progress-head { display: flex; justify-content: space-between; margin-top: 24px; font-size: 13px; font-weight: 700; }
+    .bank-product__progress { height: 10px; margin-top: 8px; overflow: hidden; border-radius: 99px; background: #e8e4e0; }
+    .bank-product__progress span { display: block; width: 68%; height: 100%; border-radius: inherit; background: var(--lavender); }
+    .bank-question { margin-top: 22px; padding: 22px; border: 1px solid var(--hairline); border-radius: 14px; background: white; box-shadow: 0 12px 28px rgba(27,22,36,.07); }
+    .bank-question__meta { display: flex; justify-content: space-between; gap: 12px; color: var(--fg-2); font-size: 12px; font-weight: 700; }
+    .bank-question h4 { margin: 14px 0 0; font-size: 17px; line-height: 1.42; }
+    .bank-question__answers { display: grid; gap: 8px; margin-top: 16px; }
+    .bank-question__answer { display: flex; align-items: center; gap: 11px; padding: 10px 12px; border: 1px solid var(--hairline); border-radius: 9px; font-size: 13px; }
+    .bank-question__answer b { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: #eeeae6; font-size: 11px; }
+    .bank-question__answer.is-active { border-color: var(--lavender); background: var(--lavender-soft); }
+    .bank-question__actions { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 18px; }
+    .bank-question__timer { color: var(--fg-2); font-size: 12px; }
+    .bank-question__submit { border: 0; border-radius: 9px; padding: 10px 16px; background: var(--fg-1); color: white; font-weight: 700; }
+    .bank-proof { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 20px; }
+    .bank-proof div { display: flex; align-items: center; gap: 14px; padding: 14px 4px; border-top: 1px solid var(--hairline); color: var(--fg-2); }
+    .bank-proof strong { color: var(--fg-1); font-family: var(--font-heading); font-size: 28px; white-space: nowrap; }
+    .bank-explanation { margin-top: clamp(74px, 10vw, 120px); }
+    .bank-explanation__head { max-width: 850px; margin: 0 auto 40px; text-align: center; }
+    .bank-explanation__head h2 { margin: 14px 0 16px; font-size: clamp(2.7rem, 6vw, 5rem); }
+    .bank-explanation__head p { max-width: 630px; margin: 0 auto; color: var(--fg-2); font-size: 18px; }
+    .bank-explanation__demo { display: grid; grid-template-columns: .86fr 1.14fr; overflow: hidden; min-height: 630px; border: 1px solid var(--hairline); border-radius: 16px; background: #f7f3ef; box-shadow: 0 24px 60px rgba(48,37,31,.1); }
+    .bank-explanation__question { padding: clamp(28px,4vw,48px); border-right: 1px solid var(--hairline); }
+    .bank-explanation__tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .bank-explanation__tag { padding: 7px 11px; border: 1px solid var(--hairline); border-radius: 999px; background: white; color: var(--fg-2); font-size: 11px; font-weight: 700; text-transform: uppercase; }
+    .bank-explanation__question h3 { margin-top: 24px; font-family: var(--font-body); font-size: clamp(22px,2.4vw,31px); line-height: 1.28; }
+    .bank-explanation__options { display: grid; gap: 10px; margin-top: 28px; }
+    .bank-explanation__option { display: flex; gap: 13px; align-items: center; padding: 15px; border: 1px solid var(--hairline); border-radius: 12px; background: white; }
+    .bank-explanation__option span { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: #eeeae6; font-weight: 700; }
+    .bank-explanation__option.is-wrong { border-color: var(--coral); background: var(--coral-soft); }
+    .bank-explanation__option.is-wrong span { background: var(--coral); }
+    .bank-explanation__result { margin-top: 22px; padding: 17px 18px; border-radius: 12px; background: var(--coral-soft); font-size: 14px; }
+    .bank-explanation__result strong { display: block; }
+    .bank-explanation__answer { padding: clamp(28px,4vw,48px); background: white; }
+    .bank-explanation__title { display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+    .bank-explanation__title h3 { font-size: 36px; }
+    .bank-explanation__correct { padding: 9px 13px; border-radius: 999px; background: var(--mint-soft); font-size: 12px; font-weight: 700; }
+    .bank-tabs { display: flex; gap: 8px; margin-top: 24px; padding-bottom: 14px; overflow-x: auto; border-bottom: 1px solid var(--hairline); }
+    .bank-tab { white-space: nowrap; border: 1px solid var(--hairline); border-radius: 999px; padding: 9px 13px; background: white; cursor: pointer; font-size: 13px; font-weight: 700; }
+    .bank-tab[aria-selected='true'] { border-color: var(--fg-1); background: var(--fg-1); color: white; }
+    .bank-tab-panel { padding-top: 24px; }
+    .bank-tab-panel[hidden] { display: none; }
+    .bank-tab-panel h4 { margin: 0 0 9px; font-size: 18px; }
+    .bank-tab-panel > p { color: var(--fg-2); }
+    .bank-logic { display: grid; grid-template-columns: 34px 1fr; gap: 12px; margin-top: 14px; padding: 14px; border-radius: 12px; background: var(--mint-soft); }
+    .bank-logic > b { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--mint); }
+    .bank-why { display: grid; gap: 10px; margin-top: 16px; }
+    .bank-why div { padding: 13px 15px; border: 1px solid var(--hairline); border-radius: 12px; }
+    .bank-why strong { display: block; }
+    .bank-explanation__actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+    .bank-explanation__actions button { border: 1px solid var(--fg-1); border-radius: 9px; padding: 11px 15px; background: white; font-weight: 700; }
+    .bank-explanation__actions button:first-child { background: var(--yellow-soft); box-shadow: 3px 3px 0 var(--fg-1); }
+    .bank-explanation__note { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 24px; padding: 22px 26px; border: 1px solid var(--hairline); border-radius: 16px; background: var(--lavender-soft); }
+    .bank-explanation__note h3 { font-size: 25px; }
+    .bank-explanation__note p { max-width: 520px; color: var(--fg-2); }
+    @keyframes bank-pulse { 50% { opacity: .4; transform: scaleX(.82); } }
+    @media (max-width: 900px) {
+      .bank-bento { grid-template-columns: 1fr 1fr; }
+      .bank-product { grid-column: 1 / -1; grid-row: auto; order: -1; min-height: 650px; }
+      .bank-explanation__demo { grid-template-columns: 1fr; }
+      .bank-explanation__question { border-right: 0; border-bottom: 1px solid var(--hairline); }
+    }
+    @media (max-width: 640px) {
+      .bank-bento, .bank-proof { grid-template-columns: 1fr; }
+      .bank-card { min-height: 310px; }
+      .bank-product { grid-column: auto; min-height: auto; padding: 10px; }
+      .bank-product__body { padding: 16px; }
+      .bank-proof div { border-top: 0; padding: 2px 0; }
+      .bank-explanation__demo { border-radius: 14px; }
+      .bank-explanation__note { align-items: flex-start; flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .bank-card, .bank-mini__track .is-live { transition: none; animation: none; }
+    }
   </style>
 </head>
 <body>
@@ -533,6 +685,149 @@
             <span class="microcaps num">GMAT · 2023</span>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCHOLISHBANK ============ -->
+  <section class="section bank-showcase">
+    <div class="container">
+      <div class="bank-showcase__head reveal">
+        <span class="microcaps">ScholishBank</span>
+        <h2>Làm đề không chỉ để biết <span class="bank-marker">đúng hay sai.</span></h2>
+        <p>Mỗi lần luyện là một lần nhìn rõ điểm yếu, sửa đúng cách và tiến gần hơn tới mục tiêu 700+.</p>
+      </div>
+
+      <div class="bank-bento">
+        <article class="bank-card bank-card--practice reveal">
+          <span class="bank-card__index num">01</span>
+          <h3>Practice set đúng trọng tâm</h3>
+          <p>Luyện theo từng dạng bài, tập trung thời gian vào đúng kỹ năng đang cần cải thiện.</p>
+          <div class="bank-mini" aria-label="Minh họa bộ lọc practice set">
+            <div class="bank-mini__row"><span class="bank-mini__label">Tạo practice set</span><span class="bank-mini__button">Bắt đầu</span></div>
+            <div class="bank-mini__chips"><span class="bank-mini__chip">Verbal</span><span class="bank-mini__chip is-active">Quant</span><span class="bank-mini__chip">Data</span></div>
+            <div class="bank-mini__set"><strong>Algebra Foundations</strong><span>10 câu · Medium · Không giới hạn giờ</span></div>
+          </div>
+        </article>
+
+        <article class="bank-product reveal" aria-label="Minh họa giao diện làm bài ScholishBank">
+          <div class="bank-product__frame">
+            <div class="bank-product__top">
+              <div class="bank-product__brand"><span class="bank-product__logo">S</span>ScholishBank</div>
+              <span class="bank-product__pill">GMAT Focus</span>
+            </div>
+            <div class="bank-product__body">
+              <p>Practice set hôm nay</p>
+              <h3>Critical Reasoning</h3>
+              <div class="bank-product__progress-head"><span>Câu 12 / 20</span><span>68% hoàn thành</span></div>
+              <div class="bank-product__progress"><span></span></div>
+              <div class="bank-question">
+                <div class="bank-question__meta"><span>Evaluate the Argument</span><span>02:00 / câu</span></div>
+                <h4>Which of the following would be most useful to determine in evaluating the argument?</h4>
+                <div class="bank-question__answers">
+                  <div class="bank-question__answer"><b>A</b>Whether the survey included...</div>
+                  <div class="bank-question__answer is-active"><b>B</b>Whether customers who returned...</div>
+                  <div class="bank-question__answer"><b>C</b>Whether the company plans to...</div>
+                  <div class="bank-question__answer"><b>D</b>Whether competitors also...</div>
+                </div>
+                <div class="bank-question__actions"><span class="bank-question__timer">Còn 01:12</span><span class="bank-question__submit">Nộp đáp án</span></div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="bank-card bank-card--mock reveal">
+          <span class="bank-card__index num">02</span>
+          <h3>Mock test có giờ</h3>
+          <p>Làm quen áp lực thời gian và nhịp độ phòng thi trước khi bước vào bài thi thật.</p>
+          <div class="bank-mini" aria-label="Minh họa đồng hồ mock test">
+            <div class="bank-mini__row"><span class="bank-mini__label">Mock test 01</span><strong>Q 17 / 21</strong></div>
+            <div class="bank-mini__clock num">01:42:18</div>
+            <div class="bank-mini__track"><span class="is-done"></span><span class="is-done"></span><span class="is-live"></span><span></span></div>
+            <div class="bank-mini__foot"><span>Quant</span><span>Đang tính giờ</span></div>
+          </div>
+        </article>
+
+        <article class="bank-card bank-card--explain reveal">
+          <span class="bank-card__index num">03</span>
+          <h3>Hiểu vì sao mình sai</h3>
+          <p>Không dừng ở đáp án. Mỗi câu sai được bóc tách logic để lỗi cũ không quay lại.</p>
+          <div class="bank-mini bank-mini--explain" aria-label="Minh họa giải thích đáp án">
+            <div class="bank-mini__answers"><span>A</span><span class="is-wrong">B</span><span>C</span><span class="is-right">D</span></div>
+            <div class="bank-mini__reason"><span class="bank-mini__label">Vì sao B sai?</span><strong>Đúng phép tính, sai yêu cầu</strong><p>B là một nghiệm, nhưng đề hỏi nghiệm lớn hơn.</p><div class="bank-mini__rule"></div></div>
+          </div>
+        </article>
+
+        <article class="bank-card bank-card--progress reveal">
+          <span class="bank-card__index num">04</span>
+          <h3>Thấy rõ tiến độ</h3>
+          <p>Theo dõi quá trình luyện tập để biết mình đang tiến bộ ở đâu và cần cải thiện phần nào.</p>
+          <div class="bank-mini bank-mini--analytics" aria-label="Minh họa dashboard tiến độ">
+            <div class="bank-mini__donut"></div>
+            <div class="bank-mini__skills">
+              <div class="bank-mini__skill"><div class="bank-mini__row"><span>Verbal</span><b>82%</b></div><i style="--score:82%"></i></div>
+              <div class="bank-mini__skill"><div class="bank-mini__row"><span>Quant</span><b>74%</b></div><i style="--score:74%"></i></div>
+              <div class="bank-mini__skill"><div class="bank-mini__row"><span>Data</span><b>61%</b></div><i style="--score:61%"></i></div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="bank-proof reveal">
+        <div><strong class="num">01</strong><span>Một nơi để luyện tập xuyên suốt khóa học</span></div>
+        <div><strong class="num">03</strong><span>Trọn bộ Verbal, Quant và Data Insights</span></div>
+        <div><strong class="num">24/7</strong><span>Chủ động luyện theo lịch của chính bạn</span></div>
+      </div>
+
+      <div class="bank-explanation">
+        <div class="bank-explanation__head reveal">
+          <span class="microcaps">Không chỉ chấm đáp án</span>
+          <h2>Mỗi câu hỏi là một <span class="bank-marker">bài học nhỏ.</span></h2>
+          <p>Hiểu câu đúng, nhận diện bẫy ở từng câu sai và mang theo một cách giải có thể dùng lại ở lần sau.</p>
+        </div>
+        <div class="bank-explanation__demo reveal">
+          <div class="bank-explanation__question">
+            <div class="bank-explanation__tags"><span class="bank-explanation__tag">Quant</span><span class="bank-explanation__tag">Medium</span><span class="bank-explanation__tag num">02:18</span></div>
+            <h3>If x² − 4x = 21, what is the greater possible value of x?</h3>
+            <div class="bank-explanation__options">
+              <div class="bank-explanation__option"><span>A</span>−7</div>
+              <div class="bank-explanation__option is-wrong"><span>B</span>−3</div>
+              <div class="bank-explanation__option"><span>C</span>3</div>
+              <div class="bank-explanation__option"><span>D</span>7</div>
+            </div>
+            <div class="bank-explanation__result"><strong>Chưa chính xác</strong>Bạn đã chuyển vế đúng nhưng chưa đọc kỹ yêu cầu chọn nghiệm lớn hơn.</div>
+          </div>
+          <div class="bank-explanation__answer">
+            <div class="bank-explanation__title"><h3>Giải thích chi tiết</h3><span class="bank-explanation__correct">Đáp án D</span></div>
+            <div class="bank-tabs" role="tablist" aria-label="Các lớp giải thích ScholishBank">
+              <button class="bank-tab" type="button" role="tab" aria-selected="true" data-bank-tab="method">Cách giải</button>
+              <button class="bank-tab" type="button" role="tab" aria-selected="false" data-bank-tab="traps">Bẫy đáp án</button>
+              <button class="bank-tab" type="button" role="tab" aria-selected="false" data-bank-tab="takeaway">Điều cần nhớ</button>
+            </div>
+            <div class="bank-tab-panel" id="bank-method" role="tabpanel">
+              <h4>Đưa phương trình về dạng tích</h4>
+              <p>x² − 4x − 21 = 0. Tìm hai số có tích bằng −21 và tổng bằng −4.</p>
+              <div class="bank-logic"><b>1</b><div><strong>Phân tích nhân tử</strong><br>(x − 7)(x + 3) = 0</div></div>
+              <div class="bank-logic"><b>2</b><div><strong>Tìm hai nghiệm</strong><br>x = 7 hoặc x = −3</div></div>
+              <div class="bank-logic"><b>3</b><div><strong>Đọc kỹ yêu cầu</strong><br>Đề hỏi nghiệm lớn hơn, vì vậy chọn 7.</div></div>
+            </div>
+            <div class="bank-tab-panel" id="bank-traps" role="tabpanel" hidden>
+              <h4>Vì sao các lựa chọn gây nhiễu?</h4>
+              <div class="bank-why">
+                <div><strong>B. −3</strong>Đây là một nghiệm, nhưng không phải nghiệm lớn hơn mà đề yêu cầu.</div>
+                <div><strong>C. 3</strong>Dễ chọn khi bỏ quên dấu âm trong nhân tử x + 3.</div>
+                <div><strong>A. −7</strong>Dễ chọn khi đảo dấu của nhân tử x − 7.</div>
+              </div>
+            </div>
+            <div class="bank-tab-panel" id="bank-takeaway" role="tabpanel" hidden>
+              <h4>Mang gì sang câu tiếp theo?</h4>
+              <p>Với phương trình bậc hai, hãy ưu tiên phân tích nhân tử và luôn kiểm tra đề hỏi một nghiệm, nghiệm dương hay nghiệm lớn hơn.</p>
+              <div class="bank-logic"><b>!</b><div><strong>Checklist 10 giây</strong><br>Chuyển về một vế, phân tích nhân tử, xét đủ nghiệm rồi đọc lại yêu cầu.</div></div>
+            </div>
+            <div class="bank-explanation__actions"><button type="button">Luyện lại dạng này</button><button type="button">Xem câu tiếp theo</button></div>
+          </div>
+        </div>
+        <div class="bank-explanation__note reveal"><h3>Sai một lần, hiểu đến cùng.</h3><p>ScholishBank biến dữ liệu luyện tập thành phản hồi mà học viên có thể hành động ngay.</p></div>
       </div>
     </div>
   </section>

@@ -44,6 +44,24 @@
     });
   });
 
+  // ScholishBank: chuyển giữa cách giải, bẫy đáp án và điều cần nhớ.
+  document.querySelectorAll('.bank-tabs').forEach(function (tabList) {
+    var tabs = tabList.querySelectorAll('[data-bank-tab]');
+    var answer = tabList.closest('.bank-explanation__answer');
+    if (!answer) return;
+
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        tabs.forEach(function (item) {
+          item.setAttribute('aria-selected', item === tab ? 'true' : 'false');
+        });
+        answer.querySelectorAll('.bank-tab-panel').forEach(function (panel) {
+          panel.hidden = panel.id !== 'bank-' + tab.getAttribute('data-bank-tab');
+        });
+      });
+    });
+  });
+
   // Marquee reviews: nhân đôi track để vòng lặp liền mạch, rồi bật animation.
   // Nếu reduced-motion thì giữ nguyên — CSS chuyển thành dải cuộn tay.
   // PHẢI chạy TRƯỚC avatar loader: innerHTML += thay toàn bộ node của track,
