@@ -277,6 +277,58 @@
     });
   })();
 
+  // Mọi liên kết Zalo mở mã QR trước; vẫn giữ nút mở Zalo trực tiếp cho mobile.
+  (function setupZaloQrDialog() {
+    var zaloLinks = Array.prototype.slice.call(document.querySelectorAll('a[href^="https://zalo.me/"]'));
+    if (!zaloLinks.length || typeof HTMLDialogElement === 'undefined') return;
+
+    var directHref = zaloLinks[0].href;
+    var dialog = document.createElement('dialog');
+    dialog.className = 'zalo-dialog';
+    dialog.setAttribute('aria-labelledby', 'zaloDialogTitle');
+    dialog.innerHTML =
+      '<div class="zalo-dialog__shell">' +
+        '<button class="zalo-dialog__close" type="button" aria-label="Đóng mã QR">×</button>' +
+        '<div class="zalo-dialog__head">' +
+          '<h2 id="zaloDialogTitle">Nhắn Zalo cho Scholish</h2>' +
+          '<p>Quét mã QR bằng Zalo hoặc mở ứng dụng trực tiếp.</p>' +
+        '</div>' +
+        '<img class="zalo-dialog__qr" src="assets/zalo-qr.jpg" alt="Mã QR Zalo của Lê Nam Anh">' +
+        '<div class="zalo-dialog__actions">' +
+          '<a class="btn btn--primary" href="' + directHref + '" target="_blank" rel="noopener">Mở Zalo trực tiếp</a>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(dialog);
+
+    var closeButton = dialog.querySelector('.zalo-dialog__close');
+    var activeTrigger = null;
+
+    zaloLinks.forEach(function (link) {
+      link.setAttribute('aria-haspopup', 'dialog');
+      link.addEventListener('click', function (event) {
+        event.preventDefault();
+        activeTrigger = link;
+        document.body.classList.add('has-open-dialog');
+        dialog.showModal();
+        closeButton.focus();
+      });
+    });
+
+    closeButton.addEventListener('click', function () {
+      dialog.close();
+    });
+
+    dialog.addEventListener('click', function (event) {
+      if (event.target === dialog) dialog.close();
+    });
+
+    dialog.addEventListener('close', function () {
+      document.body.classList.remove('has-open-dialog');
+      if (activeTrigger) activeTrigger.focus();
+      activeTrigger = null;
+    });
+  })();
+
   var counters = document.querySelectorAll('[data-count]');
   if (counters.length && !reduced && 'IntersectionObserver' in window) {
     var countObserver = new IntersectionObserver(function (entries) {
