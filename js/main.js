@@ -318,6 +318,43 @@
     });
   })();
 
+  // Popup đăng ký GMAT dùng chung cho homepage và trang khóa học.
+  (function setupGmatEnrollmentDialog() {
+    var dialog = document.getElementById('gmatEnrollDialog');
+    var triggers = document.querySelectorAll('[data-gmat-enroll]');
+    var closeButton = dialog ? dialog.querySelector('[data-gmat-enroll-close]') : null;
+    var selectedClass = dialog ? document.getElementById('gmatEnrollClass') : null;
+    var activeTrigger = null;
+
+    if (!dialog || !closeButton || !triggers.length || typeof HTMLDialogElement === 'undefined') return;
+
+    triggers.forEach(function (trigger) {
+      trigger.setAttribute('aria-haspopup', 'dialog');
+      trigger.addEventListener('click', function (event) {
+        var card = trigger.closest('[data-upcoming-class]');
+        var month = card ? card.querySelector('[data-upcoming-month]') : null;
+        event.preventDefault();
+        activeTrigger = trigger;
+        if (selectedClass) {
+          selectedClass.textContent = 'Bạn đang giữ chỗ lớp GMAT Trứng Rán · ' + (month ? month.textContent : 'sắp khai giảng');
+        }
+        document.body.classList.add('has-open-dialog');
+        dialog.showModal();
+        dialog.scrollTop = 0;
+        closeButton.focus({ preventScroll: true });
+        window.requestAnimationFrame(function () { dialog.scrollTop = 0; });
+      });
+    });
+
+    closeButton.addEventListener('click', function () { dialog.close(); });
+    dialog.addEventListener('click', function (event) { if (event.target === dialog) dialog.close(); });
+    dialog.addEventListener('close', function () {
+      document.body.classList.remove('has-open-dialog');
+      if (activeTrigger) activeTrigger.focus();
+      activeTrigger = null;
+    });
+  })();
+
   // Đội ngũ giảng viên: mở hồ sơ chi tiết ngay trên homepage.
   (function setupTeacherProfiles() {
     var dialog = document.getElementById('facultyDialog');

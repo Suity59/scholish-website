@@ -1650,6 +1650,107 @@ body.has-open-dialog { overflow: hidden; }
 }
 @media (max-width: 900px) { .doodle { display: none; } }
 
+/* ---------- Shared GMAT enrollment dialog ---------- */
+.gmat-enroll-dialog {
+  width: min(1180px, calc(100vw - 32px));
+  max-width: none;
+  max-height: calc(100dvh - 32px);
+  padding: 0;
+  overflow: auto;
+  border: 0;
+  border-radius: 20px;
+  background: var(--bg-2);
+  color: var(--fg-1);
+  box-shadow: 0 28px 90px rgba(27, 22, 36, .28);
+}
+.gmat-enroll-dialog::backdrop {
+  background: rgba(27, 22, 36, .66);
+  backdrop-filter: blur(5px);
+}
+.gmat-enroll-dialog__shell { position: relative; padding: clamp(24px, 4vw, 42px); }
+.gmat-enroll-dialog__close {
+  position: absolute;
+  z-index: 1;
+  top: 18px;
+  right: 18px;
+  display: grid;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  place-items: center;
+  border: 1px solid var(--hairline);
+  border-radius: 50%;
+  background: white;
+  color: var(--fg-1);
+  font-size: 22px;
+  line-height: 1;
+}
+.gmat-enroll-dialog__close:focus-visible { outline: 3px solid var(--fg-1); outline-offset: 3px; }
+.gmat-enroll-dialog__head { max-width: 740px; padding-right: 48px; margin-bottom: 26px; }
+.gmat-enroll-dialog__head h2 { margin: 9px 0 7px; font-size: clamp(2rem, 4vw, 3.3rem); }
+.gmat-enroll-dialog__head p { color: var(--fg-2); }
+.gmat-enroll-dialog__grid { display: grid; grid-template-columns: 1.25fr .75fr; gap: 20px; }
+.gmat-enroll-step { padding: clamp(22px, 3vw, 30px); border: 1px solid var(--hairline); border-radius: 16px; }
+.gmat-enroll-step--form { display: flex; flex-direction: column; background: var(--yellow-soft); }
+.gmat-enroll-step--payment { background: var(--lavender-soft); }
+.gmat-enroll-step__number {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  margin-bottom: 24px;
+  place-items: center;
+  border: 1.5px solid var(--fg-1);
+  border-radius: 50%;
+  background: white;
+  font-family: var(--font-heading);
+  font-weight: 700;
+}
+.gmat-enroll-step h3 { margin-bottom: 9px; font-size: clamp(1.45rem, 2.5vw, 2rem); }
+.gmat-enroll-step > p { color: var(--fg-2); }
+.gmat-enroll-form-frame {
+  display: block;
+  width: 100%;
+  height: 600px;
+  margin-top: 18px;
+  border: 0;
+  border-radius: 12px;
+  background: white;
+}
+.gmat-enroll-form-fallback { margin-top: 10px; color: var(--fg-2); font-size: 12px; }
+.gmat-enroll-form-fallback a { color: var(--fg-1); font-weight: 700; }
+.gmat-payment-qr {
+  height: min(50dvh, 470px);
+  margin-top: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(27, 22, 36, .12);
+  border-radius: 14px;
+  background: #f1e8fb;
+}
+.gmat-payment-qr img { display: block; width: 100%; height: auto; transform: translateY(-13%); }
+.gmat-payment-account { display: flex; justify-content: space-between; gap: 18px; margin-top: 14px; font-size: 13px; }
+.gmat-payment-account span { color: var(--fg-2); }
+.gmat-payment-account strong { text-align: right; }
+
+@media (max-width: 900px) {
+  .gmat-enroll-dialog__grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  .gmat-enroll-dialog {
+    width: calc(100vw - 16px);
+    max-height: calc(100dvh - 16px);
+    border-radius: 14px;
+  }
+  .gmat-enroll-dialog__shell { padding: 22px 14px 18px; }
+  .gmat-enroll-dialog__close { top: 12px; right: 12px; }
+  .gmat-enroll-dialog__head { padding-right: 42px; }
+  .gmat-enroll-dialog__grid { gap: 12px; }
+  .gmat-enroll-form-frame { height: 560px; }
+  .gmat-payment-qr { height: 390px; }
+  .gmat-payment-account { align-items: flex-start; flex-direction: column; gap: 3px; }
+  .gmat-payment-account strong { text-align: left; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; transition: none; }
