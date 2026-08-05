@@ -1,5 +1,6 @@
 const {
   DEPOSIT_VND,
+  BANK,
   DATABASE_ID,
   PROP,
   TRANG_THAI,
@@ -99,11 +100,7 @@ module.exports = async function handler(req, res) {
     code,
     amountVnd: DEPOSIT_VND,
     qrUrl: sepayQrUrl(DEPOSIT_VND, code),
-    bank: {
-      name: process.env.SEPAY_BANK_NAME || '',
-      acc: process.env.SEPAY_BANK_ACC || '',
-      owner: process.env.SEPAY_BANK_OWNER || 'LE NAM ANH',
-    },
+    bank: { name: BANK.name, acc: BANK.acc, owner: BANK.owner },
   });
 };
 

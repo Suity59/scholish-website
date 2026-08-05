@@ -5,6 +5,7 @@ const {
   ORDER_CODE_REGEX,
   notionClient,
   findPageByCode,
+  safeEqual,
   notifyEmail,
 } = require('./_lib');
 
@@ -22,7 +23,7 @@ module.exports = async function handler(req, res) {
   }
 
   const expected = `Apikey ${process.env.SEPAY_WEBHOOK_API_KEY}`;
-  if (!process.env.SEPAY_WEBHOOK_API_KEY || req.headers.authorization !== expected) {
+  if (!process.env.SEPAY_WEBHOOK_API_KEY || !safeEqual(req.headers.authorization || '', expected)) {
     return res.status(401).json({ error: 'unauthorized' });
   }
 

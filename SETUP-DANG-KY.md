@@ -9,16 +9,28 @@ tới khi webhook SePay báo tiền đã về.
 Đặt trong Vercel → Project scholish-website → Settings → Environment Variables
 (chọn cả Production và Preview):
 
+**Bắt buộc:**
+
 | Biến | Giá trị | Lấy ở đâu |
 |---|---|---|
-| `NOTION_TOKEN` | `ntn_...` | notion.so/profile/integrations → New internal integration → copy token, rồi vào database "New form" bấm ••• → Connections → thêm integration vừa tạo |
-| `SEPAY_BANK_ACC` | `9899907031997` | Tài khoản MB dùng chung với `hoc.namanhsuit.com` |
-| `SEPAY_BANK_NAME` | `MBBank` | Viết liền, đúng như hoc đang dùng |
-| `SEPAY_BANK_OWNER` | `LE NAM ANH` | Chỉ là chữ hiện dưới mã QR, sửa cho khớp tên chủ tài khoản MB |
-| `SEPAY_WEBHOOK_API_KEY` | chuỗi bí mật tự đặt | Dán đúng chuỗi này vào cấu hình webhook bên SePay |
-| `RESEND_API_KEY` | `re_...` | Tuỳ chọn — không có thì bỏ qua email báo |
-| `NOTIFY_EMAIL_TO` | `thescholish@gmail.com` | Tuỳ chọn |
-| `NOTIFY_EMAIL_FROM` | `Scholish <dangky@namanhsuit.com>` | Tuỳ chọn, cần verify domain ở Resend |
+| `NOTION_TOKEN` | `ntn_...` | notion.so/profile/integrations → New connection → Access token. Sau đó vào database "New form" bấm ••• → Connections → thêm connection vừa tạo. ✅ đã đặt xong 5/8/2026 |
+| `SEPAY_WEBHOOK_API_KEY` | chuỗi ngẫu nhiên tự đặt | Tự nghĩ ra (1Password sinh giúp), dán **cùng một chuỗi** vào đây và vào bước "Bảo mật → API Key" của webhook bên SePay. SePay chỉ hiện 4 ký tự cuối sau khi lưu nên phải cất lại ngay. |
+
+**Tuỳ chọn** — không đặt thì luồng vẫn chạy, chỉ là không có email báo:
+
+| Biến | Giá trị |
+|---|---|
+| `RESEND_API_KEY` | `re_...` |
+| `NOTIFY_EMAIL_TO` | `thescholish@gmail.com` |
+| `NOTIFY_EMAIL_FROM` | `Scholish <dangky@namanhsuit.com>` (cần verify domain ở Resend) |
+
+**Thông tin tài khoản nhận tiền** để mặc định trong `api/_lib.js` (MB `9899907031997`,
+`MBBank`, `LE NAM ANH`) vì không phải bí mật — số tài khoản in ngay trên mã QR mà
+học viên nào cũng thấy. Đổi tài khoản thì sửa trong code, hoặc đặt đè bằng biến
+`SEPAY_BANK_ACC` / `SEPAY_BANK_NAME` / `SEPAY_BANK_OWNER`.
+
+> **Nhớ:** biến môi trường chỉ nạp vào deploy MỚI. Thêm biến xong phải redeploy
+> thì mới có tác dụng, deploy cũ vẫn chạy với giá trị cũ.
 
 ## Webhook SePay
 

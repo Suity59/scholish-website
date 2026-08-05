@@ -1,4 +1,4 @@
-const { randomBytes } = require('crypto');
+const { randomBytes, timingSafeEqual } = require('crypto');
 const { Client } = require('@notionhq/client');
 
 /**
@@ -29,11 +29,23 @@ function generateOrderCode() {
 /** Dò mã đơn trong nội dung CK — ngân hàng hay chèn thêm chữ quanh nó. */
 const ORDER_CODE_REGEX = /SCH[A-HJ-NP-Z2-9]{6}/;
 
+/**
+ * Thông tin tài khoản nhận tiền. Để mặc định ngay trong code vì đây không phải
+ * bí mật — số tài khoản in trên chính mã QR mà mọi học viên đều thấy. Nhờ vậy
+ * chỉ còn đúng SEPAY_WEBHOOK_API_KEY là thứ bắt buộc đặt trong biến môi trường.
+ * Đặt biến môi trường cùng tên vẫn ghi đè được nếu sau này đổi tài khoản.
+ */
+const BANK = {
+  acc: process.env.SEPAY_BANK_ACC || '9899907031997',
+  name: process.env.SEPAY_BANK_NAME || 'MBBank',
+  owner: process.env.SEPAY_BANK_OWNER || 'LE NAM ANH',
+};
+
 /** Ảnh VietQR động của SePay: quét ra sẵn đúng số tiền + nội dung. */
 function sepayQrUrl(amountVnd, code) {
   const params = new URLSearchParams({
-    acc: process.env.SEPAY_BANK_ACC || '',
-    bank: process.env.SEPAY_BANK_NAME || '',
+    acc: BANK.acc,
+    bank: BANK.name,
     amount: String(amountVnd),
     des: code,
   });
@@ -93,6 +105,18 @@ function rateLimit(key, { max, windowMs }) {
   return true;
 }
 
+/**
+ * So sánh chuỗi không rò rỉ thời gian, theo khuyến nghị của tài liệu SePay.
+ * `!==` thoát ra ngay ở ký tự lệch đầu tiên nên về lý thuyết đo được độ trễ để
+ * dò dần khoá; timingSafeEqual luôn duyệt hết nên không lộ gì.
+ */
+function safeEqual(a, b) {
+  const bufA = Buffer.from(String(a));
+  const bufB = Buffer.from(String(b));
+  if (bufA.length !== bufB.length) return false;
+  return timingSafeEqual(bufA, bufB);
+}
+
 function clientIp(req) {
   const fwd = req.headers['x-forwarded-for'];
   if (typeof fwd === 'string' && fwd) return fwd.split(',')[0].trim();
@@ -123,6 +147,7 @@ async function notifyEmail(subject, text) {
 
 module.exports = {
   DEPOSIT_VND,
+  BANK,
   DATABASE_ID,
   PROP,
   TRANG_THAI,
@@ -132,6 +157,7 @@ module.exports = {
   notionClient,
   findPageByCode,
   rateLimit,
+  safeEqual,
   clientIp,
   notifyEmail,
 };
