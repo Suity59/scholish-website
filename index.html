@@ -180,7 +180,7 @@
             <div class="row"><span>Thời lượng</span><strong>20 buổi · 10 tuần</strong></div>
             <div class="row"><span>Sĩ số</span><strong class="num">Tối đa 8 học viên</strong></div>
             <div class="row row--last"><span>Học phí</span><strong class="num">8.500.000đ</strong></div>
-            <a href="https://namanhsuit.notion.site/ebd/1de173e83d5680d3a1c3e51a70b68f28" class="btn btn--primary" data-gmat-enroll>Giữ chỗ lớp này</a>
+            <a href="https://zalo.me/0963557153" class="btn btn--primary" data-gmat-enroll>Giữ chỗ lớp này</a>
             <div class="early-bird is-ended" data-upcoming-early-bird>
               <div class="early-bird__head">
                 <span>Early Bird</span>
@@ -210,7 +210,7 @@
             <div class="row"><span>Thời lượng</span><strong>20 buổi · 10 tuần</strong></div>
             <div class="row"><span>Sĩ số</span><strong class="num">Tối đa 8 học viên</strong></div>
             <div class="row row--last"><span>Học phí</span><strong class="num">8.500.000đ</strong></div>
-            <a href="https://namanhsuit.notion.site/ebd/1de173e83d5680d3a1c3e51a70b68f28" class="btn btn--primary" data-gmat-enroll>Giữ chỗ lớp này</a>
+            <a href="https://zalo.me/0963557153" class="btn btn--primary" data-gmat-enroll>Giữ chỗ lớp này</a>
             <div class="early-bird" data-upcoming-early-bird>
               <div class="early-bird__head">
                 <span>Early Bird</span>
@@ -869,18 +869,47 @@
           <span class="gmat-enroll-step__number num">1</span>
           <h3>Điền form đăng ký</h3>
           <p>Cho Scholish biết mục tiêu, thời gian dự thi và thông tin liên hệ để đội ngũ xác nhận lớp phù hợp với bạn.</p>
-          <div class="gmat-enroll-form-slot" data-enroll-form>
-            <noscript><p class="gmat-enroll-form-fallback"><a href="https://namanhsuit.notion.site/ebd/1de173e83d5680d3a1c3e51a70b68f28" target="_blank" rel="noopener">Mở form đăng ký</a>.</p></noscript>
-          </div>
+          <form class="enroll-form" data-enroll-form novalidate>
+            <label class="enroll-field">Tên của bạn <b aria-hidden="true">*</b>
+              <input type="text" name="ten" required maxlength="120" autocomplete="name">
+            </label>
+            <label class="enroll-field">Email <b aria-hidden="true">*</b>
+              <input type="email" name="email" required maxlength="160" inputmode="email" autocomplete="email" placeholder="ban@gmail.com">
+            </label>
+            <label class="enroll-field">Zalo <b aria-hidden="true">*</b>
+              <input type="tel" name="zalo" required maxlength="40" inputmode="tel" autocomplete="tel">
+            </label>
+            <label class="enroll-field">Lớp đăng ký
+              <input type="text" name="khoa" data-enroll-course readonly>
+            </label>
+            <label class="enroll-field">Thời điểm thi dự kiến
+              <input type="text" name="thoiDiemThi" maxlength="120" placeholder="VD: tháng 11/2026">
+            </label>
+            <fieldset class="enroll-field enroll-field--choices">
+              <legend>Mức điểm mong muốn <b aria-hidden="true">*</b></legend>
+              <label><input type="checkbox" name="diemMongMuon" value="550-600"> 550–600</label>
+              <label><input type="checkbox" name="diemMongMuon" value="600-650"> 600–650</label>
+              <label><input type="checkbox" name="diemMongMuon" value="&gt;700"> Trên 700</label>
+            </fieldset>
+            <label class="enroll-field">Điểm GMAT hoặc IELTS/TOEFL Reading hiện tại
+              <textarea name="diemHienTai" rows="2" maxlength="200"></textarea>
+            </label>
+            <p class="enroll-form__error" data-enroll-error role="alert" hidden></p>
+            <button class="btn btn--primary enroll-form__submit" type="submit" data-enroll-submit>Lấy mã QR giữ chỗ</button>
+            <noscript><p class="gmat-enroll-form-fallback">Trình duyệt đang tắt JavaScript. <a href="https://zalo.me/0963557153" target="_blank" rel="noopener">Nhắn Zalo cho Scholish</a> để đăng ký nhé.</p></noscript>
+          </form>
         </section>
         <section class="gmat-enroll-step gmat-enroll-step--payment">
           <span class="gmat-enroll-step__number num">2</span>
           <h3>Quét QR thanh toán</h3>
-          <p>Quét mã bằng ứng dụng ngân hàng để hoàn tất bước thanh toán giữ chỗ.</p>
-          <div class="gmat-payment-qr">
-            <img src="assets/gmat-payment-qr.jpg" alt="Mã QR thanh toán TPBank của Lê Nam Anh">
+          <p data-pay-intro>Điền xong bước 1, mã QR giữ chỗ sẽ hiện ngay ở đây — đã điền sẵn số tiền và nội dung chuyển khoản.</p>
+          <div class="gmat-payment-qr" data-pay-qr hidden>
+            <img alt="Mã QR chuyển khoản giữ chỗ" data-pay-qr-img>
           </div>
-          <div class="gmat-payment-account"><span>TPBank</span><strong class="num">LÊ NAM ANH · 0429 6754 555</strong></div>
+          <div class="gmat-payment-account" data-pay-info hidden>
+            <span data-pay-bank>TPBank</span><strong class="num" data-pay-acc></strong>
+          </div>
+          <p class="gmat-payment-status" data-pay-status hidden role="status"></p>
         </section>
       </div>
     </div>

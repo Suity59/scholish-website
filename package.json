@@ -1,0 +1,9 @@
+{
+  "name": "scholish-website",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Website Scholish — static HTML + Vercel Functions cho luồng đăng ký GMAT",
+  "dependencies": {
+    "@notionhq/client": "^2.2.15"
+  }
+}

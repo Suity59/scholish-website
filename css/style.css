@@ -1906,17 +1906,76 @@ body.has-open-dialog { overflow: hidden; }
 }
 .gmat-enroll-form-fallback { margin-top: 10px; color: var(--fg-2); font-size: 12px; }
 .gmat-enroll-form-fallback a { color: var(--fg-1); font-weight: 700; }
-.gmat-enroll-form-slot { display: flex; flex-direction: column; }
-.gmat-enroll-form-link { margin-top: 18px; }
+
+.enroll-form { display: flex; flex-direction: column; gap: 13px; margin-top: 18px; }
+/* display:block chứ không phải flex column — để chữ nhãn và dấu * nằm chung
+   một dòng thay vì bị tách thành hai flex item xếp chồng. */
+.enroll-field {
+  display: block;
+  color: var(--fg-2);
+  font-size: 13px;
+  font-weight: 600;
+}
+.enroll-field b { color: #b4341f; font-weight: 700; }
+.enroll-field input,
+.enroll-field textarea { margin-top: 5px; }
+.enroll-field input,
+.enroll-field textarea {
+  width: 100%;
+  padding: 11px 13px;
+  border: 1.5px solid rgba(27, 22, 36, .16);
+  border-radius: 10px;
+  background: white;
+  color: var(--fg-1);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+.enroll-field textarea { resize: vertical; }
+.enroll-field input:focus,
+.enroll-field textarea:focus { outline: 2px solid var(--fg-1); outline-offset: 1px; border-color: transparent; }
+.enroll-field input[readonly] { background: rgba(27, 22, 36, .05); color: var(--fg-2); }
+.enroll-field--choices { display: flex; flex-direction: column; gap: 7px; border: 0; padding: 0; margin: 0; }
+.enroll-field--choices legend { margin-bottom: 2px; color: var(--fg-2); font-size: 13px; font-weight: 600; }
+.enroll-field--choices label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--fg-1);
+  font-size: 15px;
+  font-weight: 500;
+}
+.enroll-field--choices input { width: 17px; height: 17px; accent-color: var(--fg-1); }
+.enroll-form__submit { margin-top: 4px; }
+.enroll-form__submit:disabled { opacity: .6; cursor: default; transform: none; }
+.enroll-form__error {
+  padding: 9px 12px;
+  border-radius: 9px;
+  background: #fde7e2;
+  color: #8f2a17;
+  font-size: 13px;
+  font-weight: 600;
+}
+.gmat-payment-status { margin-top: 12px; color: var(--fg-2); font-size: 13px; line-height: 1.5; }
+.gmat-payment-status.is-paid {
+  padding: 11px 13px;
+  border-radius: 10px;
+  background: var(--mint);
+  color: var(--fg-1);
+  font-weight: 600;
+}
+.gmat-payment-qr[hidden], .gmat-payment-account[hidden], .gmat-payment-status[hidden] { display: none; }
+/* QR động của SePay là ảnh vuông sinh theo từng đơn, không phải ảnh chụp như
+   bản tĩnh cũ — nên để khung tự co theo ảnh thay vì cắt bằng chiều cao cố định. */
 .gmat-payment-qr {
-  height: min(50dvh, 470px);
   margin-top: 18px;
-  overflow: hidden;
+  padding: 12px;
   border: 1px solid rgba(27, 22, 36, .12);
   border-radius: 14px;
-  background: #f1e8fb;
+  background: white;
 }
-.gmat-payment-qr img { display: block; width: 100%; height: auto; transform: translateY(-13%); }
+.gmat-payment-qr img { display: block; width: 100%; max-width: 280px; height: auto; margin: 0 auto; }
 .gmat-payment-account { display: flex; justify-content: space-between; gap: 18px; margin-top: 14px; font-size: 13px; }
 .gmat-payment-account span { color: var(--fg-2); }
 .gmat-payment-account strong { text-align: right; }
@@ -1935,8 +1994,7 @@ body.has-open-dialog { overflow: hidden; }
   .gmat-enroll-dialog__close { top: 12px; right: 12px; }
   .gmat-enroll-dialog__head { padding-right: 42px; }
   .gmat-enroll-dialog__grid { gap: 12px; }
-  .gmat-enroll-form-frame { height: 560px; }
-  .gmat-payment-qr { height: 390px; }
+  .gmat-payment-qr img { max-width: 240px; }
   .gmat-payment-account { align-items: flex-start; flex-direction: column; gap: 3px; }
   .gmat-payment-account strong { text-align: left; }
 }
