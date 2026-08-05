@@ -463,8 +463,8 @@
       if (payStatus) {
         payStatus.classList.remove('is-paid');
         payStatus.textContent = 'Quét mã để chuyển ' + money(data.amountVnd)
-          + ' — số tiền và nội dung "' + data.code + '" đã điền sẵn. '
-          + 'Chuyển xong bạn đợi vài giây, trang này sẽ tự báo.';
+          + ' tiền deposit khóa học — số tiền và nội dung "' + data.code + '" đã được điền sẵn. '
+          + 'Admin sẽ liên hệ với bạn ngay trong 24h sau khi thanh toán thành công bạn nhé.';
         payStatus.hidden = false;
       }
       startPolling(data.code);
