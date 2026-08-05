@@ -382,9 +382,68 @@
     var triggers = document.querySelectorAll('[data-gmat-enroll]');
     var closeButton = dialog ? dialog.querySelector('[data-gmat-enroll-close]') : null;
     var selectedClass = dialog ? document.getElementById('gmatEnrollClass') : null;
+    var formSlot = dialog ? dialog.querySelector('[data-enroll-form]') : null;
+    var narrowScreen = window.matchMedia('(max-width: 900px)');
+    var FORM_URL = 'https://namanhsuit.notion.site/ebd/1de173e83d5680d3a1c3e51a70b68f28';
     var activeTrigger = null;
 
     if (!dialog || !closeButton || !triggers.length || typeof HTMLDialogElement === 'undefined') return;
+
+    // Form Notion kéo về ~35MB JS. Trên mobile, iframe chia chung ngân sách bộ nhớ
+    // với trang cha nên bị trình duyệt giết trước (thấy rõ nhất trong app Facebook:
+    // "Đã có sự cố xảy ra liên tục"). Tab top-level được cấp bộ nhớ riêng nên vẫn chạy
+    // được, vì vậy màn hẹp thì mở tab mới thay vì nhúng.
+    function mountForm() {
+      if (!formSlot || formSlot.querySelector('[data-enroll-mounted]')) return;
+
+      if (narrowScreen.matches) {
+        var link = document.createElement('a');
+        link.className = 'btn btn--primary gmat-enroll-form-link';
+        link.href = FORM_URL;
+        link.target = '_blank';
+        link.rel = 'noopener';
+        link.textContent = 'Mở form đăng ký';
+        link.setAttribute('data-enroll-mounted', '');
+
+        var note = document.createElement('p');
+        note.className = 'gmat-enroll-form-fallback';
+        note.textContent = 'Form mở ở tab mới cho dễ điền. Điền xong bạn quay lại đây quét QR ở bước 2 nhé.';
+
+        formSlot.appendChild(link);
+        formSlot.appendChild(note);
+        return;
+      }
+
+      var frame = document.createElement('iframe');
+      frame.className = 'gmat-enroll-form-frame';
+      frame.src = FORM_URL;
+      frame.title = 'Form đăng ký khóa GMAT';
+      frame.setAttribute('allowfullscreen', '');
+      frame.setAttribute('data-enroll-mounted', '');
+
+      var fallback = document.createElement('p');
+      fallback.className = 'gmat-enroll-form-fallback';
+      var fallbackLink = document.createElement('a');
+      fallbackLink.href = FORM_URL;
+      fallbackLink.target = '_blank';
+      fallbackLink.rel = 'noopener';
+      fallbackLink.textContent = 'mở form trong tab mới';
+      fallback.appendChild(document.createTextNode('Nếu form không hiển thị, '));
+      fallback.appendChild(fallbackLink);
+      fallback.appendChild(document.createTextNode('.'));
+
+      formSlot.appendChild(frame);
+      formSlot.appendChild(fallback);
+    }
+
+    // Gỡ hẳn iframe khi đóng để trả bộ nhớ; mở lại lần hai sẽ dựng mới,
+    // tránh cộng dồn nhiều bản Notion cùng sống trong một tab.
+    function unmountForm() {
+      if (!formSlot) return;
+      var frame = formSlot.querySelector('iframe');
+      if (frame) frame.src = 'about:blank';
+      formSlot.textContent = '';
+    }
 
     triggers.forEach(function (trigger) {
       trigger.setAttribute('aria-haspopup', 'dialog');
@@ -396,6 +455,7 @@
         if (selectedClass) {
           selectedClass.textContent = 'Bạn đang giữ chỗ lớp GMAT Trứng Rán · ' + (month ? month.textContent : 'sắp khai giảng');
         }
+        mountForm();
         document.body.classList.add('has-open-dialog');
         dialog.showModal();
         dialog.scrollTop = 0;
@@ -404,9 +464,15 @@
       });
     });
 
-    closeButton.addEventListener('click', function () { dialog.close(); });
-    dialog.addEventListener('click', function (event) { if (event.target === dialog) dialog.close(); });
+    // Gỡ form ở cả ba đường đóng thay vì chỉ dựa vào sự kiện 'close', để nếu một
+    // trình duyệt nào đó không phát event thì iframe vẫn được thu hồi.
+    closeButton.addEventListener('click', function () { unmountForm(); dialog.close(); });
+    dialog.addEventListener('click', function (event) {
+      if (event.target === dialog) { unmountForm(); dialog.close(); }
+    });
+    dialog.addEventListener('cancel', function () { unmountForm(); });
     dialog.addEventListener('close', function () {
+      unmountForm();
       document.body.classList.remove('has-open-dialog');
       if (activeTrigger) activeTrigger.focus();
       activeTrigger = null;

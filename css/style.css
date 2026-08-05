@@ -1906,6 +1906,8 @@ body.has-open-dialog { overflow: hidden; }
 }
 .gmat-enroll-form-fallback { margin-top: 10px; color: var(--fg-2); font-size: 12px; }
 .gmat-enroll-form-fallback a { color: var(--fg-1); font-weight: 700; }
+.gmat-enroll-form-slot { display: flex; flex-direction: column; }
+.gmat-enroll-form-link { margin-top: 18px; }
 .gmat-payment-qr {
   height: min(50dvh, 470px);
   margin-top: 18px;
