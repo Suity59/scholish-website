@@ -57,14 +57,25 @@ module.exports = async function handler(req, res) {
     return res.status(200).json({ success: true });
   }
 
-  const trangThaiHienTai = page.properties[PROP.trangThai]?.select?.name;
-  // SePay retry hoặc webhook trùng — đã xử lý rồi.
-  if (trangThaiHienTai === TRANG_THAI.xong) {
+  // Danh sách giao dịch đã cộng vào đơn này. SePay gửi lại tối đa 7 lần khi
+  // server báo lỗi, nên phải chặn theo id giao dịch — nếu không mỗi lần gửi lại
+  // là cộng thêm một lần nữa vào tổng.
+  const txCu = (page.properties[PROP.maGiaoDich]?.rich_text || [])
+    .map((t) => t.plain_text ?? t.text?.content ?? '')
+    .join('')
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean);
+  const txId = String(payload.id);
+  if (txCu.includes(txId)) {
+    console.log(`[sepay] giao dịch ${txId} đã cộng vào ${code} rồi, bỏ qua`);
     return res.status(200).json({ success: true });
   }
 
   const soTienCanThu = page.properties[PROP.soTien]?.number ?? DEPOSIT_VND;
-  const thieu = Number(payload.transferAmount) < soTienCanThu;
+  const daNhanTruoc = page.properties[PROP.daNhan]?.number ?? 0;
+  const daNhan = daNhanTruoc + Number(payload.transferAmount);
+  const du = daNhan >= soTienCanThu;
   const ten = page.properties[PROP.ten]?.title?.[0]?.plain_text || '(không rõ tên)';
 
   try {
@@ -72,10 +83,13 @@ module.exports = async function handler(req, res) {
       page_id: page.id,
       properties: {
         [PROP.trangThai]: {
-          select: { name: thieu ? TRANG_THAI.thieu : TRANG_THAI.xong },
+          select: { name: du ? TRANG_THAI.xong : TRANG_THAI.thieu },
+        },
+        [PROP.daNhan]: { number: daNhan },
+        [PROP.maGiaoDich]: {
+          rich_text: [{ text: { content: [...txCu, txId].join(', ').slice(0, 1900) } }],
         },
         [PROP.thoiDiemTT]: { date: { start: new Date().toISOString() } },
-        [PROP.soTien]: { number: Number(payload.transferAmount) },
       },
     });
   } catch (err) {
@@ -83,20 +97,22 @@ module.exports = async function handler(req, res) {
     return res.status(500).json({ error: 'notion_error' });
   }
 
+  const lanNay = Number(payload.transferAmount).toLocaleString('vi-VN');
   await notifyEmail(
-    thieu
-      ? `Chuyển THIẾU: ${ten} (${code})`
-      : `Đã giữ chỗ: ${ten} (${code})`,
+    du ? `Đã giữ chỗ: ${ten} (${code})` : `Chuyển THIẾU: ${ten} (${code})`,
     [
       `Mã đơn: ${code}`,
       `Học viên: ${ten}`,
-      `Nhận được: ${Number(payload.transferAmount).toLocaleString('vi-VN')}đ`,
-      `Cần thu: ${soTienCanThu.toLocaleString('vi-VN')}đ`,
-      thieu ? '\n>>> Chuyển thiếu, cần xử lý tay.' : '',
+      `Lần này nhận: ${lanNay}đ`,
+      `Tổng đã nhận: ${daNhan.toLocaleString('vi-VN')}đ / ${soTienCanThu.toLocaleString('vi-VN')}đ`,
+      du ? '' : `\n>>> Còn thiếu ${(soTienCanThu - daNhan).toLocaleString('vi-VN')}đ.`,
     ].join('\n')
   );
 
-  console.log(`[sepay] đơn ${code}: ${thieu ? 'chuyển thiếu' : 'đã giữ chỗ'} (tx ${payload.id})`);
+  console.log(
+    `[sepay] đơn ${code}: +${lanNay}đ, tổng ${daNhan}/${soTienCanThu} — ` +
+      `${du ? 'đã giữ chỗ' : 'còn thiếu'} (tx ${txId})`
+  );
   return res.status(200).json({ success: true });
 };
 

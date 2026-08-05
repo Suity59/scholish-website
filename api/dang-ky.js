@@ -72,6 +72,7 @@ module.exports = async function handler(req, res) {
         [PROP.maDon]: { rich_text: [{ text: { content: code } }] },
         [PROP.trangThai]: { select: { name: TRANG_THAI.cho } },
         [PROP.soTien]: { number: DEPOSIT_VND },
+        [PROP.daNhan]: { number: 0 },
       },
     });
   } catch (err) {

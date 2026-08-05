@@ -62,7 +62,12 @@ const PROP = {
   diemHienTai: 'Điểm Gmat hoặc điểm IELTS/TOEFL Reading hiện tại của bạn?',
   maDon: 'Mã đơn',
   trangThai: 'Trạng thái thanh toán',
+  // "Số tiền" = cần thu, đặt lúc tạo đơn và không đổi.
+  // "Đã nhận" = tổng cộng dồn qua các lần chuyển.
   soTien: 'Số tiền',
+  daNhan: 'Đã nhận',
+  // Danh sách id giao dịch SePay đã xử lý, ngăn cộng trùng khi SePay gửi lại.
+  maGiaoDich: 'Mã giao dịch',
   thoiDiemTT: 'Thời điểm thanh toán',
 };
 
