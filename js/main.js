@@ -377,72 +377,141 @@
   })();
 
   // Popup đăng ký GMAT dùng chung cho homepage và trang khóa học.
+  //
+  // Form chạy thẳng trên site (không nhúng Notion nữa — bộ nhúng đó kéo ~35MB JS
+  // và làm sập tab trên trình duyệt in-app của Facebook). Submit gọi /api/dang-ky
+  // để ghi Notion + lấy QR SePay đã điền sẵn số tiền và nội dung CK, rồi poll
+  // /api/trang-thai tới khi webhook SePay xác nhận tiền về.
   (function setupGmatEnrollmentDialog() {
     var dialog = document.getElementById('gmatEnrollDialog');
     var triggers = document.querySelectorAll('[data-gmat-enroll]');
     var closeButton = dialog ? dialog.querySelector('[data-gmat-enroll-close]') : null;
     var selectedClass = dialog ? document.getElementById('gmatEnrollClass') : null;
-    var formSlot = dialog ? dialog.querySelector('[data-enroll-form]') : null;
-    var narrowScreen = window.matchMedia('(max-width: 900px)');
-    var FORM_URL = 'https://namanhsuit.notion.site/ebd/1de173e83d5680d3a1c3e51a70b68f28';
+    var form = dialog ? dialog.querySelector('[data-enroll-form]') : null;
     var activeTrigger = null;
+    var pollTimer = null;
 
     if (!dialog || !closeButton || !triggers.length || typeof HTMLDialogElement === 'undefined') return;
 
-    // Form Notion kéo về ~35MB JS. Trên mobile, iframe chia chung ngân sách bộ nhớ
-    // với trang cha nên bị trình duyệt giết trước (thấy rõ nhất trong app Facebook:
-    // "Đã có sự cố xảy ra liên tục"). Tab top-level được cấp bộ nhớ riêng nên vẫn chạy
-    // được, vì vậy màn hẹp thì mở tab mới thay vì nhúng.
-    function mountForm() {
-      if (!formSlot || formSlot.querySelector('[data-enroll-mounted]')) return;
+    var q = function (sel) { return dialog.querySelector(sel); };
+    var errorBox = q('[data-enroll-error]');
+    var submitBtn = q('[data-enroll-submit]');
+    var courseInput = q('[data-enroll-course]');
+    var payIntro = q('[data-pay-intro]');
+    var payQr = q('[data-pay-qr]');
+    var payQrImg = q('[data-pay-qr-img]');
+    var payInfo = q('[data-pay-info]');
+    var payBank = q('[data-pay-bank]');
+    var payAcc = q('[data-pay-acc]');
+    var payStatus = q('[data-pay-status]');
 
-      if (narrowScreen.matches) {
-        var link = document.createElement('a');
-        link.className = 'btn btn--primary gmat-enroll-form-link';
-        link.href = FORM_URL;
-        link.target = '_blank';
-        link.rel = 'noopener';
-        link.textContent = 'Mở form đăng ký';
-        link.setAttribute('data-enroll-mounted', '');
+    function money(n) { return Number(n).toLocaleString('vi-VN') + 'đ'; }
 
-        var note = document.createElement('p');
-        note.className = 'gmat-enroll-form-fallback';
-        note.textContent = 'Form mở ở tab mới cho dễ điền. Điền xong bạn quay lại đây quét QR ở bước 2 nhé.';
-
-        formSlot.appendChild(link);
-        formSlot.appendChild(note);
-        return;
-      }
-
-      var frame = document.createElement('iframe');
-      frame.className = 'gmat-enroll-form-frame';
-      frame.src = FORM_URL;
-      frame.title = 'Form đăng ký khóa GMAT';
-      frame.setAttribute('allowfullscreen', '');
-      frame.setAttribute('data-enroll-mounted', '');
-
-      var fallback = document.createElement('p');
-      fallback.className = 'gmat-enroll-form-fallback';
-      var fallbackLink = document.createElement('a');
-      fallbackLink.href = FORM_URL;
-      fallbackLink.target = '_blank';
-      fallbackLink.rel = 'noopener';
-      fallbackLink.textContent = 'mở form trong tab mới';
-      fallback.appendChild(document.createTextNode('Nếu form không hiển thị, '));
-      fallback.appendChild(fallbackLink);
-      fallback.appendChild(document.createTextNode('.'));
-
-      formSlot.appendChild(frame);
-      formSlot.appendChild(fallback);
+    function showError(msg) {
+      if (!errorBox) return;
+      errorBox.textContent = msg;
+      errorBox.hidden = false;
+    }
+    function clearError() {
+      if (errorBox) errorBox.hidden = true;
     }
 
-    // Gỡ hẳn iframe khi đóng để trả bộ nhớ; mở lại lần hai sẽ dựng mới,
-    // tránh cộng dồn nhiều bản Notion cùng sống trong một tab.
-    function unmountForm() {
-      if (!formSlot) return;
-      var frame = formSlot.querySelector('iframe');
-      if (frame) frame.src = 'about:blank';
-      formSlot.textContent = '';
+    var LOI = {
+      thieu_ten: 'Bạn điền giúp tên nhé.',
+      email_khong_hop_le: 'Email chưa đúng định dạng, bạn kiểm tra lại giúp.',
+      thieu_zalo: 'Bạn điền giúp số Zalo để Scholish liên hệ.',
+      thieu_muc_diem: 'Bạn chọn giúp ít nhất một mức điểm mong muốn.',
+      ratelimit: 'Bạn gửi hơi nhiều lần rồi. Đợi một chút hoặc nhắn Zalo 0963557153 nhé.',
+      notion_error: 'Hệ thống đang trục trặc. Bạn nhắn Zalo 0963557153 để Scholish hỗ trợ ngay nhé.',
+      server_config: 'Hệ thống đang trục trặc. Bạn nhắn Zalo 0963557153 để Scholish hỗ trợ ngay nhé.'
+    };
+
+    function stopPolling() {
+      if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
+    }
+
+    // Poll 4s/lần, bỏ cuộc sau 15 phút để khỏi gọi mãi khi học viên bỏ đi.
+    function startPolling(code) {
+      stopPolling();
+      var deadline = Date.now() + 15 * 60 * 1000;
+      pollTimer = setInterval(function () {
+        if (Date.now() > deadline) { stopPolling(); return; }
+        fetch('/api/trang-thai?code=' + encodeURIComponent(code))
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (data) {
+            if (!data || !data.daThanhToan) return;
+            stopPolling();
+            if (payStatus) {
+              payStatus.textContent = 'Đã nhận được chuyển khoản. Scholish sẽ nhắn Zalo xác nhận lớp cho bạn trong hôm nay.';
+              payStatus.classList.add('is-paid');
+            }
+            if (payQr) payQr.hidden = true;
+          })
+          .catch(function () { /* mạng chập chờn thì lần poll sau thử lại */ });
+      }, 4000);
+    }
+
+    function showPayment(data) {
+      if (payIntro) payIntro.hidden = true;
+      if (payQrImg) payQrImg.src = data.qrUrl;
+      if (payQr) payQr.hidden = false;
+      if (payBank && data.bank) payBank.textContent = data.bank.name || 'TPBank';
+      if (payAcc && data.bank) {
+        payAcc.textContent = (data.bank.owner || '') + ' · ' + (data.bank.acc || '');
+      }
+      if (payInfo) payInfo.hidden = false;
+      if (payStatus) {
+        payStatus.classList.remove('is-paid');
+        payStatus.textContent = 'Quét mã để chuyển ' + money(data.amountVnd)
+          + ' — số tiền và nội dung "' + data.code + '" đã điền sẵn. '
+          + 'Chuyển xong bạn đợi vài giây, trang này sẽ tự báo.';
+        payStatus.hidden = false;
+      }
+      startPolling(data.code);
+    }
+
+    if (form) {
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        clearError();
+
+        var fd = new FormData(form);
+        var payload = {
+          ten: String(fd.get('ten') || '').trim(),
+          email: String(fd.get('email') || '').trim(),
+          zalo: String(fd.get('zalo') || '').trim(),
+          khoa: String(fd.get('khoa') || '').trim(),
+          thoiDiemThi: String(fd.get('thoiDiemThi') || '').trim(),
+          diemHienTai: String(fd.get('diemHienTai') || '').trim(),
+          diemMongMuon: fd.getAll('diemMongMuon').map(String)
+        };
+
+        if (!payload.ten) return showError(LOI.thieu_ten);
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) return showError(LOI.email_khong_hop_le);
+        if (!payload.zalo) return showError(LOI.thieu_zalo);
+        if (!payload.diemMongMuon.length) return showError(LOI.thieu_muc_diem);
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Đang tạo mã QR...';
+
+        fetch('/api/dang-ky', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        })
+          .then(function (r) { return r.json().then(function (b) { return { ok: r.ok, body: b }; }); })
+          .then(function (res) {
+            if (!res.ok) throw new Error(res.body && res.body.error);
+            showPayment(res.body);
+            submitBtn.textContent = 'Đã tạo mã QR ✓';
+            form.querySelector('[name="ten"]').blur();
+          })
+          .catch(function (err) {
+            showError(LOI[err.message] || 'Không gửi được đăng ký. Bạn thử lại hoặc nhắn Zalo 0963557153 nhé.');
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Lấy mã QR giữ chỗ';
+          });
+      });
     }
 
     triggers.forEach(function (trigger) {
@@ -450,12 +519,11 @@
       trigger.addEventListener('click', function (event) {
         var card = trigger.closest('[data-upcoming-class]');
         var month = card ? card.querySelector('[data-upcoming-month]') : null;
+        var tenLop = 'GMAT Trứng Rán · ' + (month ? month.textContent.trim() : 'sắp khai giảng');
         event.preventDefault();
         activeTrigger = trigger;
-        if (selectedClass) {
-          selectedClass.textContent = 'Bạn đang giữ chỗ lớp GMAT Trứng Rán · ' + (month ? month.textContent : 'sắp khai giảng');
-        }
-        mountForm();
+        if (selectedClass) selectedClass.textContent = 'Bạn đang giữ chỗ lớp ' + tenLop;
+        if (courseInput) courseInput.value = tenLop;
         document.body.classList.add('has-open-dialog');
         dialog.showModal();
         dialog.scrollTop = 0;
@@ -464,15 +532,15 @@
       });
     });
 
-    // Gỡ form ở cả ba đường đóng thay vì chỉ dựa vào sự kiện 'close', để nếu một
-    // trình duyệt nào đó không phát event thì iframe vẫn được thu hồi.
-    closeButton.addEventListener('click', function () { unmountForm(); dialog.close(); });
+    // Dừng poll ở cả ba đường đóng thay vì chỉ dựa vào sự kiện 'close', để nếu
+    // một trình duyệt nào đó không phát event thì cũng không còn timer chạy ngầm.
+    closeButton.addEventListener('click', function () { stopPolling(); dialog.close(); });
     dialog.addEventListener('click', function (event) {
-      if (event.target === dialog) { unmountForm(); dialog.close(); }
+      if (event.target === dialog) { stopPolling(); dialog.close(); }
     });
-    dialog.addEventListener('cancel', function () { unmountForm(); });
+    dialog.addEventListener('cancel', function () { stopPolling(); });
     dialog.addEventListener('close', function () {
-      unmountForm();
+      stopPolling();
       document.body.classList.remove('has-open-dialog');
       if (activeTrigger) activeTrigger.focus();
       activeTrigger = null;
