@@ -1843,6 +1843,9 @@ body.has-open-dialog { overflow: hidden; }
   width: min(1180px, calc(100vw - 32px));
   max-width: none;
   max-height: calc(100dvh - 32px);
+  /* <dialog> căn giữa nhờ margin:auto của trình duyệt, nhưng reset *{margin:0}
+     ở đầu file đè mất → popup rơi về góc trên-trái. Đặt lại tường minh. */
+  margin: auto;
   padding: 0;
   overflow: auto;
   border: 0;
@@ -1855,7 +1858,7 @@ body.has-open-dialog { overflow: hidden; }
   background: rgba(27, 22, 36, .66);
   backdrop-filter: blur(5px);
 }
-.gmat-enroll-dialog__shell { position: relative; padding: clamp(24px, 4vw, 42px); }
+.gmat-enroll-dialog__shell { position: relative; padding: clamp(20px, 3vw, 32px); }
 .gmat-enroll-dialog__close {
   position: absolute;
   z-index: 1;
@@ -1874,8 +1877,8 @@ body.has-open-dialog { overflow: hidden; }
   line-height: 1;
 }
 .gmat-enroll-dialog__close:focus-visible { outline: 3px solid var(--fg-1); outline-offset: 3px; }
-.gmat-enroll-dialog__head { max-width: 740px; padding-right: 48px; margin-bottom: 26px; }
-.gmat-enroll-dialog__head h2 { margin: 9px 0 7px; font-size: clamp(2rem, 4vw, 3.3rem); }
+.gmat-enroll-dialog__head { max-width: 740px; padding-right: 48px; margin-bottom: 18px; }
+.gmat-enroll-dialog__head h2 { margin: 7px 0 6px; font-size: clamp(1.6rem, 2.6vw, 2.3rem); }
 .gmat-enroll-dialog__head p { color: var(--fg-2); }
 .gmat-enroll-dialog__grid { display: grid; grid-template-columns: 1.25fr .75fr; gap: 20px; }
 .gmat-enroll-step { padding: clamp(22px, 3vw, 30px); border: 1px solid var(--hairline); border-radius: 16px; }
