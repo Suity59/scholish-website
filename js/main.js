@@ -475,7 +475,7 @@
       if (payIntro) payIntro.hidden = true;
       if (payQrImg) payQrImg.src = data.qrUrl;
       if (payQr) payQr.hidden = false;
-      if (payBank && data.bank) payBank.textContent = data.bank.name || 'TPBank';
+      if (payBank && data.bank) payBank.textContent = data.bank.name || 'MBBank';
       if (payAcc && data.bank) {
         payAcc.textContent = (data.bank.owner || '') + ' · ' + (data.bank.acc || '');
       }

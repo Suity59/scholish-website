@@ -11,7 +11,7 @@ const {
 } = require('./_lib');
 
 /**
- * Webhook SePay — bắn khi TPBank có biến động số dư.
+ * Webhook SePay — bắn khi tài khoản nhận tiền (MBBank) có biến động số dư.
  *
  * Luôn trả {success:true} với giao dịch không liên quan (đơn của hoc.namanhsuit
  * đi cùng tài khoản này) để SePay khỏi retry vô ích. Chỉ trả lỗi khi auth sai
