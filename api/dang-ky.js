@@ -4,9 +4,11 @@ const {
   DATABASE_ID,
   PROP,
   TRANG_THAI,
+  ORDER_CODE_REGEX,
   generateOrderCode,
   sepayQrUrl,
   notionClient,
+  findPageByCode,
   rateLimit,
   clientIp,
   notifyEmail,
@@ -55,35 +57,62 @@ module.exports = async function handler(req, res) {
   if (!zalo) return res.status(400).json({ error: 'thieu_zalo' });
   if (!diemMongMuon.length) return res.status(400).json({ error: 'thieu_muc_diem' });
 
-  const code = generateOrderCode();
+  // Mã do /api/ma-don cấp lúc mở popup — QR đã hiện sẵn với mã này nên phải
+  // ghi Notion đúng nó, không được sinh mã mới. Thiếu/hỏng thì mới tự sinh.
+  const codeGui = String(body.code || '').trim().toUpperCase();
+  const code =
+    ORDER_CODE_REGEX.test(codeGui) && codeGui.length === 9 ? codeGui : generateOrderCode();
+
   const notion = notionClient();
 
+  // Học viên có thể đã chuyển tiền trước khi điền form — lúc đó webhook đã
+  // dựng sẵn một trang "(chưa có thông tin)" mang đúng mã này. Điền vào trang
+  // đó chứ đừng tạo trang thứ hai, không thì tiền một nơi thông tin một nẻo.
+  let pageCu = null;
   try {
-    await notion.pages.create({
-      parent: { database_id: DATABASE_ID },
-      properties: {
-        [PROP.ten]: { title: [{ text: { content: ten } }] },
-        [PROP.email]: { email },
-        [PROP.zalo]: { phone_number: zalo },
-        [PROP.khoa]: { rich_text: [{ text: { content: khoa || 'GMAT Trứng Rán' } }] },
-        [PROP.thoiDiemThi]: { rich_text: [{ text: { content: thoiDiemThi } }] },
-        [PROP.diemMongMuon]: { multi_select: diemMongMuon.map((name) => ({ name })) },
-        [PROP.diemHienTai]: { rich_text: [{ text: { content: diemHienTai } }] },
-        [PROP.maDon]: { rich_text: [{ text: { content: code } }] },
-        [PROP.trangThai]: { select: { name: TRANG_THAI.cho } },
-        [PROP.soTien]: { number: DEPOSIT_VND },
-        [PROP.daNhan]: { number: 0 },
-      },
-    });
+    pageCu = await findPageByCode(notion, code);
   } catch (err) {
-    console.error('[dang-ky] tạo page Notion lỗi:', err.body || err.message);
+    console.error('[dang-ky] query Notion lỗi:', err.body || err.message);
+    return res.status(502).json({ error: 'notion_error' });
+  }
+
+  const thongTin = {
+    [PROP.ten]: { title: [{ text: { content: ten } }] },
+    [PROP.email]: { email },
+    [PROP.zalo]: { phone_number: zalo },
+    [PROP.khoa]: { rich_text: [{ text: { content: khoa || 'GMAT Trứng Rán' } }] },
+    [PROP.thoiDiemThi]: { rich_text: [{ text: { content: thoiDiemThi } }] },
+    [PROP.diemMongMuon]: { multi_select: diemMongMuon.map((name) => ({ name })) },
+    [PROP.diemHienTai]: { rich_text: [{ text: { content: diemHienTai } }] },
+  };
+
+  try {
+    if (pageCu) {
+      // Chỉ đắp thông tin học viên lên; trạng thái và số tiền đã nhận giữ
+      // nguyên như webhook ghi.
+      await notion.pages.update({ page_id: pageCu.id, properties: thongTin });
+    } else {
+      await notion.pages.create({
+        parent: { database_id: DATABASE_ID },
+        properties: Object.assign({}, thongTin, {
+          [PROP.maDon]: { rich_text: [{ text: { content: code } }] },
+          [PROP.trangThai]: { select: { name: TRANG_THAI.cho } },
+          [PROP.soTien]: { number: DEPOSIT_VND },
+          [PROP.daNhan]: { number: 0 },
+        }),
+      });
+    }
+  } catch (err) {
+    console.error('[dang-ky] ghi page Notion lỗi:', err.body || err.message);
     return res.status(502).json({ error: 'notion_error' });
   }
 
   // Báo ngay khi có người điền form, chưa cần đợi chuyển khoản — nhiều bạn
   // điền xong mới đi hỏi thêm, Nam Anh chủ động nhắn Zalo được sớm.
   await notifyEmail(
-    `Đăng ký mới: ${ten} · ${khoa || 'GMAT Trứng Rán'} (${code})`,
+    pageCu
+      ? `Đã có thông tin cho đơn đã chuyển tiền: ${ten} (${code})`
+      : `Đăng ký mới: ${ten} · ${khoa || 'GMAT Trứng Rán'} (${code})`,
     [
       `Tên: ${ten}`,
       `Email: ${email}`,
@@ -93,7 +122,9 @@ module.exports = async function handler(req, res) {
       `Mục tiêu: ${diemMongMuon.join(', ')}`,
       `Điểm hiện tại: ${diemHienTai || '—'}`,
       '',
-      `Mã đơn: ${code} — chờ chuyển khoản ${DEPOSIT_VND.toLocaleString('vi-VN')}đ`,
+      pageCu
+        ? `Mã đơn: ${code} — tiền đã về trước, giờ mới có thông tin học viên`
+        : `Mã đơn: ${code} — chờ chuyển khoản ${DEPOSIT_VND.toLocaleString('vi-VN')}đ`,
     ].join('\n')
   );
 

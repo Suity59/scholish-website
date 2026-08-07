@@ -404,6 +404,14 @@
     var payBank = q('[data-pay-bank]');
     var payAcc = q('[data-pay-acc]');
     var payStatus = q('[data-pay-status]');
+    var payPaid = q('[data-pay-paid]');
+
+    // Đơn đang hiện QR trên màn hình. Mã do /api/ma-don cấp lúc mở popup và
+    // được nhớ trong localStorage: đóng rồi mở lại vẫn là đúng mã đó, học viên
+    // lỡ quét trước rồi quay lại điền form thì tiền vẫn khớp đơn.
+    var donHienTai = null;
+    var dangLayMa = false;
+    var STORAGE_KEY = 'scholish-ma-don';
 
     function money(n) { return Number(n).toLocaleString('vi-VN') + 'đ'; }
 
@@ -440,8 +448,18 @@
           .then(function (r) { return r.ok ? r.json() : null; })
           .then(function (data) {
             if (!data || !data.daThanhToan) return;
+            // Tiền đã về mà trang Notion chưa có email: học viên quét trước khi
+            // điền form. Giục điền nốt chứ chưa đóng màn được.
+            if (!data.coThongTin) {
+              if (payPaid) payPaid.hidden = false;
+              if (payQr) payQr.hidden = true;
+              if (payStatus) payStatus.hidden = true;
+              return;
+            }
             stopPolling();
+            if (payPaid) payPaid.hidden = true;
             if (payStatus) {
+              payStatus.hidden = false;
               payStatus.textContent = 'Đã nhận được chuyển khoản. Scholish sẽ nhắn Zalo xác nhận lớp cho bạn trong hôm nay.';
               payStatus.classList.add('is-paid');
             }
@@ -452,6 +470,8 @@
     }
 
     function showPayment(data) {
+      donHienTai = data;
+      try { localStorage.setItem(STORAGE_KEY, data.code); } catch (e) {}
       if (payIntro) payIntro.hidden = true;
       if (payQrImg) payQrImg.src = data.qrUrl;
       if (payQr) payQr.hidden = false;
@@ -464,10 +484,40 @@
         payStatus.classList.remove('is-paid');
         payStatus.textContent = 'Quét mã để chuyển ' + money(data.amountVnd)
           + ' tiền deposit khóa học — số tiền và nội dung "' + data.code + '" đã được điền sẵn. '
-          + 'Admin sẽ liên hệ với bạn ngay trong 24h sau khi thanh toán thành công bạn nhé.';
+          + 'Nhớ gửi thông tin ở bước 1 để Scholish biết xếp lớp cho ai, admin sẽ liên hệ trong 24h nhé.';
         payStatus.hidden = false;
       }
       startPolling(data.code);
+    }
+
+    /** Mở popup là gọi ngay: lấy mã + QR, chưa đụng gì tới Notion. */
+    function layMaVaHienQr() {
+      if (donHienTai || dangLayMa) {
+        if (donHienTai) startPolling(donHienTai.code);
+        return;
+      }
+      dangLayMa = true;
+      if (payIntro) { payIntro.hidden = false; payIntro.textContent = 'Đang lấy mã QR giữ chỗ cho bạn…'; }
+      var maCu = null;
+      try { maCu = localStorage.getItem(STORAGE_KEY); } catch (e) {}
+      fetch('/api/ma-don', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code: maCu || undefined })
+      })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (data) {
+          dangLayMa = false;
+          if (!data || !data.code) {
+            if (payIntro) payIntro.textContent = 'Chưa lấy được mã QR. Bạn thử đóng rồi mở lại, hoặc nhắn Zalo 0963557153 nhé.';
+            return;
+          }
+          showPayment(data);
+        })
+        .catch(function () {
+          dangLayMa = false;
+          if (payIntro) payIntro.textContent = 'Chưa lấy được mã QR. Bạn kiểm tra mạng rồi thử lại, hoặc nhắn Zalo 0963557153 nhé.';
+        });
     }
 
     if (form) {
@@ -483,7 +533,9 @@
           khoa: String(fd.get('khoa') || '').trim(),
           thoiDiemThi: String(fd.get('thoiDiemThi') || '').trim(),
           diemHienTai: String(fd.get('diemHienTai') || '').trim(),
-          diemMongMuon: fd.getAll('diemMongMuon').map(String)
+          diemMongMuon: fd.getAll('diemMongMuon').map(String),
+          // Mã của QR đang hiện trên màn hình — Notion phải ghi đúng nó.
+          code: donHienTai ? donHienTai.code : undefined
         };
 
         if (!payload.ten) return showError(LOI.thieu_ten);
@@ -492,7 +544,7 @@
         if (!payload.diemMongMuon.length) return showError(LOI.thieu_muc_diem);
 
         submitBtn.disabled = true;
-        submitBtn.textContent = 'Đang tạo mã QR...';
+        submitBtn.textContent = 'Đang gửi...';
 
         fetch('/api/dang-ky', {
           method: 'POST',
@@ -502,14 +554,17 @@
           .then(function (r) { return r.json().then(function (b) { return { ok: r.ok, body: b }; }); })
           .then(function (res) {
             if (!res.ok) throw new Error(res.body && res.body.error);
-            showPayment(res.body);
-            submitBtn.textContent = 'Đã tạo mã QR ✓';
+            // QR đã hiện sẵn từ lúc mở popup — chỉ khi server đổi mã (mã cũ
+            // hỏng) mới phải vẽ lại, còn không thì giữ nguyên màn hình.
+            if (!donHienTai || res.body.code !== donHienTai.code) showPayment(res.body);
+            if (payPaid) payPaid.hidden = true;
+            submitBtn.textContent = 'Đã gửi thông tin ✓';
             form.querySelector('[name="ten"]').blur();
           })
           .catch(function (err) {
             showError(LOI[err.message] || 'Không gửi được đăng ký. Bạn thử lại hoặc nhắn Zalo 0963557153 nhé.');
             submitBtn.disabled = false;
-            submitBtn.textContent = 'Lấy mã QR giữ chỗ';
+            submitBtn.textContent = 'Gửi thông tin giữ chỗ';
           });
       });
     }
@@ -526,6 +581,8 @@
         if (courseInput) courseInput.value = tenLop;
         document.body.classList.add('has-open-dialog');
         dialog.showModal();
+        // QR-first: có mã và QR ngay, học viên quét được luôn rồi mới điền form.
+        layMaVaHienQr();
         dialog.scrollTop = 0;
         closeButton.focus({ preventScroll: true });
         window.requestAnimationFrame(function () { dialog.scrollTop = 0; });

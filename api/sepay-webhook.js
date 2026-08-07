@@ -1,5 +1,6 @@
 const {
   DEPOSIT_VND,
+  DATABASE_ID,
   PROP,
   TRANG_THAI,
   ORDER_CODE_REGEX,
@@ -52,8 +53,43 @@ module.exports = async function handler(req, res) {
     return res.status(500).json({ error: 'notion_error' });
   }
 
+  // Mã SCH hợp lệ mà chưa có trang: học viên quét QR (hiện sẵn từ lúc mở
+  // popup) rồi chuyển tiền trước khi kịp điền form. Dựng trang tạm để tiền
+  // không rơi vào hư không — form gửi sau sẽ điền thẳng vào trang này.
   if (!page) {
-    console.log(`[sepay] không tìm thấy đơn ${code} (tx ${payload.id})`);
+    const soTien = Number(payload.transferAmount);
+    const duTam = soTien >= DEPOSIT_VND;
+    try {
+      await notion.pages.create({
+        parent: { database_id: DATABASE_ID },
+        properties: {
+          [PROP.ten]: { title: [{ text: { content: '(Chưa có thông tin)' } }] },
+          [PROP.maDon]: { rich_text: [{ text: { content: code } }] },
+          [PROP.trangThai]: {
+            select: { name: duTam ? TRANG_THAI.xong : TRANG_THAI.thieu },
+          },
+          [PROP.soTien]: { number: DEPOSIT_VND },
+          [PROP.daNhan]: { number: soTien },
+          [PROP.maGiaoDich]: { rich_text: [{ text: { content: String(payload.id) } }] },
+          [PROP.thoiDiemTT]: { date: { start: new Date().toISOString() } },
+        },
+      });
+    } catch (err) {
+      console.error('[sepay] tạo page tạm lỗi:', err.body || err.message);
+      return res.status(500).json({ error: 'notion_error' });
+    }
+
+    await notifyEmail(`Tiền về nhưng CHƯA có thông tin: ${code}`, [
+      `Mã đơn: ${code}`,
+      `Nhận: ${soTien.toLocaleString('vi-VN')}đ / ${DEPOSIT_VND.toLocaleString('vi-VN')}đ`,
+      `Giao dịch SePay: ${payload.id}`,
+      '',
+      'Học viên quét QR trước khi điền form. Nếu popup còn mở thì họ điền xong là',
+      'thông tin tự đắp vào đúng trang này.',
+      '>>> Họ đóng tab mất rồi thì tra sao kê để biết ai chuyển, rồi liên hệ tay.',
+    ].join('\n'));
+
+    console.log(`[sepay] đơn ${code}: tạo page tạm, chờ học viên điền form (tx ${payload.id})`);
     return res.status(200).json({ success: true });
   }
 

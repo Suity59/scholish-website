@@ -1965,7 +1965,19 @@ body.has-open-dialog { overflow: hidden; }
   color: var(--fg-1);
   font-weight: 600;
 }
-.gmat-payment-qr[hidden], .gmat-payment-account[hidden], .gmat-payment-status[hidden] { display: none; }
+/* Băng "đã nhận tiền, mời điền thông tin" — ca học viên quét QR trước khi
+   điền form (QR hiện sẵn từ lúc mở popup). */
+.gmat-payment-paid {
+  margin-top: 12px;
+  padding: 11px 13px;
+  border-radius: 10px;
+  background: var(--mint);
+  color: var(--fg-1);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.gmat-payment-paid strong { display: block; font-weight: 700; }
+.gmat-payment-qr[hidden], .gmat-payment-account[hidden], .gmat-payment-status[hidden], .gmat-payment-paid[hidden] { display: none; }
 /* QR động của SePay là ảnh vuông sinh theo từng đơn, không phải ảnh chụp như
    bản tĩnh cũ — nên để khung tự co theo ảnh thay vì cắt bằng chiều cao cố định. */
 .gmat-payment-qr {

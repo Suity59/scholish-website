@@ -31,14 +31,29 @@ module.exports = async function handler(req, res) {
 
   try {
     const page = await findPageByCode(notionClient(), code);
-    if (!page) return res.status(404).json({ error: 'khong_thay_don' });
+    // 404 là chuyện BÌNH THƯỜNG ở luồng QR-first: mã được cấp lúc mở popup,
+    // trang Notion chỉ ra đời khi học viên gửi form hoặc khi tiền về. Popup cứ
+    // poll tiếp chứ đừng coi là lỗi.
+    if (!page) {
+      res.setHeader('Cache-Control', 'no-store');
+      return res.status(200).json({
+        code,
+        trangThai: TRANG_THAI.cho,
+        daThanhToan: false,
+        coThongTin: false,
+      });
+    }
 
     const trangThai = page.properties[PROP.trangThai]?.select?.name || TRANG_THAI.cho;
+    // Trang do webhook dựng tạm chưa có email — popup dựa vào đây để biết còn
+    // phải xin thông tin học viên hay đã xong xuôi.
+    const coThongTin = !!page.properties[PROP.email]?.email;
     res.setHeader('Cache-Control', 'no-store');
     return res.status(200).json({
       code,
       trangThai,
       daThanhToan: trangThai === TRANG_THAI.xong,
+      coThongTin,
     });
   } catch (err) {
     console.error('[trang-thai] lỗi:', err.body || err.message);
